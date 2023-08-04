@@ -1,6 +1,6 @@
 import React from "react";
-import Nav from "../NavPage/Nav";
 import { MainWrap } from "../MainPage/Main.styled";
+import Nav from "../NavPage/Nav";
 import TestBackgroundImg from "./testimg.png";
 
 const Main = () => {

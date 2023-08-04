@@ -1,5 +1,7 @@
 import React from "react";
 import { Navdiv } from "./Nav.styled";
+import { Link } from 'react-router-dom';
+
 
 const Nav = () => {
   return (
@@ -10,13 +12,22 @@ const Nav = () => {
         </div>
         <div className="menutabs">
           <ul>
-            <li>CUSTOM</li>
-            <li>PHOTO</li>
-            <li>LOGIN</li>
+            <li>
+              <Link to={"/custom"}> CUSTOM</Link>
+            </li>
+            <li>
+            <Link to={"/photo"}> PHOTO</Link>
+
+            </li>
+            <li>
+            <Link to={"/login"}> LOGIN</Link>
+
+            </li>
           </ul>
         </div>
       </div>
     </Navdiv>
+
   );
 };
 
