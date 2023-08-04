@@ -1,0 +1,93 @@
+import React from 'react'
+import { Canvas, useFrame } from "@react-three/fiber"
+import { OrbitControls, Center, useGLTF, Environment, AccumulativeShadows, RandomizedLight} from "@react-three/drei"
+import { useRef } from 'react'
+import { easing } from "maath"
+
+const CanvasApp = ({position = [0,10,70], fov =40}) => (
+    <Canvas
+    shadows
+    camera={{position, fov}}
+    eventSource={document.getElementById('root')}
+    eventPrefix='client'
+    >
+        <ambientLight intensity={0.5} />
+        <Environment preset='city' />
+        <CameraRig>
+            <Center>
+                <Shirt />
+                {/* <Backdrop /> */}
+            </Center>
+        </CameraRig>
+    </Canvas>
+)
+
+function Shirt (props) {
+    const { nodes, materials } = useGLTF("/tshirt.glb");
+    return (
+      <group {...props} dispose={null}>
+        <group rotation={[Math.PI / 2, 0, 0]} scale={0.039}>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Object_4.geometry}
+            material={materials.FABRIC_1_FRONT_4193}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Object_5.geometry}
+            material={materials.FABRIC_1_FRONT_4193}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Object_6.geometry}
+            material={materials.FABRIC_1_FRONT_4193}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Object_7.geometry}
+            material={materials.FABRIC_1_FRONT_4193}
+          />
+        </group>
+      </group>
+    );
+}
+
+function Backdrop() {
+    return(
+        <AccumulativeShadows
+            temporal
+            frames = {60}
+            alphaTest = {0.5}
+            scale = {40}
+            rotation = {[Math.PI / 2, 0 , 0]}
+            position = {[0,50,-10]}>
+            {/* <RandomizedLight 
+                amount={20}
+                radius={7}
+                intensity={0.9}
+                ambient={0.6}
+                position={[50,10,-40]}
+            /> */}
+
+        </AccumulativeShadows>
+    )
+}
+
+function CameraRig({ children }){
+    const group = useRef()
+    useFrame((state, delta)=>{
+        easing.dampE(
+            group.current.rotation,
+            [-state.pointer.y /5 , state.pointer.x /1 , 0, 0],
+            0.4,
+            delta
+        )
+    })
+    return <group ref ={group}>{children}</group>
+}
+
+export default CanvasApp;

@@ -19,5 +19,5 @@ body{
 }
 
 canvas{
-    torch-action : none;
+    touch-action: none;
 }
