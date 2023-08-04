@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls, Center, useGLTF, Environment, AccumulativeShadows, RandomizedLight} from "@react-three/drei"
 import { useRef } from 'react'
 import { easing } from "maath"
+import * as THREE from 'three';
 
 const CanvasApp = ({position = [0,10,70], fov =40}) => (
     <Canvas
@@ -24,6 +25,7 @@ const CanvasApp = ({position = [0,10,70], fov =40}) => (
 
 function Shirt (props) {
     const { nodes, materials } = useGLTF("/tshirt.glb");
+    materials.FABRIC_1_FRONT_4193.color = new THREE.Color('yellow')
     return (
       <group {...props} dispose={null}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.039}>
