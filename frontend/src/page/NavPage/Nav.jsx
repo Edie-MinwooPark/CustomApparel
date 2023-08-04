@@ -1,7 +1,6 @@
 import React from "react";
 import { Navdiv } from "./Nav.styled";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
@@ -16,18 +15,18 @@ const Nav = () => {
               <Link to={"/custom"}> CUSTOM</Link>
             </li>
             <li>
-            <Link to={"/photo"}> PHOTO</Link>
-
+              <Link to={"/photo"}> PHOTO</Link>
             </li>
             <li>
-            <Link to={"/login"}> LOGIN</Link>
-
+              <Link to={"/login"}> LOGIN</Link>
+            </li>
+            <li>
+              <Link to={"/signup"}> SIGNUP</Link>
             </li>
           </ul>
         </div>
       </div>
     </Navdiv>
-
   );
 };
 

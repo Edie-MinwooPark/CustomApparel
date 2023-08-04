@@ -1,9 +1,10 @@
-const router=require("express").Router();
-const {} = require("../controller/userController");
+const router = require("express").Router();
+const { viewUser, signUp } = require("../controller/userController");
+const { islogin } = require("../middleware/islogin");
 // const {} = require("../middleware/");
 
-router.get("/",)
-router.post("/",)
+router.get("/viewUser", islogin, viewUser);
+router.post("/signup", signUp);
 
 // router.get("/", async (req, res) => {
 //     try {
@@ -15,6 +16,5 @@ router.post("/",)
 //       res.status(500).send("Internal Server Error");
 //     }
 //   });
-  
 
-module.exports=router;
+module.exports = router;
