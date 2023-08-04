@@ -15,8 +15,14 @@ const Nav = () => {
             <li>
               <Link to={"/custom"}> CUSTOM</Link>
             </li>
-            <li>PHOTO</li>
-            <li>LOGIN</li>
+            <li>
+            <Link to={"/photo"}> PHOTO</Link>
+
+            </li>
+            <li>
+            <Link to={"/login"}> LOGIN</Link>
+
+            </li>
           </ul>
         </div>
       </div>
