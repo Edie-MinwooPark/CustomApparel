@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const MainNavdiv = styled.div`
   & .navContainer {
     margin: 0 auto;
-    /* width: 1240px; */
+    width: 100%;
     height: 100px;
     border: 1px solid;
     box-sizing: border-box;
@@ -12,6 +12,11 @@ export const MainNavdiv = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
+    z-index: 100;
+    background-color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
   }
   & .logo {
   }
