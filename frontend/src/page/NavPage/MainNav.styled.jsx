@@ -1,16 +1,17 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const Navdiv = styled.div`
+export const MainNavdiv = styled.div`
   & .navContainer {
     margin: 0 auto;
-    width: 1240px;
+    /* width: 1240px; */
     height: 100px;
     border: 1px solid;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 40px;
   }
   & .logo {
   }
@@ -32,8 +33,17 @@ export const Navdiv = styled.div`
     font-size: 14px;
     transition: 1s;
   }
-  & .menutabs ul li:hover {
-    font-size: 16px;
-    font-weight: 700;
+`;
+
+export const NavLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+  margin: 10px;
+  &:hover,
+  &:focus {
+    color: black;
+  }
+  &:active {
+    color: black;
   }
 `;

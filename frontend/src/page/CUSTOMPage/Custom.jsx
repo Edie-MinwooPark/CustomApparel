@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import MainNav from "../NavPage/MainNav";
+import { CustomWrap } from "./Custom.styled";
 
 const Custom = () => {
   return (
-    <div>Custom</div>
-  )
-}
+    <div>
+      <MainNav />
+      <CustomWrap></CustomWrap>
+    </div>
+  );
+};
 
-export default Custom
+export default Custom;
