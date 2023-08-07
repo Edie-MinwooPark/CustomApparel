@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Outlet,
 } from "react-router-dom";
-import { Custom, Photo, Signup, Login, Nav } from "../src/page/index";
+import { Custom, Photo, Signup, Login, Nav, MYpage } from "../src/page/index";
 export const PROXY = process.env.REACT_APP_PROXY;
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/nav" element={<Nav />} />
+        <Route path="/mypage" element={<MYpage />} />
       </Routes>
     </div>
   );

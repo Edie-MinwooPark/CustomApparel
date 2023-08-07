@@ -23,6 +23,9 @@ const Nav = () => {
             <li>
               <Link to={"/signup"}> SIGNUP</Link>
             </li>
+            <li>
+              <Link to={"/mypage"}> MYPAGE</Link>
+            </li>
           </ul>
         </div>
       </div>

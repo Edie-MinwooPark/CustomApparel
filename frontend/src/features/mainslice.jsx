@@ -12,13 +12,23 @@ export const getUserinfo = createAsyncThunk(
 );
 export const setUserinfo = createAsyncThunk("user/setinfo", async (form) => {
   try {
-    const response = await axios.post(`${PROXY}/user/signup`, form);
+    console.log(form);
+    for (let value of form.values()) {
+      console.log(value);
+    }
+    const response = await axios.post(`${PROXY}/user/signup`, form, {
+      headers: {
+        "Content-Type": "multipart/form-data; charset=utf-8",
+      },
+      withCredentials: true,
+    });
+
     console.log("Delivered successfully.");
     console.log(response.data);
-    return response.data; // Return the response data as the payload of the success action
+    return response.data; // 성공 액션의 페이로드로 응답 데이터를 반환합니다
   } catch (err) {
     console.log(err);
-    // You can throw an error here to be caught in the rejected action
+    // 여기서 오류를 throw하여 거부된 액션에서 잡을 수 있습니다
     throw err;
   }
 });

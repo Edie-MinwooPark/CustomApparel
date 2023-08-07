@@ -5,13 +5,16 @@ const PROXY = process.env.REACT_APP_PROXY;
 
 const Sign = () => {
   const dispatch = useDispatch();
-
   const [Nick, setNick] = useState("");
   const [user_id, setUser_id] = useState("");
-  const [user_pw, setUser_pw] = useState(0);
+  const [user_pw, setUser_pw] = useState("");
+  const [profile_img, setImageFile] = useState(null);
+  const [formData, setFormData] = useState(new FormData());
+  console.log("안녕");
 
   const handleIdInput = (e) => {
     console.log(e.target.value);
+
     setNick(e.target.value);
   };
   const handlePwInput = (e) => {
@@ -22,34 +25,33 @@ const Sign = () => {
     console.log(e.target.value);
     setUser_pw(e.target.value);
   };
-  const handleSubmit = () => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    const userIDRegex = /^[a-zA-Z0-9]{5,}$/;
 
-    if (!passwordRegex.test(user_pw)) {
-      alert(
-        "비밀번호는 소문자 하나, 대문자 하나, 숫자 하나 이상을 포함하여 8자 이상이어야 합니다."
-      );
-      return;
-    }
+  useEffect(() => {
+    console.log("profile_img:", profile_img);
+  }, [profile_img]);
 
-    if (!userIDRegex.test(user_id)) {
-      alert("아이디는 영문과 숫자로만 구성된 5자 이상이어야 합니다. ");
-      return;
-    }
-
-    // Create the form data object
-    const form = {
-      Nick,
-      user_id,
-      user_pw,
-    };
-
-    // Call the setUserinfo thunk with the form data
-    console.log("handleSubmit 작동함");
-    dispatch(setUserinfo(form));
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    setImageFile(file);
   };
+  const handleSubmit = async () => {
+    // Create formData here
+    const form = {
+      Nick: Nick,
+      user_id: user_id,
+      user_pw: user_pw,
+    };
+    formData.append("data", JSON.stringify(form));
 
+    formData.append("profile_img", profile_img);
+    for (let value of formData.values()) {
+      console.log(value);
+    }
+    setFormData(formData);
+    console.log("handleSubmit 작동함");
+    dispatch(setUserinfo(formData));
+  };
   return (
     <div>
       <label htmlFor="Nick">이름</label>
@@ -61,7 +63,16 @@ const Sign = () => {
       <label htmlFor="user_pw">비밀번호</label>
       <input onChange={handlePwInput} />
       <br />
-      <button onClick={handleSubmit} id="uploadBtn">
+      <label htmlFor="profile_img">프로필 이미지</label>
+      <input
+        type="file"
+        id="profile_img"
+        onChange={handleImageChange}
+        accept="image/*"
+      />
+      <br />
+
+      <button onClick={() => handleSubmit()} id="uploadBtn">
         {" "}
         회원가입{" "}
       </button>

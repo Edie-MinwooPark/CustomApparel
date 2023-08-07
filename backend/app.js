@@ -18,11 +18,15 @@ const PORT = process.env.PORT;
 // 1. axios 전역 설정
 axios.default.withCredentials = true; // withCredentials 전역 설정
 
-// app.use(session({
-//     secret:"sfsfsfsf",
-//     resave:false,
-//     saveUninitialized:false
-// }))
+app.use(
+  session({
+    name: "token",
+    secret: process.env.REFRESH_TOKEN_KEY,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
 sequelize
   .sync({ force: false })
   .then(() => [console.log("sequelize연결성공")])
@@ -30,6 +34,7 @@ sequelize
     console.log(err);
   });
 
+app.use("/img", express.static(path.join(__dirname, "image")));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({

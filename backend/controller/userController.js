@@ -1,33 +1,41 @@
 const db = require("../models");
 const User = db.USER;
 // 로그인 할때 bcrypt 사용 jsonwebtoken 설치
+const dot = require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 exports.signUp = async (req, res) => {
   try {
-    console.log("이거 reqbody임", req.body);
-
-    const { Nick, user_id, user_pw } = req.body;
+    console.log("This is reqbody", req.body.data);
+    console.log("This is reqbody", req.file.path);
+    const obj = JSON.parse(req.body.data);
+    const { Nick, user_id, user_pw } = obj;
 
     const user = await User.findOne({ where: { user_id } });
     if (user != null) {
-      // 유저 조회된거니까 중복 회원 가입막음
-
-      // return res.send("중복회원 가입 막음");
-      console.log("중복가입막음");
-      return 1;
+      console.log("Duplicate entry blocked");
+      return res.send("Prevent duplicate member registration");
     }
+
     const hash = bcrypt.hashSync(user_pw, 10);
-    await User.create({
+
+    // Create a new user with image information
+    const newUser = await User.create({
       Nick,
       user_id,
       user_pw: hash,
+      profile_img: req.file.path,
     });
-    // res.redirect("http://localhost:3000/");
-    // res.json()
+
+    console.log("User created successfully:", newUser);
+
+    // Return a success response
+    res.status(200).json(newUser);
   } catch (error) {
     console.log(error);
+    res.status(500).send("Internal server error");
   }
 };
 
@@ -40,14 +48,14 @@ exports.login = async (req, res) => {
       return res.send("가입 안한 아이디임~");
     }
     const same = bcrypt.compareSync(user_pw, user.user_pw);
-    const { name, age } = user;
+    const { user_id, Nick } = user;
     if (same) {
       let token = jwt.sign(
         {
-          name: user.name,
-          age: user.age,
+          user_id: user.user_id,
+          Nick: user.Nick,
         },
-        "asdkljskldlkad",
+        process.env.ACCESS_TOKEN_KEY,
         {
           expiresIn: "20m",
         }
@@ -68,7 +76,7 @@ exports.login = async (req, res) => {
       });
       // return res.status(200).json({message:"로그인성공"})
     } else {
-      return res.status(200).json({ message: "로그인실패" });
+      return res.status(400).json({ message: "로그인실패" });
     }
   } catch (error) {
     console.log(error);
