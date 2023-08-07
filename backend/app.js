@@ -13,6 +13,7 @@ const path = require("path");
 
 const axios = require("axios");
 const userRouter = require("./routers/userRouter");
+const mypageRouter = require("./routers/mypageRouter");
 
 const PORT = process.env.PORT;
 // 1. axios 전역 설정
@@ -34,7 +35,7 @@ sequelize
     console.log(err);
   });
 
-app.use("/img", express.static(path.join(__dirname, "image")));
+app.use("/img", express.static(path.join(__dirname, "img")));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
@@ -44,6 +45,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use("/mypage", mypageRouter);
 app.use("/user", userRouter);
 
 const server = app.listen(PORT, () => {

@@ -2,63 +2,29 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const PROXY = process.env.REACT_APP_PROXY;
 
-export const getUserinfo = createAsyncThunk(
-  "user/getinfo",
-  async (userId, thunkAPI) => {
-    const response = await axios.get(`${PROXY}/user/viewUser`);
-    const data = await response.json();
-    return data; // The resolved data will be the payload of the success action
-  }
-);
-export const setUserinfo = createAsyncThunk("user/setinfo", async (form) => {
+export const getmypageinfo = createAsyncThunk("mypage/", async () => {
   try {
-    const response = await axios.post(`${PROXY}/user/signup`, form, {
-      headers: {
-        "Content-Type": "multipart/form-data; charset=utf-8",
-      },
+    const response = await axios.get(`${PROXY}/mypage/`, {
       withCredentials: true,
     });
-
-    console.log("Delivered successfully.");
-    console.log(response.data);
-    return response.data; // 성공 액션의 페이로드로 응답 데이터를 반환합니다
-  } catch (err) {
-    console.log(err);
-    // 여기서 오류를 throw하여 거부된 액션에서 잡을 수 있습니다
-    throw err;
-  }
-});
-export const trylogininfo = createAsyncThunk("user/login", async (data) => {
-  try {
-    const response = await axios.post(`${PROXY}/user/login`, data, {
-      withCredentials: true,
-    });
-    console.log(response.data);
+    // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
+    return response.data;
   } catch (error) {
     console.log(error);
-    throw error;
   }
 });
-export const userSlice = createSlice({
-  name: "user",
+
+export const myPageSlice = createSlice({
+  name: "mypage",
   initialState: {
     data: null,
-    loading: false,
-    error: null,
+    image: null,
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(getUserinfo.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getUserinfo.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload;
-      })
-      .addCase(getUserinfo.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+    // 비동기 액션의 성공 시 상태 업데이트
+    builder.addCase(getmypageinfo.fulfilled, (state, action) => {
+      state.data = action.payload;
+    });
   },
 });

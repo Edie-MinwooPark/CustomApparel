@@ -5,7 +5,7 @@ const { USER } = require("../models");
 exports.postImg = multer({
   storage: multer.diskStorage({
     destination: (req, file, fin) => {
-      fin(null, "image/");
+      fin(null, "img/");
     },
 
     filename: (req, file, fin) => {
@@ -56,14 +56,14 @@ exports.imgUpdate = async (req, res) => {
 exports.mypage = async (req, res) => {
   try {
     // console.log(req);
-    const { decode } = req;
-    // console.log("123123123",decode);
-    if (decode) {
-      await User.findOne({
+    const { acc_decoded } = req;
+    console.log("123123123", acc_decoded);
+    if (acc_decoded) {
+      await USER.findOne({
         raw: true,
-        where: { user_id: decode.user_id },
+        where: { user_id: acc_decoded.user_id },
       }).then((e) => {
-        res.send({ login: e });
+        res.send(e);
       });
     }
   } catch (error) {
