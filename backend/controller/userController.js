@@ -48,7 +48,6 @@ exports.login = async (req, res) => {
       return res.send("가입 안한 아이디임~");
     }
     const same = bcrypt.compareSync(user_pw, user.user_pw);
-    const { user_id, Nick } = user;
     if (same) {
       let token = jwt.sign(
         {
@@ -61,20 +60,17 @@ exports.login = async (req, res) => {
         }
       );
       req.session.access_token = token;
-      req.session.name = user.name;
+      req.session.name = user.user_id;
+      req.session.Nick = user.Nick;
       console.log("req.session", req.session);
       console.log("token", token);
-      // " / : "여기서 경로는 백엔드의 도메인 경로 루트
-      // 때문에 프론트의 경로를 작성해주자
-      // 이렇게 리다이렉트를 할게아니면 프론트에서 응받 받은 값으로
-      // 조건 분기 처리해서 페이지를 전환시켜주면된다,
-      // return res.send("로그인 완료");
-      // 배포된 프론트의 경로를 써줘야한다.
-      return res.send({
-        message: "로그인성공",
-        token: req.session.access_token,
-      });
-      // return res.status(200).json({message:"로그인성공"})
+      // return res.send({
+      //   message: "로그인성공",
+      //   token: req.session.access_token,
+      // });
+      return res
+        .status(200)
+        .json({ message: "로그인성공", token: req.session.access_token });
     } else {
       return res.status(400).json({ message: "로그인실패" });
     }

@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { viewUser, signUp, login } = require("../controller/userController");
 const { postImg } = require("../controller/mypageController");
 const { islogin } = require("../middleware/islogin");
-const uploadMiddleware = require("../middleware/uploadMiddleware");
 // const {} = require("../middleware/");
 
 router.get("/viewUser", islogin, viewUser);

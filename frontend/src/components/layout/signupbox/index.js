@@ -15,15 +15,15 @@ const Sign = () => {
   const handleIdInput = (e) => {
     console.log(e.target.value);
 
-    setNick(e.target.value);
+    setUser_id(e.target.value);
   };
   const handlePwInput = (e) => {
     console.log(e.target.value);
-    setUser_id(e.target.value);
+    setUser_pw(e.target.value);
   };
   const handleNickInput = (e) => {
     console.log(e.target.value);
-    setUser_pw(e.target.value);
+    setNick(e.target.value);
   };
 
   useEffect(() => {

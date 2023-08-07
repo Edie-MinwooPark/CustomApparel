@@ -1,9 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import Loginform from "../../components/layout/loginbox/index";
 const Login = () => {
   return (
-    <div>Login</div>
-  )
-}
+    <div>
+      <Loginform />
+    </div>
+  );
+};
 
-export default Login
+export default Login;
