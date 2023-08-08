@@ -82,7 +82,7 @@ export const CustomSideWrap = styled.div`
     display: flex;
     padding-inline-start: 0;
   }
-  & .sideSize ul li {
+  /* & .sideSize ul li {
     width: 60px;
     height: 50px;
     border: 1px solid;
@@ -99,7 +99,7 @@ export const CustomSideWrap = styled.div`
     color: white;
     background-color: black;
     border: 1px solid white;
-  }
+  } */
   & .delivery {
     font-size: 14px;
     margin-bottom: 30px;
@@ -134,6 +134,7 @@ export const CustomSideWrap = styled.div`
 
 // 색상 탭 색 추가 부분
 export const ColorPallet = styled.li`
+  box-sizing: border-box;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -141,4 +142,35 @@ export const ColorPallet = styled.li`
   margin-right: 10px;
   cursor: pointer;
   background-color: ${(props) => props.bgColor};
+  border: ${(props) => (props.color == props.bgColor ? "2px solid" : "none")};
+  &:hover {
+    border: 2px solid;
+  }
+`;
+
+export const SideSizeLi = styled.li`
+  width: 60px;
+  height: 50px;
+  border: 1px solid;
+  border-radius: 10px;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: 1s;
+  color: ${(props) => (props.size == props.selectSize ? "white" : null)};
+  background-color: ${(props) =>
+    props.size == props.selectSize ? "black" : null};
+  border: ${(props) =>
+    props.size == props.selectSize ? "1px solid white" : null};
+  &:hover {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+  }
+  &:after {
+    content: "${(props) => props.size}";
+  }
 `;
