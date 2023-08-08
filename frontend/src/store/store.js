@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"; // createstore랑 비슷하다 다만 기능추가
-import { userSlice } from "../features/mainslice";
+import { userSlice, customSlice } from "../features/mainslice";
 import { myPageSlice } from "../features/mypageslice";
 
 export const store = configureStore({

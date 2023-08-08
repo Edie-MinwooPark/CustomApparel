@@ -1,10 +1,9 @@
 import React from "react";
-import { Navdiv, NavLink } from "./Nav.styled";
-import { Link } from "react-router-dom";
+import { MainNavdiv, NavLink } from "./MainNav.styled";
 
-const Nav = () => {
+const MainNav = () => {
   return (
-    <Navdiv>
+    <MainNavdiv>
       <div className="navContainer">
         <div className="logo">
           <span>CUSTOMAPPAREL</span>
@@ -29,8 +28,8 @@ const Nav = () => {
           </ul>
         </div>
       </div>
-    </Navdiv>
+    </MainNavdiv>
   );
 };
 
-export default Nav;
+export default MainNav;

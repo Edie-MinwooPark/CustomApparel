@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Navdiv = styled.div`
+export const MainNavdiv = styled.div`
   & .navContainer {
     margin: 0 auto;
-    width: 1240px;
+    width: 100%;
     height: 100px;
     border: 1px solid;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    z-index: 1;
+    padding: 0 40px;
+    z-index: 100;
     background-color: white;
     position: fixed;
     left: 0;
@@ -37,10 +37,6 @@ export const Navdiv = styled.div`
     cursor: pointer;
     font-size: 14px;
     transition: 1s;
-  }
-  & .menutabs ul li:hover {
-    font-size: 16px;
-    font-weight: 700;
   }
 `;
 
