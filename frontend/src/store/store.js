@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"; // createstore랑 비슷하�
 import { userSlice } from "../features/mainslice";
 import { myPageSlice } from "../features/mypageslice";
 import { customSlice } from "../features/customslice";
+import { clothSlice } from "../features/clothslice";
 
 export const store = configureStore({
   reducer: {
@@ -9,5 +10,7 @@ export const store = configureStore({
     user: userSlice.reducer,
     mypage: myPageSlice.reducer,
     custom: customSlice.reducer,
+    // 가게만들면서 메뉴판 전달
+    cloth : clothSlice.reducer,
   },
 });
