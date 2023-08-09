@@ -4,6 +4,11 @@ class POST extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
+        id: {
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+        },
         post_title: {
           type: Sequelize.STRING,
           allowNull: false,
@@ -26,10 +31,14 @@ class POST extends Sequelize.Model {
         },
         // 이경우 작성자 명을 말한다. nickname이 존재하지만 거의 쓰이지않는다. 인스타와 비슷하다 생각하면 편하다.
         user_id: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: true,
         },
         hash_tag: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        callbyuser: {
           type: Sequelize.INTEGER,
           allowNull: true,
         },
@@ -47,8 +56,10 @@ class POST extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.POST.hasMany(db.COMMENTS, { foreignKey: "id", sourceKey: "id" });
-    db.POST.belongsTo(db.USER, { foreignKey: "user_id", targetKey: "id" });
+    db.POST.hasMany(db.HASHTAG, {
+      foreignKey: "POST",
+      sourceKey: "id",
+    });
   }
 }
 
