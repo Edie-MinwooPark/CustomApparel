@@ -94,7 +94,12 @@ const Custom = () => {
   return (
     <div>
       {/* 팝업창이 나오는 부분  */}
-      {product ? <CustomProductPopup data={handleProduct} /> : null}
+      {product ? (
+        <CustomProductPopup
+          handleProduct={handleProduct}
+          num={{ selectNum, setSelectNum }}
+        />
+      ) : null}
       {decals ? <CustomDecalsPopup data={handleDecals} /> : null}
       <MainNav />
       <CustomWrap>
