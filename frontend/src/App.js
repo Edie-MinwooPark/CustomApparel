@@ -1,10 +1,16 @@
 import './App.css';
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import PostList from './page/postlist/PostList';
 
 function App() {
   return (
-    <div className="App">
-    
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/postlist' element={<PostList/>}>
+
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
