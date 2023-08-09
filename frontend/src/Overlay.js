@@ -1,8 +1,11 @@
 import React from 'react'
 import {Logo} from '@pmndrs/branding'
 import {AiOutlineHighlight, AiOutlineShopping, AiFillCamera, AiOutlineArrowLeft } from 'react-icons/ai'
+import { useSelector } from "react-redux";
 
 const Overlay = () => {
+
+    const color = useSelector(state => state.cloth.clothColor);
 
     function Intro(){
         return(
@@ -64,7 +67,7 @@ const Overlay = () => {
     <>
         <Intro />
         {/* <Customizer /> */}
-        <div>테스트</div>
+        <div>{color}</div>
     </>
   )
 }

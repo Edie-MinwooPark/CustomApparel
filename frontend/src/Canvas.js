@@ -4,6 +4,8 @@ import { OrbitControls, Center, useGLTF, Environment, AccumulativeShadows, Rando
 import { useRef } from 'react'
 import { easing } from "maath"
 import * as THREE from 'three';
+import { useSelector } from 'react-redux';  
+
 
 const CanvasApp = ({position = [0,10,70], fov =40}) => (
     <Canvas
@@ -24,8 +26,11 @@ const CanvasApp = ({position = [0,10,70], fov =40}) => (
 )
 
 function Shirt (props) {
+
+    const color = useSelector(state => state.cloth.clothColor);
+
     const { nodes, materials } = useGLTF("/tshirt.glb");
-    materials.FABRIC_1_FRONT_4193.color = new THREE.Color('yellow')
+    materials.FABRIC_1_FRONT_4193.color = new THREE.Color(color)
     return (
       <group {...props} dispose={null}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.039}>
