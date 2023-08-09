@@ -8,7 +8,7 @@ const App = () => {
   return (
     <>
       <CanvasApp />
-      <Overlay />
+      {/* <Overlay /> */}
     </>
   )
 }

@@ -63,26 +63,7 @@ function Shirt (props) {
     );
 }
 
-function Backdrop() {
-    return(
-        <AccumulativeShadows
-            temporal
-            frames = {60}
-            alphaTest = {0.5}
-            scale = {40}
-            rotation = {[Math.PI / 2, 0 , 0]}
-            position = {[0,50,-10]}>
-            {/* <RandomizedLight 
-                amount={20}
-                radius={7}
-                intensity={0.9}
-                ambient={0.6}
-                position={[50,10,-40]}
-            /> */}
 
-        </AccumulativeShadows>
-    )
-}
 
 function CameraRig({ children }){
     const group = useRef()
