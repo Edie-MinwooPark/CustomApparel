@@ -63,7 +63,8 @@ const Overlay = () => {
   return (
     <>
         <Intro />
-        <Customizer />
+        {/* <Customizer /> */}
+        <div>테스트</div>
     </>
   )
 }
