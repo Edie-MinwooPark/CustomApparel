@@ -6,7 +6,6 @@ import { easing } from "maath"
 import * as THREE from 'three';
 import { useSelector } from 'react-redux';  
 
-
 const CanvasApp = ({position = [0,10,70], fov =40}) => (
     <Canvas
     shadows
@@ -16,18 +15,20 @@ const CanvasApp = ({position = [0,10,70], fov =40}) => (
     >
         <ambientLight intensity={0.5} />
         <Environment preset='city' />
-        <CameraRig>
+        {/* <CameraRig> */}
             <Center>
                 <Shirt />
                 {/* <Backdrop /> */}
             </Center>
-        </CameraRig>
+        {/* </CameraRig> */}
     </Canvas>
 )
 
 function Shirt (props) {
 
-    const color = useSelector(state => state.cloth.clothColor);
+  
+  const color = useSelector(state => state.cloth.clothColor);
+
 
     const { nodes, materials } = useGLTF("/tshirt.glb");
     materials.FABRIC_1_FRONT_4193.color = new THREE.Color(color)
@@ -65,17 +66,17 @@ function Shirt (props) {
 
 
 
-function CameraRig({ children }){
-    const group = useRef()
-    useFrame((state, delta)=>{
-        easing.dampE(
-            group.current.rotation,
-            [-state.pointer.y /5 , state.pointer.x /1 , 0, 0],
-            0.4,
-            delta
-        )
-    })
-    return <group ref ={group}>{children}</group>
-}
+// function CameraRig({ children }){
+//     const group = useRef()
+//     useFrame((state, delta)=>{
+//         easing.dampE(
+//             group.current.rotation,
+//             [-state.pointer.y /5 , state.pointer.x /1 , 0, 0],
+//             0.4,
+//             delta
+//         )
+//     })
+//     return <group ref ={group}>{children}</group>
+// }
 
 export default CanvasApp;

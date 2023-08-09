@@ -4,11 +4,12 @@ import axios from "axios";
 export const clothSlice = createSlice({
     name : "cloth",
     initialState : {
-        clothColor : "blue",
+        clothColor : "white",
         clothType : "tShirt"
     },
     reducers : {
         clothColor : (state,action)=>{
+            console.log(action);
             state.clothColor = action.payload;
         },
         clothType : (state,action)=>{
