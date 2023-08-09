@@ -3,6 +3,7 @@ import { Container } from "./PostList.styled";
 import CardComponent from "../../components/layout/card";
 // import Button from "react-bootstrap/Button";
 import Masonry from "react-masonry-css";
+import Nav from "../NavPage/Nav";
 
 import dog1 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/1.jpeg";
 import dog2 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/2.jpeg";
@@ -59,17 +60,20 @@ function PostList() {
   };
 
   return (
-    <Container>
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {postData.map((post) => (
-          <CardComponent post={post} key={post.id}></CardComponent>
-        ))}
-      </Masonry>
-    </Container>
+    <>
+      <Container>
+        <Nav />
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {postData.map((post) => (
+            <CardComponent post={post} key={post.id}></CardComponent>
+          ))}
+        </Masonry>
+      </Container>
+    </>
   );
 }
 

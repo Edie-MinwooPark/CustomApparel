@@ -5,8 +5,7 @@ export const Container = styled(BSContainer)`
   margin-left: auto;
   margin-right: auto;
   max-width: 1280px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding: 0 20px;
   & .my-masonry-grid {
     display: flex;
     margin-left: -30px; /* some gutter */

@@ -1,10 +1,12 @@
-const router=require("express").Router();
-const {} = require("../controller/userController");
+const router = require("express").Router();
+const { viewUser, signUp, login } = require("../controller/userController");
+const { postImg } = require("../controller/mypageController");
+const { islogin } = require("../middleware/islogin");
 // const {} = require("../middleware/");
 
-router.get("/",)
-router.post("/",)
-
+router.get("/viewUser", islogin, viewUser);
+router.post("/signup", postImg.single("profile_img"), signUp);
+router.post("/login", login);
 // router.get("/", async (req, res) => {
 //     try {
 //       // await startScrape(req, res);
@@ -15,6 +17,5 @@ router.post("/",)
 //       res.status(500).send("Internal Server Error");
 //     }
 //   });
-  
 
-module.exports=router;
+module.exports = router;
