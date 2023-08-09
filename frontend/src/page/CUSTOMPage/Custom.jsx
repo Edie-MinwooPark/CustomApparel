@@ -10,8 +10,7 @@ import {
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
 import { useSelector } from "react-redux";
-import Canvas from "../../Canvas"
-
+import Canvas from "../../Canvas";
 
 const PROXY = process.env.REACT_APP_PROXY;
 // custom 테이블 정보 가져오기
@@ -81,13 +80,18 @@ const Custom = () => {
   return (
     <div>
       {/* 팝업창이 나오는 부분  */}
-      {product ? <CustomProductPopup data={handleProduct} /> : null}
+      {product ? (
+        <CustomProductPopup
+          handleProduct={handleProduct}
+          num={{ selectNum, setSelectNum }}
+        />
+      ) : null}
       {decals ? <CustomDecalsPopup data={handleDecals} /> : null}
       <MainNav />
       <CustomWrap>
         <div className="customMainWrap">
           <div className="customMain">
-            <Canvas/>
+            <Canvas />
           </div>
         </div>
         {/* CustomSideWrap 부분 나중에 components로 이동 예정*/}

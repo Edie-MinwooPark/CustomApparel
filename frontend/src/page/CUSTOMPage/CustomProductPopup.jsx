@@ -2,19 +2,23 @@ import React from "react";
 import { PopupWrap, Closebtn } from "./CustomProductPopup.styled";
 import { useSelector } from "react-redux";
 
-const CustomProductPopup = ({ data }) => {
+const CustomProductPopup = ({ handleProduct, num }) => {
   // customSlice의 초기값을 가져옴
   const shirtInfo = useSelector((state) => state.custom.basic);
+  const { selectNum, setSelectNum } = num;
+  console.log(handleProduct);
 
   function handleChangeProduct(e) {
-    console.log(e.target);
+    setSelectNum(e.currentTarget.id - 1);
+    handleProduct();
   }
+
   return (
     <>
       <PopupWrap>
         <div className="popupContainer">
           <div className="popupClose">
-            <Closebtn onClick={data} />
+            <Closebtn onClick={handleProduct} />
           </div>
           <div className="popupTitle">
             <div className="title">
@@ -23,28 +27,24 @@ const CustomProductPopup = ({ data }) => {
           </div>
           <div className="popupBody">
             {/*  */}
-            <div className="popupCard" onClick={handleChangeProduct}>
-              <div className="cardImg"></div>
-              <div className="cardText">
-                <span>민우의 개쩌는 티셔츠 2</span>
-                <span>100,000,000KRW</span>
-              </div>
-            </div>
-
-            {/* <div className="popupCard">
-              <div className="cardImg"></div>
-              <div className="cardText">
-                <span>민우의 개쩌는 티셔츠 2</span>
-                <span>100,000,000KRW</span>
-              </div>
-            </div>
-            <div className="popupCard">
-              <div className="cardImg"></div>
-              <div className="cardText">
-                <span>민우의 개쩌는 티셔츠 2</span>
-                <span>100,000,000KRW</span>
-              </div>
-            </div> */}
+            {shirtInfo.map((e) => {
+              if (e.id != selectNum + 1) {
+                return (
+                  <div
+                    className="popupCard"
+                    key={e.id}
+                    id={e.id}
+                    onClick={handleChangeProduct}
+                  >
+                    <div className="cardImg"></div>
+                    <div className="cardText">
+                      <span>{e.name}</span>
+                      <span>{e.price} KRW</span>
+                    </div>
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
       </PopupWrap>
