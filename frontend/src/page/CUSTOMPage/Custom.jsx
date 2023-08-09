@@ -8,7 +8,9 @@ import {
   SideSizeLi,
 } from "./Custom.styled";
 import CustomPopup from "./CustomPopup";
+import { useSelector } from "react-redux";
 
+const PROXY = process.env.REACT_APP_PROXY;
 // custom 테이블 정보 가져오기
 // async function getCustom() {
 //   const { data } = await axios.get(`http://localhost:4000/custom`, {
@@ -24,11 +26,16 @@ const Custom = () => {
   const [color, setColor] = useState("white");
   const [size, setSize] = useState("M");
   const [selectSize, setSelectSize] = useState("M");
+  const [selectNum, setSelectNum] = useState(0);
+
+  // customSlice의 초기값을 가져옴
+  const shirtInfo = useSelector((state) => state.custom.basic);
+  console.log(shirtInfo[selectNum]);
 
   // 팝업창 크고 켜기
   function handleProduct() {
     setProduct(!product);
-    console.log(product);
+    // console.log(product);
   }
   // 선택된 색 활성화
   function handleColor(e) {
@@ -49,8 +56,19 @@ const Custom = () => {
             <div className="sideTitle">
               <span>개쩌는 민우의 나이키 티셔츠</span>
               <span>9,000KRW</span>
-              <div className="changeProductBtn" onClick={handleProduct}>
-                changeProduct
+              <div className="btnWrap">
+                <div className="productWrap" onClick={handleProduct}>
+                  <div className="changeProductBtn">
+                    <img src={`${PROXY}/img/clothes.png`} />
+                  </div>
+                  <span>PRODUCT</span>
+                </div>
+                <div className="imageWrap" onClick={handleProduct}>
+                  <div className="addImageBtn">
+                    <img src={`${PROXY}/img/smile.png`} />
+                  </div>
+                  <span>IMAGE</span>
+                </div>
               </div>
             </div>
             <div className="sideColor">
@@ -98,12 +116,16 @@ const Custom = () => {
               <span>사이즈</span>
               <ul>
                 {/* 사이즈별 맵 돌릴 예정? */}
-                <SideSizeLi size={size} selectSize={selectSize} />
-                <SideSizeLi>M</SideSizeLi>
+                {/* {shirtInfo[selectNum].size.map((size) => {
+                  console.log(size);
+                  <SideSizeLi size={size} selectSize={selectSize} />;
+                })} */}
+                <SideSizeLi size={"free"} selectSize={selectSize} />
+                {/* <SideSizeLi>M</SideSizeLi>
                 <SideSizeLi>L</SideSizeLi>
                 <SideSizeLi>XL</SideSizeLi>
                 <SideSizeLi>2XL</SideSizeLi>
-                <SideSizeLi>3XL</SideSizeLi>
+                <SideSizeLi>3XL</SideSizeLi> */}
               </ul>
             </div>
             <div className="delivery">

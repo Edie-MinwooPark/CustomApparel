@@ -34,34 +34,68 @@ export const CustomSideWrap = styled.div`
     padding: 20px 20px 20px 40px;
   }
   & .sideTitle {
-    margin-bottom: 30px;
+    margin: 20px 0;
   }
-  & .sideTitle span {
+  & .sideTitle > span {
     display: block;
     font-size: 18px;
     margin-bottom: 8px;
   }
-  & .sideTitle span:nth-child(2) {
+  & .sideTitle > span:nth-child(2) {
     color: #ff6b00;
     margin-bottom: 20px;
   }
-  & .sideTitle .changeProductBtn {
-    width: 120px;
-    height: 40px;
+  & .btnWrap {
+    display: flex;
+  }
+  & .productWrap,
+  .imageWrap {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  & .productWrap:hover .changeProductBtn,
+  .imageWrap:hover .addImageBtn {
+    color: white;
+    background-color: black;
+  }
+  & .productWrap:hover img,
+  .imageWrap:hover img {
+    filter: invert(100%);
+  }
+
+  & .changeProductBtn,
+  .addImageBtn {
+    width: 60px;
+    height: 60px;
     font-size: 14px;
     border: 1px solid;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
+    border-radius: 50%;
     font-weight: 400;
-    cursor: pointer;
     transition: 1s;
   }
-  & .sideTitle .changeProductBtn:hover {
-    color: white;
-    background-color: black;
+
+  & .changeProductBtn img,
+  .addImageBtn img {
+    width: 50px;
+    height: 50px;
+    transition: 1s;
   }
+
+  & .productWrap span,
+  .imageWrap span {
+    margin-top: 4px;
+    font-size: 14px;
+    color: black;
+  }
+
   & .sideColor {
     font-size: 14px;
     margin-bottom: 30px;
@@ -82,24 +116,7 @@ export const CustomSideWrap = styled.div`
     display: flex;
     padding-inline-start: 0;
   }
-  /* & .sideSize ul li {
-    width: 60px;
-    height: 50px;
-    border: 1px solid;
-    border-radius: 10px;
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: 1s;
-  }
-  & .sideSize ul li:hover {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
-  } */
+
   & .delivery {
     font-size: 14px;
     margin-bottom: 30px;
