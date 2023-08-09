@@ -31,7 +31,6 @@ const App = () => {
         <Route path="/nav" element={<Nav />} />
         <Route path="/mypage" element={<MYpage />} />
         <Route path="/canvas" element={<Canvas />} />
-        <Route path="/postlist" element={<PostList />} />
         <Route path="/postinsert" element={<PostInsert />} />
       </Routes>
     </div>
