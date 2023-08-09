@@ -1,27 +1,64 @@
-import { createSlice ,createAsyncThunk} from "@reduxjs/toolkit";
-import axios from"axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+const PROXY = process.env.REACT_APP_PROXY;
 
-//예시코드
-export const countSlice = createSlice({
-    name:"count" // slice의 이름이다?ㅇㅇ slice의 구분이름
-    ,//초기값
-    initialState:{num:0},
-    reducers : {
-        add : (state) =>{
-            // 이전 상태가 매개변수로 들어온다.
-            state.num += 1;
-        },
-        remove : (state)=>{
-            state.num -=1;
-        }
-    }
-});
-export const temp = createAsyncThunk("/temp",async()=>{
-    // axios
-    const resp=await axios.get(''); // api요청 주소
-    const {data} =resp;
-    console.log(data);
-    return data;
-});
+export const getUserinfo = createAsyncThunk(
+  "user/getinfo",
+  async (userId, thunkAPI) => {
+    const response = await axios.get(`${PROXY}/user/viewUser`);
+    const data = await response.json();
+    return data; // The resolved data will be the payload of the success action
+  }
+);
+export const setUserinfo = createAsyncThunk("user/setinfo", async (form) => {
+  try {
+    const response = await axios.post(`${PROXY}/user/signup`, form, {
+      headers: {
+        "Content-Type": "multipart/form-data; charset=utf-8",
+      },
+      withCredentials: true,
+    });
 
-export const {add,remove} = countSlice.actions
+    console.log("Delivered successfully.");
+    console.log(response.data);
+    return response.data; // 성공 액션의 페이로드로 응답 데이터를 반환합니다
+  } catch (err) {
+    console.log(err);
+    // 여기서 오류를 throw하여 거부된 액션에서 잡을 수 있습니다
+    throw err;
+  }
+});
+export const trylogininfo = createAsyncThunk("user/login", async (data) => {
+  try {
+    const response = await axios.post(`${PROXY}/user/login`, data, {
+      withCredentials: true,
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+export const userSlice = createSlice({
+  name: "user",
+  initialState: {
+    data: null,
+    loading: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getUserinfo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUserinfo.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(getUserinfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+  },
+});
