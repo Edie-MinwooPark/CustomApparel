@@ -57,7 +57,7 @@ class POST extends Sequelize.Model {
   }
   static associate(db) {
     db.POST.hasMany(db.HASHTAG, {
-      foreignKey: "POST",
+      foreignKey: "HASH_TAG_ID",
       sourceKey: "id",
     });
   }

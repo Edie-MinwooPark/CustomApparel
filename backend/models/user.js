@@ -45,7 +45,11 @@ class USER extends Sequelize.Model {
   }
   static associate(db) {
     db.USER.hasMany(db.POST, {
-      foreignKey: "user_primaryKey",
+      foreignKey: "callbyuser_id",
+      sourceKey: "id",
+    });
+    db.USER.hasMany(db.CART, {
+      foreignKey: "cart_id",
       sourceKey: "id",
     });
   }

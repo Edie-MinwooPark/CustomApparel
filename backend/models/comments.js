@@ -40,7 +40,7 @@ class COMMENTS extends Sequelize.Model {
       targetKey: "id",
     });
     db.COMMENTS.hasMany(db.RECOMMENTS, {
-      foreignKey: "RECOMMENTS_primaryKey",
+      foreignKey: "recomment_id",
       sourceKey: "id",
     });
   }
