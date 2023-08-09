@@ -1,7 +1,7 @@
 import React from "react";
-import { PopupWrap, Closebtn } from "./CustomPopup.styled";
+import { PopupWrap, Closebtn } from "./CustomProductPopup.styled";
 
-const CustomPopup = ({ data }) => {
+const CustomProductPopup = ({ data }) => {
   return (
     <>
       <PopupWrap>
@@ -46,4 +46,4 @@ const CustomPopup = ({ data }) => {
   );
 };
 
-export default CustomPopup;
+export default CustomProductPopup;

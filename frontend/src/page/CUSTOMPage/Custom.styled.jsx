@@ -158,8 +158,8 @@ export const ColorPallet = styled.li`
   list-style-type: none;
   margin-right: 10px;
   cursor: pointer;
-  background-color: ${(props) => props.bgColor};
-  border: ${(props) => (props.color == props.bgColor ? "2px solid" : "none")};
+  background-color: ${(props) => props.bgcolor};
+  border: ${(props) => (props.color == props.bgcolor ? "2px solid" : "none")};
   &:hover {
     border: 2px solid;
   }
@@ -177,17 +177,17 @@ export const SideSizeLi = styled.li`
   margin-right: 10px;
   cursor: pointer;
   transition: 1s;
-  color: ${(props) => (props.size == props.selectSize ? "white" : null)};
+  color: ${(props) => (props.sizes == props.selectsize ? "white" : null)};
   background-color: ${(props) =>
-    props.size == props.selectSize ? "black" : null};
+    props.sizes == props.selectsize ? "black" : null};
   border: ${(props) =>
-    props.size == props.selectSize ? "1px solid white" : null};
+    props.sizes == props.selectsize ? "1px solid white" : null};
   &:hover {
     color: white;
     background-color: black;
     border: 1px solid white;
   }
   &:after {
-    content: "${(props) => props.size}";
+    content: "${(props) => props.sizes}";
   }
 `;
