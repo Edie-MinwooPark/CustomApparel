@@ -5,7 +5,7 @@ export const clothSlice = createSlice({
     name : "cloth",
     initialState : {
         clothColor : "white",
-        clothType : "tShirt"
+        clothType : "longsleeveshirt"
     },
     reducers : {
         clothColor : (state,action)=>{
