@@ -1,16 +1,15 @@
 import React from "react";
-import { Card, Row, Col, Button } from "react-bootstrap";
-import { Container, Grid } from "./PostList.styled";
+import { Container } from "./PostList.styled";
 import CardComponent from "../../components/layout/card";
 // import Button from "react-bootstrap/Button";
 import Masonry from "react-masonry-css";
 
-import dog1 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/postlist/1.jpeg";
-import dog2 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/postlist/2.jpeg";
-import dog3 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/postlist/3.jpeg";
-import dog4 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/postlist/4.jpeg";
-import dog5 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/postlist/5.jpeg";
-import dog6 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/postlist/6.jpeg";
+import dog1 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/1.jpeg";
+import dog2 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/2.jpeg";
+import dog3 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/3.jpeg";
+import dog4 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/4.jpeg";
+import dog5 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/5.jpeg";
+import dog6 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/6.jpeg";
 
 // 임시 데이터
 const postData = [
