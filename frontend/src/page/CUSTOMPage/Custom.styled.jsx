@@ -59,7 +59,7 @@ export const CustomSideWrap = styled.div`
     cursor: pointer;
   }
   & .productWrap:hover .changeProductBtn,
-  .imageWrap:hover .addImageBtn {
+  .imageWrap:hover .git addImageBtn {
     color: white;
     background-color: black;
   }
