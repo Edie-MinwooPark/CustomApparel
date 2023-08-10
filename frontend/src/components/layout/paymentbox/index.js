@@ -4,6 +4,7 @@ const Payment = () => {
   function onClickPayment() {
     const { IMP } = window;
     IMP.init("imp84308847"); //발급받은 가맹점 식별코드를 사용합니다.
+    // 요청을 받아서 이안의 값을 조정해줘야한다.
     const data = {
       pg: "html5_inicis", // PG사
       pay_method: "card", // 결제수단

@@ -15,9 +15,10 @@ import {
   MYpage,
   PayMent,
 } from "../src/page/index";
+import Canvas from "./Canvas";
 export const PROXY = process.env.REACT_APP_PROXY;
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Routes>
@@ -29,9 +30,10 @@ function App() {
         <Route path="/nav" element={<Nav />} />
         <Route path="/mypage" element={<MYpage />} />
         <Route path="/payment" element={<PayMent />} />
+        <Route path="/canvas" element={<Canvas />} />
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
