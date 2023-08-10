@@ -98,6 +98,7 @@ const Custom = () => {
         <CustomProductPopup
           handleProduct={handleProduct}
           num={{ selectNum, setSelectNum }}
+          product = {product}
         />
       ) : null}
       {decals ? <CustomDecalsPopup data={handleDecals} /> : null}
