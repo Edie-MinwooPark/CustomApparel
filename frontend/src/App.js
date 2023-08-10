@@ -13,6 +13,16 @@ import {
   Login,
   Nav,
   MYpage,
+  PayMent,
+} from "../src/page/index";
+import Canvas from "./Canvas";
+import {
+  Custom,
+  Photo,
+  Signup,
+  Login,
+  Nav,
+  MYpage,
   PostList,
   PostInsert,
 } from "../src/page/index";
@@ -30,11 +40,15 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/nav" element={<Nav />} />
         <Route path="/mypage" element={<MYpage />} />
+        <Route path="/payment" element={<PayMent />} />
         <Route path="/canvas" element={<Canvas />} />
         <Route path="/postinsert" element={<PostInsert />} />
       </Routes>
     </div>
   );
+};
+
+export default App;
 };
 
 export default App;

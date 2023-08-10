@@ -33,6 +33,7 @@ class CART extends Sequelize.Model {
       }
     );
   }
+  static associate(db) {}
 }
 
 module.exports = CART;

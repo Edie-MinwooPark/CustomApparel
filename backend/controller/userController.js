@@ -5,7 +5,6 @@ const dot = require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require("path");
-
 exports.signUp = async (req, res) => {
   try {
     console.log("This is reqbody", req.body.data);

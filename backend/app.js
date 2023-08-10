@@ -1,8 +1,3 @@
-// require('dotenv').config();
-
-// const tmp=process.env.PROXY;
-
-// console.log(tmp);
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -10,7 +5,6 @@ const dot = require("dotenv").config();
 const session = require("express-session");
 const { sequelize } = require("./models");
 const path = require("path");
-
 const axios = require("axios");
 const userRouter = require("./routers/userRouter");
 const mypageRouter = require("./routers/mypageRouter");
@@ -18,6 +12,8 @@ const mypageRouter = require("./routers/mypageRouter");
 const PORT = process.env.PORT;
 // 1. axios 전역 설정
 axios.default.withCredentials = true; // withCredentials 전역 설정
+
+const { payment } = require("./controller/paymentController");
 
 app.use(
   session({
@@ -43,7 +39,7 @@ app.use(
     credentials: true,
   })
 );
-
+app.use(payment);
 app.use(express.json());
 app.use("/mypage", mypageRouter);
 app.use("/user", userRouter);

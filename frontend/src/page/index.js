@@ -6,9 +6,11 @@ import Signup from "./SiGNUPage/Signup";
 import MYpage from "./MYpage/MYpage";
 import PostList from "./POSTLISTpage/PostList";
 import PostInsert from "./POSTINSERTpage/PostInsert";
+import PayMent from "./PAYMENtPage/PayMent";
 
 import { Sign } from "../components/index";
 
+export { Nav, Photo, Custom, Login, Signup, Sign, MYpage, PayMent };
 export {
   Nav,
   Photo,

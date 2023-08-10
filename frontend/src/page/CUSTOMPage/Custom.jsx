@@ -9,8 +9,9 @@ import {
 } from "./Custom.styled";
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
-import { useSelector } from "react-redux";
-import Canvas from "../../Canvas";
+import { useSelector, useDispatch } from "react-redux";
+import Canvas from "../../Canvas"
+import { clothColor } from "../../features/clothslice";
 
 const PROXY = process.env.REACT_APP_PROXY;
 // custom 테이블 정보 가져오기
@@ -22,6 +23,7 @@ const PROXY = process.env.REACT_APP_PROXY;
 // }
 // getCustom();
 
+
 const Custom = () => {
   const [product, setProduct] = useState(false);
   const [decals, setDecals] = useState(false);
@@ -30,6 +32,9 @@ const Custom = () => {
   const [size, setSize] = useState("M");
   const [selectsize, setSelectsize] = useState("FREE");
   const [selectNum, setSelectNum] = useState(0);
+  const dispatch = useDispatch();
+  const colors = useSelector(state => state.cloth.clothColor);
+
 
   // customSlice의 초기값을 가져옴
   const shirtInfo = useSelector((state) => state.custom.basic);
@@ -47,12 +52,21 @@ const Custom = () => {
   }
   // 선택된 색 활성화
   function handleColor(e) {
+
+
     setColor(e.target.getAttribute("bgcolor"));
+    // 민우 리덕스 바꿔주면
+    let newColor = e.target.getAttribute("bgcolor");
+    dispatch(clothColor(newColor));
+    // console.log("완료")
+
+    // console.log("현재 리덕스 값", color);
   }
 
   // 선택된 사이즈 활성화
   function handelSelectSize(e) {
     setSelectsize(e.target.getAttribute("sizes"));
+    // 민우 사이즈를 바꿔주면 -> 옷 사이즈 바뀜
   }
 
   // 사이즈가 추가되면 적용
