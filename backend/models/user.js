@@ -4,6 +4,11 @@ class USER extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
+        id: {
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+        },
         user_id: {
           type: Sequelize.STRING,
           allowNull: false,
@@ -39,8 +44,14 @@ class USER extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.USER.hasMany(db.POST, { foreignKey: "id", sourceKey: "id" });
-    db.USER.hasMany(db.CLOSET, { foreignKey: "id", sourceKey: "closet_id" });
+    db.USER.hasMany(db.POST, {
+      foreignKey: "callbyuser_id",
+      sourceKey: "id",
+    });
+    db.USER.hasMany(db.CART, {
+      foreignKey: "cart_id",
+      sourceKey: "id",
+    });
   }
 }
 

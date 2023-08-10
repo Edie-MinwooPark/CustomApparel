@@ -25,12 +25,7 @@ class RECOMMENTS extends Sequelize.Model {
       }
     );
   }
-  static associate(db) {
-    db.RECOMMENTS.belongsTo(db.COMMENTS, {
-      foreignKey: "comments_id",
-      targetKey: "id",
-    });
-  }
+  static associate(db) {}
 }
 
 module.exports = RECOMMENTS;

@@ -26,6 +26,9 @@ const Nav = () => {
             <li>
               <NavLink to={"/mypage"}> MYPAGE</NavLink>
             </li>
+            <li>
+              <NavLink to={"/payment"}> payment</NavLink>
+            </li>
           </ul>
         </div>
       </div>
