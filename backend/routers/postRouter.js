@@ -1,4 +1,4 @@
-const router = require("exporess").Router();
+const router = require("express").Router();
 const {
   getAllPosts,
   getPostsByHashtag,
@@ -7,5 +7,21 @@ const {
   postRecoment,
   createPost,
 } = require("../controller/postController");
+// 전체 post 목록 반환
+router.get("/posts", getAllPosts);
 
-router.get("/", getAllPosts);
+// 특정 카테고리 post 목록 반환 라우트
+router.get("/posts/hashtag/:hash_tag", getPostsByHashtag);
+
+// 상세 Post 내용 반환 라우트
+router.get("/posts/:id", getPostDetail);
+
+// 댓글 추가 라우트
+router.get("/posts/:id", postComment);
+// 대댓글
+router.post("./recomments", postRecoment);
+
+// post 등록 라우트
+router.post("/post", createPost);
+
+module.exports = router;

@@ -6,15 +6,7 @@ import {
   BrowserRouter as Router,
   Outlet,
 } from "react-router-dom";
-import {
-  Custom,
-  Photo,
-  Signup,
-  Login,
-  Nav,
-  MYpage,
-  PayMent,
-} from "../src/page/index";
+import { QueryClient, QueryClientProvider } from "react-query"; //axios react query 쓸때 사용
 import Canvas from "./Canvas";
 import {
   Custom,
@@ -25,30 +17,34 @@ import {
   MYpage,
   PostList,
   PostInsert,
+  PayMent,
+  PostDetail,
+  TestComponent,
 } from "../src/page/index";
-import Canvas from "./Canvas";
 export const PROXY = process.env.REACT_APP_PROXY;
+const queryClient = new QueryClient(); //axios react query 쓸때 사용
 
 const App = () => {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/custom" element={<Custom />} />
-        <Route path="/photo" element={<PostList />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/nav" element={<Nav />} />
-        <Route path="/mypage" element={<MYpage />} />
-        <Route path="/payment" element={<PayMent />} />
-        <Route path="/canvas" element={<Canvas />} />
-        <Route path="/postinsert" element={<PostInsert />} />
-      </Routes>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/custom" element={<Custom />} />
+          <Route path="/photo" element={<PostList />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/nav" element={<Nav />} />
+          <Route path="/mypage" element={<MYpage />} />
+          <Route path="/payment" element={<PayMent />} />
+          <Route path="/canvas" element={<Canvas />} />
+          <Route path="/postinsert" element={<PostInsert />} />
+          <Route path="/postdetail" element={<PostDetail />} />
+          <Route path="/test" element={<TestComponent />} />
+        </Routes>
+      </div>
+    </QueryClientProvider>
   );
-};
-
-export default App;
 };
 
 export default App;

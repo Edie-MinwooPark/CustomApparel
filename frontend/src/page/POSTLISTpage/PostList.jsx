@@ -4,60 +4,28 @@ import CardComponent from "../../components/layout/card";
 // import Button from "react-bootstrap/Button";
 import Masonry from "react-masonry-css";
 import Nav from "../NavPage/Nav";
+import axios from "axios";
+import { useQuery } from "react-query";
 
-import dog1 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/1.jpeg";
-import dog2 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/2.jpeg";
-import dog3 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/3.jpeg";
-import dog4 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/4.jpeg";
-import dog5 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/5.jpeg";
-import dog6 from "/Users/yoodonghee/Desktop/nike/frontend/src/page/POSTLISTpage/6.jpeg";
+const fetchPost = async () => {
+  const { data } = await axios.get("http://localhost:4000/post/posts");
+  // const { userdata } = await axios.get("http://localhost:4000/user/viewUser");
+  // console.log("받은데이터", userdata);
+  return data;
+};
 
-// 임시 데이터
-const postData = [
-  {
-    id: 1,
-    title: "제목1",
-    imgSrc: dog1,
-    content: "내용1",
-  },
-  {
-    id: 2,
-    title: "제목2",
-    imgSrc: dog2,
-    content: "내용2",
-  },
-  {
-    id: 3,
-    title: "제목3",
-    imgSrc: dog3,
-    content: "내용3",
-  },
-  {
-    id: 4,
-    title: "제목4",
-    imgSrc: dog4,
-    content: "내용4",
-  },
-  {
-    id: 5,
-    title: "제목5",
-    imgSrc: dog5,
-    content: "내용5",
-  },
-  {
-    id: 6,
-    title: "제목6",
-    imgSrc: dog6,
-    content: "내용6",
-  },
-];
 function PostList() {
+  const { data: posts, isError, isLoading } = useQuery("posts", fetchPost);
+
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,
     700: 2,
     500: 1,
   };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error</p>;
 
   return (
     <>
@@ -68,8 +36,8 @@ function PostList() {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {postData.map((post) => (
-            <CardComponent post={post} key={post.id}></CardComponent>
+          {posts.map((post) => (
+            <CardComponent post={post} key={post.user_id}></CardComponent>
           ))}
         </Masonry>
       </Container>

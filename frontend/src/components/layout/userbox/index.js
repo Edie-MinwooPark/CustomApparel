@@ -6,14 +6,12 @@ import {
   StyledUsername,
 } from "./styled";
 
-import dog1 from "/Users/yoodonghee/Desktop/nike/frontend/src/components/layout/userbox/1.jpeg";
-
-const LikeIcon = ({ liked }) => {
+export const LikeIcon = ({ liked, width = "20px" }) => {
   const style = {
     fill: liked ? "red" : "none", // 좋아요가 눌렸다면 빨간색으로, 아니면 아무 색도 채우지 않음
     stroke: !liked ? "black" : "none", // 좋아요가 눌리지 않았다면 검은색 테두리로, 눌렸다면 테두리 없음
-    strokeWidth: 2, // 테두리의 두께는 2px
-    width: "20px",
+    strokeWidth: 1, // 테두리의 두께는 2px
+    width,
   };
 
   return (
@@ -29,7 +27,8 @@ const LikeIcon = ({ liked }) => {
 };
 
 function UserBox({ post, userImg, userID }) {
-  const [likes, setLikes] = useState(post.likes || 0);
+  console.log("poooooo", post);
+  const [likes, setLikes] = useState(parseInt(post.likes, 10) || 0);
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
 
   const handleLike = () => {
@@ -43,8 +42,8 @@ function UserBox({ post, userImg, userID }) {
 
   return (
     <UserBoxContainer>
-      <StyledImage src={dog1} roundedCircle />
-      <StyledUsername>{(userID = "닉네임")}</StyledUsername>
+      <StyledImage src={userImg} roundedCircle />
+      <StyledUsername>{userID}</StyledUsername>
       <StyledLikeIconWrapper
         aria-label="좋아요"
         role="button"

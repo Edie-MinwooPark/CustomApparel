@@ -8,6 +8,7 @@ const path = require("path");
 const axios = require("axios");
 const userRouter = require("./routers/userRouter");
 const mypageRouter = require("./routers/mypageRouter");
+const postRouter = require("./routers/postRouter");
 
 const PORT = process.env.PORT;
 // 1. axios 전역 설정
@@ -43,6 +44,7 @@ app.use(payment);
 app.use(express.json());
 app.use("/mypage", mypageRouter);
 app.use("/user", userRouter);
+app.use("/post", postRouter);
 
 const server = app.listen(PORT, () => {
   console.log("서버온");

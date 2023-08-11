@@ -59,7 +59,7 @@ exports.postComment = async (req, res) => {
 };
 
 // 대댓글
-exports.postRecoment = async (rea, res) => {
+exports.postRecoment = async (req, res) => {
   const user_id = 1; // 임시 user_id
   const { comment_id, comment_content } = req.body;
   try {
