@@ -16,6 +16,7 @@ import {
   PayMent,
 } from "../src/page/index";
 import Canvas from "./Canvas";
+
 export const PROXY = process.env.REACT_APP_PROXY;
 
 const App = () => {

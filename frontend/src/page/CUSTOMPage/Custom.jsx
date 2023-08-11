@@ -10,7 +10,7 @@ import {
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
 import { useSelector, useDispatch } from "react-redux";
-import Canvas from "../../Canvas"
+import Canvas from "../../Canvas";
 import { clothColor } from "../../features/clothslice";
 
 const PROXY = process.env.REACT_APP_PROXY;
@@ -23,7 +23,6 @@ const PROXY = process.env.REACT_APP_PROXY;
 // }
 // getCustom();
 
-
 const Custom = () => {
   const [product, setProduct] = useState(false);
   const [decals, setDecals] = useState(false);
@@ -33,12 +32,13 @@ const Custom = () => {
   const [selectsize, setSelectsize] = useState("FREE");
   const [selectNum, setSelectNum] = useState(0);
   const dispatch = useDispatch();
-  const colors = useSelector(state => state.cloth.clothColor);
-
+  const colors = useSelector((state) => state.cloth.clothColor);
 
   // customSlice의 초기값을 가져옴
   const shirtInfo = useSelector((state) => state.custom.basic);
   // console.log(shirtInfo[selectNum]);
+
+  const getUserId = useSelector((state) => state.user);
 
   // 팝업창 크고 켜기
   function handleProduct() {
@@ -52,8 +52,6 @@ const Custom = () => {
   }
   // 선택된 색 활성화
   function handleColor(e) {
-
-
     setColor(e.target.getAttribute("bgcolor"));
     // 민우 리덕스 바꿔주면
     let newColor = e.target.getAttribute("bgcolor");
@@ -80,6 +78,44 @@ const Custom = () => {
       />
     ));
   }
+
+  // 장바구니 담기 기능 (로컬 스토리지나 쿠키에 저장 할 예정)
+  // 추후 데칼과 최종 이미지가 들어가야 함
+  function handleCart() {
+    // 장바구니에 추가 기능
+    // tester에 사용자 이름이 들어가면 될듯
+    const name = shirtInfo[selectNum].name;
+    const price = shirtInfo[selectNum].price;
+    let cartInfo = localStorage.getItem("tester");
+    if (!cartInfo) {
+      localStorage.setItem(
+        "tester",
+        JSON.stringify([{ name, price, color, selectsize }])
+      );
+    }
+    if (cartInfo) {
+      let newArr = { name, price, color, selectsize };
+
+      let cartArr = JSON.parse(localStorage.getItem("tester")) || [];
+
+      // 중복 확인
+      let duplicate = cartArr.some(
+        (item) =>
+          item.name === name &&
+          item.color === color &&
+          item.selectsize === selectsize
+      );
+
+      // 중복이 없으면 배열에 추가
+      if (!duplicate) {
+        cartArr.push(newArr);
+        localStorage.setItem("tester", JSON.stringify(cartArr));
+      } else {
+        console.log("이미 같은 상품이 장바구니에 있습니다.");
+      }
+    }
+  }
+  handleCart();
 
   function ColorInfo(shirtInfo, selectNum, selectsize) {
     return shirtInfo[selectNum].color.map((bgcolor, index) => (
@@ -152,7 +188,9 @@ const Custom = () => {
               <span>3,000KRW</span>
             </div>
             <div className="sideCart">
-              <div className="cartBtn">장바구니 담기</div>
+              <div className="cartBtn" onClick={handleCart}>
+                장바구니 담기
+              </div>
             </div>
           </div>
         </CustomSideWrap>
