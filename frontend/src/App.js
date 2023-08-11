@@ -14,6 +14,7 @@ import {
   Nav,
   MYpage,
   PayMent,
+  Cartp,
 } from "../src/page/index";
 import Canvas from "./Canvas";
 
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/mypage" element={<MYpage />} />
         <Route path="/payment" element={<PayMent />} />
         <Route path="/canvas" element={<Canvas />} />
+        <Route path="/cartp" element={<Cartp />} />
       </Routes>
     </div>
   );

@@ -44,8 +44,9 @@ const MainNav = () => {
             <li>
               <NavLink to={"/mypage"}> MYPAGE</NavLink>
             </li>
+
             <li>
-              <NavLink to={"/payment"}> payment</NavLink>
+              <NavLink to={"/cartp"}> CART</NavLink>
             </li>
           </ul>
         </div>

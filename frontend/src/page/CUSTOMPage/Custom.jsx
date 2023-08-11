@@ -36,7 +36,6 @@ const Custom = () => {
 
   // customSlice의 초기값을 가져옴
   const shirtInfo = useSelector((state) => state.custom.basic);
-  // console.log(shirtInfo[selectNum]);
 
   const getUserId = useSelector((state) => state.user);
 
@@ -86,15 +85,16 @@ const Custom = () => {
     // tester에 사용자 이름이 들어가면 될듯
     const name = shirtInfo[selectNum].name;
     const price = shirtInfo[selectNum].price;
+    const intprice = shirtInfo[selectNum].intprice;
     let cartInfo = localStorage.getItem("tester");
     if (!cartInfo) {
       localStorage.setItem(
         "tester",
-        JSON.stringify([{ name, price, color, selectsize }])
+        JSON.stringify([{ name, price, color, selectsize, intprice }])
       );
     }
     if (cartInfo) {
-      let newArr = { name, price, color, selectsize };
+      let newArr = { name, price, color, selectsize, intprice };
 
       let cartArr = JSON.parse(localStorage.getItem("tester")) || [];
 
