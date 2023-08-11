@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
       // });
       return res
         .status(200)
-        .json({ message: "로그인성공", token: req.session.access_token });
+        .json({ message: "로그인성공", token: req.session });
     } else {
       return res.status(400).json({ message: "로그인실패" });
     }

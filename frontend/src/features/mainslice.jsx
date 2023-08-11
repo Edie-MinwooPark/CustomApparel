@@ -33,7 +33,7 @@ export const trylogininfo = createAsyncThunk("user/login", async (data) => {
     const response = await axios.post(`${PROXY}/user/login`, data, {
       withCredentials: true,
     });
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
     throw error;
