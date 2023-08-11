@@ -38,7 +38,7 @@ const Custom = () => {
   const shirtInfo = useSelector((state) => state.custom.basic);
   // console.log(shirtInfo[selectNum]);
 
-  const getUserId = useSelector((state) => state.user);
+  const getUserId = useSelector((state) => state.mypage.data);
 
   // 팝업창 크고 켜기
   function handleProduct() {
@@ -82,21 +82,23 @@ const Custom = () => {
   // 장바구니 담기 기능 (로컬 스토리지나 쿠키에 저장 할 예정)
   // 추후 데칼과 최종 이미지가 들어가야 함
   function handleCart() {
+    if (getUserId?.user_id == undefined) return;
+
     // 장바구니에 추가 기능
     // tester에 사용자 이름이 들어가면 될듯
     const name = shirtInfo[selectNum].name;
     const price = shirtInfo[selectNum].price;
-    let cartInfo = localStorage.getItem("tester");
+    let cartInfo = localStorage.getItem(getUserId?.user_id);
     if (!cartInfo) {
       localStorage.setItem(
-        "tester",
+        getUserId?.user_id,
         JSON.stringify([{ name, price, color, selectsize }])
       );
     }
     if (cartInfo) {
       let newArr = { name, price, color, selectsize };
 
-      let cartArr = JSON.parse(localStorage.getItem("tester")) || [];
+      let cartArr = JSON.parse(localStorage.getItem(getUserId?.user_id)) || [];
 
       // 중복 확인
       let duplicate = cartArr.some(
