@@ -12,7 +12,6 @@ import CustomDecalsPopup from "./CustomDecalsPopup";
 import { useSelector, useDispatch } from "react-redux";
 import Canvas from "../../Canvas";
 import { clothColor } from "../../features/clothslice";
-import { useCookies } from "react-cookie";
 
 const PROXY = process.env.REACT_APP_PROXY;
 // custom 테이블 정보 가져오기
