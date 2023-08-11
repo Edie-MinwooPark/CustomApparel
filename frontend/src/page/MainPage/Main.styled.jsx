@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export const MainWrap = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
   & .mainContainer {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 1280px;
+    height: auto;
     border: 1px solid;
     background-color: black;
   }

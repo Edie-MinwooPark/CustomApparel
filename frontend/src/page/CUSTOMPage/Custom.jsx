@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import MainNav from "../NavPage/MainNav";
+import Nav from "../NavPage/Nav";
 import {
   CustomWrap,
   CustomSideWrap,
@@ -138,7 +137,7 @@ const Custom = () => {
         />
       ) : null}
       {decals ? <CustomDecalsPopup data={handleDecals} /> : null}
-      <MainNav />
+      <Nav />
       <CustomWrap>
         <div className="customMainWrap">
           <div className="customMain">
