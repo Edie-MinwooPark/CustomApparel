@@ -49,14 +49,15 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUserinfo.pending, (state) => {
+      .addCase(trylogininfo.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getUserinfo.fulfilled, (state, action) => {
+      .addCase(trylogininfo.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        console.log("datainit되었음");
       })
-      .addCase(getUserinfo.rejected, (state, action) => {
+      .addCase(trylogininfo.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
