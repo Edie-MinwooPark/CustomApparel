@@ -111,13 +111,12 @@ const Custom = () => {
       // 중복이 없으면 배열에 추가
       if (!duplicate) {
         cartArr.push(newArr);
-        localStorage.setItem("tester", JSON.stringify(cartArr));
+        localStorage.setItem(getUserId?.user_id, JSON.stringify(cartArr));
       } else {
         console.log("이미 같은 상품이 장바구니에 있습니다.");
       }
     }
   }
-  handleCart();
 
   function ColorInfo(shirtInfo, selectNum, selectsize) {
     return shirtInfo[selectNum].color.map((bgcolor, index) => (
