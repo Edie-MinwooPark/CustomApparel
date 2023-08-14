@@ -11,7 +11,7 @@ export const customSlice = createSlice({
         color: ["white", "red", "yellow", "green", "blue", "orange", "navy"],
         size: ["FREE", "M", "L", "XL", "2XL", "3XL"],
         price: "9,000",
-        intprice: 9000,
+        intprice: 100,
       },
       {
         id: 2,

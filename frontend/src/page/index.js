@@ -6,7 +6,18 @@ import Signup from "./SiGNUPage/Signup";
 import MYpage from "./MYpage/MYpage";
 import PayMent from "./PAYMENtPage/PayMent";
 import Cartp from "./CARTPage/Cartp";
-
+import PayMentDetail from "./PAYMENTDETAILPage/PayMentDetail";
 import { Sign } from "../components/index";
 
-export { Nav, Photo, Custom, Login, Signup, Sign, MYpage, PayMent, Cartp };
+export {
+  Nav,
+  Photo,
+  Custom,
+  Login,
+  Signup,
+  Sign,
+  MYpage,
+  PayMent,
+  Cartp,
+  PayMentDetail,
+};
