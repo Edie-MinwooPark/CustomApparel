@@ -25,7 +25,7 @@ app.use(
 );
 
 sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => [console.log("sequelize연결성공")])
   .catch((err) => {
     console.log(err);
