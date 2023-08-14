@@ -11,15 +11,15 @@ const {
 router.get("/posts", getAllPosts);
 
 // 특정 카테고리 post 목록 반환 라우트
-router.get("/posts/hashtag/:hash_tag", getPostsByHashtag);
+router.get("/hashtag/:hash_tag", getPostsByHashtag);
 
 // 상세 Post 내용 반환 라우트
-router.get("/posts/:id", getPostDetail);
+router.get("/detail/:id", getPostDetail);
 
 // 댓글 추가 라우트
-router.get("/posts/:id", postComment);
+router.get("/comment/:id", postComment);
 // 대댓글
-router.post("./recomments", postRecoment);
+router.post("/recomments", postRecoment);
 
 // post 등록 라우트
 router.post("/post", createPost);

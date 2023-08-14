@@ -20,8 +20,10 @@ import { useQuery } from "react-query";
 
 const fetchPost = async (postId) => {
   const { data } = await axios.get(
-    `http://localhost:4000/post/posts/${postId}`
+    `http://localhost:4000/post/detail/${postId}`,
+    { params: { id: postId }, withCredential: true }
   );
+
   console.log(data, "detaildata");
   return data;
 };
@@ -52,6 +54,16 @@ const PostDetail = (post) => {
       setLikes(likes + 1); // 좋아요 시, 숫자 증가
     }
   };
+  // 댓글 추가 기능
+  // input value, user 정보
+  // const handleCommentSubmit = async (id) => {
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:4000/comment/comments/",
+  //       {}
+  //     );
+  //   } catch (error) {}
+  // };
 
   const content = "여기에 본문 내용을 넣어주세요오오";
 
@@ -71,11 +83,10 @@ const PostDetail = (post) => {
           </StyledLikeIconWrapper>
           <CountContainer>
             <div className="like_count">
-              좋아요 <strong>{likes}</strong>개
+              좋아요 <strong>{postdata.likes}</strong>개
             </div>
-            {/* 이 부분은 코멘트 수를 나타낼 때 사용하실 수 있습니다. */}
             <Viewdiv className="comment_count">
-              댓글 <strong>{comments}</strong>개
+              댓글 <strong>{postdata.COMMENTs.length}</strong>개
             </Viewdiv>
           </CountContainer>
           <Text
@@ -90,7 +101,14 @@ const PostDetail = (post) => {
             {content.length > 10 && !expanded && <More>더보기</More>}
           </Text>
           <Comment_Box>
-            <div className="comment_content">댓글</div>
+            {postdata.COMMENTs.map(
+              (value) => (
+                <div className="comment_content">{value.comments_content}</div>
+              )
+              // console.log(value.comments_content)
+            )}
+            <input></input>
+            <button>입력</button>
           </Comment_Box>
         </ContentBox>
       </ContentWrapper>

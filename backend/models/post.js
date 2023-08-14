@@ -60,6 +60,10 @@ class POST extends Sequelize.Model {
       foreignKey: "HASH_TAG_ID",
       sourceKey: "id",
     });
+    db.POST.hasMany(db.COMMENTS, {
+      foreignKey: "post_primaryKey",
+      sourceKey: "id",
+    });
   }
 }
 
