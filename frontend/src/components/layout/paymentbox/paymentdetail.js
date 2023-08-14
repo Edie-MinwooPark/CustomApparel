@@ -4,27 +4,19 @@ import {
   getPaymentDetailinfo,
   getPaymenthistorydetails,
 } from "../../../features/paymentslice";
+import "./Paymentdetail.css"; // Import your CSS file for styling
 const Paymentdetail = () => {
   const dispatch = useDispatch();
-  const userdata = useSelector((state) => state.user.data);
+  const paymentdataHIS = useSelector((state) => state.payment.paymentdata);
   const [paymentdata, setPaymentdata] = useState(null);
-  const handlePaymentDetail = (indexToSpecific) => {
-    console.log(indexToSpecific);
-    console.log(paymentdata[indexToSpecific]);
-    const data2 = dispatch(
-      getPaymenthistorydetails(paymentdata[indexToSpecific])
-    );
-    console.log(data2);
-  };
+  const [selectedDetailIndex, setSelectedDetailIndex] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await dispatch(getPaymentDetailinfo());
-        console.log("useEffect", data);
-        console.log("useEffect", data.payload.Unique_payment_number);
         const paymentNumbers = data.payload.Unique_payment_number.split(",");
         setPaymentdata(paymentNumbers);
-        console.log("paymentdata", paymentNumbers);
       } catch (error) {
         console.error("오류", error);
       }
@@ -32,14 +24,38 @@ const Paymentdetail = () => {
     fetchData();
   }, [dispatch]);
 
+  useEffect(() => {
+    if (paymentdata) {
+      dispatch(getPaymenthistorydetails(paymentdata));
+    }
+  }, [paymentdata, dispatch]);
+
+  const handlePaymentDetail = (indexToSpecific) => {
+    setSelectedDetailIndex((prevIndex) =>
+      prevIndex === indexToSpecific ? null : indexToSpecific
+    );
+  };
+
   return (
     <div>
       <ul>
         {paymentdata &&
           paymentdata.map((element, index) => (
             <li key={index}>
-              {element}
-              <button onClick={() => handlePaymentDetail(index)}>Detail</button>
+              <button
+                className="details-button"
+                onClick={() => handlePaymentDetail(index)}
+              >
+                자세히보기
+              </button>
+              {paymentdataHIS[index].response.name}
+              {selectedDetailIndex === index && (
+                <div className="details">
+                  {paymentdataHIS[index].response.amount}
+                  {paymentdataHIS[index].response.name}
+                  {paymentdataHIS[index].response.status}
+                </div>
+              )}
             </li>
           ))}
       </ul>

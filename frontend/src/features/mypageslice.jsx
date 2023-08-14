@@ -8,6 +8,7 @@ export const getmypageinfo = createAsyncThunk("mypage/", async () => {
       withCredentials: true,
     });
     // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
+    console.log("getmypageinfo", response.data);
     return response.data;
   } catch (error) {
     console.log(error);

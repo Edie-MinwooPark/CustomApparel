@@ -3,17 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Payment from "../../layout/paymentbox";
 
 const Cart = () => {
-  const storedValue = JSON.parse(localStorage.getItem("tester")) || [];
-  const [selected, setSelected] = useState(storedValue);
   const userdata = useSelector((state) => state.mypage.data);
-
-  console.log(userdata);
+  const storedValue = JSON.parse(localStorage.getItem(userdata.user_id)) || [];
+  const [selected, setSelected] = useState(storedValue);
+  console.log("Cart", userdata);
   const handleRemoveItem = (indexToRemove) => {
     const updatedSelected = selected.filter(
       (_, index) => index !== indexToRemove
     );
     setSelected(updatedSelected);
-    localStorage.setItem("tester", JSON.stringify(updatedSelected));
+    localStorage.setItem(userdata.user_id, JSON.stringify(updatedSelected));
   };
 
   return (

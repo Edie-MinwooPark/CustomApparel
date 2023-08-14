@@ -20,7 +20,7 @@ const Payment = (props) => {
       console.log(value.intprice);
     }
 
-    if (props.productinfo.selected.length > 0) {
+    if (props.productinfo.selected.length > 1) {
       productName = `${props.productinfo.selected[0].name} 외 ${
         props.productinfo.selected.length - 1
       } 개`;
@@ -39,14 +39,14 @@ const Payment = (props) => {
     buyer_name: "홍길동", // 구매자 이름
     buyer_tel: "01012341234", // 구매자 전화번호
     buyer_email: "example@example", // 구매자 이메일
-    buyer_addr: "신사동 661-16", // 구매자 주소
+    buyer_addr: "경일아카데미", // 구매자 주소
     buyer_postcode: "06018", // 구매자 우편번호
   };
 
   function onClickPayment() {
     const { IMP } = window;
     IMP.init("imp84308847"); //발급받은 가맹점 식별코드를 사용합니다.
-    console.log("onClickPayment", paymentSucceededTime);
+    console.log("onClickPayment", paymentSucceededTime, data);
     IMP.request_pay(data, callback);
   }
   function callback(response) {
