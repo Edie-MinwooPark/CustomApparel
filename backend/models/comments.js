@@ -4,12 +4,21 @@ class COMMENTS extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
+        id: {
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+        },
         user_id: {
           type: Sequelize.STRING,
           allowNull: true,
         },
         comments_id: {
           type: Sequelize.STRING,
+          allowNull: true,
+        },
+        comments_content: {
+          type: Sequelize.TEXT,
           allowNull: true,
         },
       },
@@ -26,9 +35,12 @@ class COMMENTS extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.COMMENTS.belongsTo(db.POST, { foreignKey: "id", targetKey: "id" });
+    db.COMMENTS.belongsTo(db.POST, {
+      foreignKey: "post_primaryKey",
+      targetKey: "id",
+    });
     db.COMMENTS.hasMany(db.RECOMMENTS, {
-      foreignKey: "comments_id",
+      foreignKey: "recomment_id",
       sourceKey: "id",
     });
   }

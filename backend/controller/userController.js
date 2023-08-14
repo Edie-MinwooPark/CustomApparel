@@ -5,7 +5,6 @@ const dot = require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require("path");
-
 exports.signUp = async (req, res) => {
   try {
     console.log("This is reqbody", req.body.data);
@@ -41,6 +40,7 @@ exports.signUp = async (req, res) => {
 
 exports.login = async (req, res) => {
   console.log(req.body);
+  console.log(req);
   const { user_id, user_pw } = req.body;
   try {
     const user = await User.findOne({ where: { user_id } });
@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
       // });
       return res
         .status(200)
-        .json({ message: "로그인성공", token: req.session.access_token });
+        .json({ message: "로그인성공", token: req.session });
     } else {
       return res.status(400).json({ message: "로그인실패" });
     }

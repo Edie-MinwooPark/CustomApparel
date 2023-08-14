@@ -27,7 +27,7 @@ class RECOMMENTS extends Sequelize.Model {
   }
   static associate(db) {
     db.RECOMMENTS.belongsTo(db.COMMENTS, {
-      foreignKey: "comments_id",
+      foreignKey: "recomment_id",
       targetKey: "id",
     });
   }

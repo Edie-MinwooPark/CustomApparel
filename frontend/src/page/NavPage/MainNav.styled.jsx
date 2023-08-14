@@ -14,7 +14,7 @@ export const MainNavdiv = styled.div`
     padding: 0 40px;
     z-index: 100;
     background-color: white;
-    position: fixed;
+    /* position: fixed; */
     left: 0;
     top: 0;
   }

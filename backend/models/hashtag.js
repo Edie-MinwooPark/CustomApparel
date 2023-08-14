@@ -1,22 +1,15 @@
 const Sequelize = require("sequelize");
 
-class CART extends Sequelize.Model {
+class HASHTAG extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        user_id: {
+        hashtag: {
           type: Sequelize.STRING,
           allowNull: false,
+          unique: true,
         },
-        custom_img: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        price: {
-          type: Sequelize.STRING,
-          allowNull: true,
-        },
-        count: {
+        post_id: {
           type: Sequelize.STRING,
           allowNull: true,
         },
@@ -25,14 +18,20 @@ class CART extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: "CART",
-        tableName: "cart",
+        modelName: "HASHTAG",
+        tableName: "hashtag",
         paranoid: false,
         charset: "utf8",
         collate: "utf8_general_ci",
       }
     );
   }
+  static associate(db) {
+    db.HASHTAG.belongsTo(db.POST, {
+      foreignKey: "HASH_TAG_ID",
+      targetKey: "id",
+    });
+  }
 }
 
-module.exports = CART;
+module.exports = HASHTAG;

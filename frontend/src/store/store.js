@@ -3,7 +3,7 @@ import { userSlice } from "../features/mainslice";
 import { myPageSlice } from "../features/mypageslice";
 import { customSlice } from "../features/customslice";
 import { clothSlice } from "../features/clothslice";
-
+import { paymentSlice } from "../features/paymentslice";
 export const store = configureStore({
   reducer: {
     // 가게만들면서 메뉴판 전달
@@ -11,6 +11,7 @@ export const store = configureStore({
     mypage: myPageSlice.reducer,
     custom: customSlice.reducer,
     // 가게만들면서 메뉴판 전달
-    cloth : clothSlice.reducer,
+    cloth: clothSlice.reducer,
+    payment: paymentSlice.reducer,
   },
 });

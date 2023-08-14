@@ -29,9 +29,7 @@ class CLOSET extends Sequelize.Model {
       }
     );
   }
-  static assoiciate(db) {
-    db.CLOSET.belongsTo(db.POST, { foreignKey: "closet_id", targetKey: "id" });
-  }
+  static assoiciate(db) {}
 }
 
 module.exports = CLOSET;

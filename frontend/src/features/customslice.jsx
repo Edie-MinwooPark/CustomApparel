@@ -11,7 +11,8 @@ export const customSlice = createSlice({
         color: ["white", "red", "yellow", "green", "blue", "orange", "navy"],
         size: ["FREE", "M", "L", "XL", "2XL", "3XL"],
         price: "9,000",
-        cloth : "tshirt"
+        cloth : "tshirt",
+        intprice: 100,
       },
       {
         id: 2,
@@ -19,7 +20,8 @@ export const customSlice = createSlice({
         color: ["white", "red", "yellow", "green", "blue", "orange", "navy"],
         size: ["FREE", "M", "L", "XL", "2XL", "3XL"],
         price: "10,000",
-        cloth : "longsleeveshirt"
+        cloth : "longsleeveshirt",
+        intprice: 10000,
       },
       {
         id: 3,
@@ -27,7 +29,8 @@ export const customSlice = createSlice({
         color: ["white", "red", "yellow", "green", "blue", "orange", "navy"],
         size: ["FREE", "M", "L", "XL", "2XL", "3XL"],
         price: "11,000",
-        cloth : "onepiece"
+        cloth : "onepiece",
+        intprice: 11000,
       },
       {
         id: 4,
@@ -35,7 +38,8 @@ export const customSlice = createSlice({
         color: ["white", "red", "yellow", "green", "blue", "orange", "navy"],
         size: ["FREE", "M", "L", "XL", "2XL", "3XL"],
         price: "12,000",
-        cloth : "tanktop"
+        cloth : "tanktop",
+        intprice: 12000,
       },
     ],
   },

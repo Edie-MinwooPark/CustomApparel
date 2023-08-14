@@ -7,7 +7,7 @@ export const Mypage = () => {
   const dispatch = useDispatch();
   const image2 = useSelector((state) => state.mypage.data);
   const [Image, setImage] = useState("");
-
+  const [user_id, setuser_id] = useState("");
   useEffect(() => {
     // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
     const fetchData = async () => {
@@ -15,6 +15,7 @@ export const Mypage = () => {
       console.log(data);
 
       setImage(`${PROXY}/${data.payload.profile_img}`);
+      setuser_id(data.payload.user_id);
     };
     fetchData();
   }, [dispatch]);
@@ -42,6 +43,7 @@ export const Mypage = () => {
 
   return (
     <div>
+      <span>아이디:{user_id}</span>
       <img
         src={Image}
         style={{ width: "500px", margin: "20px" }}
