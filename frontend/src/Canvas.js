@@ -1,6 +1,6 @@
 import React from 'react'
 import { Canvas, useFrame } from "@react-three/fiber"
-import { OrbitControls, Center, useGLTF, Environment, AccumulativeShadows, RandomizedLight} from "@react-three/drei"
+import { OrbitControls, Center, useGLTF, Environment, AccumulativeShadows, RandomizedLight,Decal,useTexture, Text} from "@react-three/drei"
 import { useRef } from 'react'
 import { easing } from "maath"
 import * as THREE from 'three';
@@ -66,7 +66,8 @@ const CanvasApp = ({position = [0,10,400], fov =40,cloth2, product}) => {
 
 function Shirt (props) {
 
-
+  const texture = useTexture("instagram.png");
+  console.log(texture);
   const color = useSelector(state => state.cloth.clothColor);
   // const clothType = useSelector(state=> state.cloth.clothType);
 
@@ -76,37 +77,39 @@ function Shirt (props) {
     return (
       <group {...props} dispose={null}>
         <group rotation={[Math.PI / 2, 0, 0]} >
-          <mesh
+          {/* <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_4.geometry}
             material={materials.FABRIC_1_FRONT_4193}
             scale={0.3}
-          />
-          <mesh
+          /> */}
+          {/* <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_5.geometry}
             material={materials.FABRIC_1_FRONT_4193}
             scale={0.3}
 
-          />
+          /> */}
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_6.geometry}
             material={materials.FABRIC_1_FRONT_4193}
             scale={0.3}
-
-          />
-          <mesh
+          >
+            <Decal map={texture}
+            />
+          </mesh>
+          {/* <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_7.geometry}
             material={materials.FABRIC_1_FRONT_4193}
             scale={0.3}
 
-          />
+          /> */}
         </group>
       </group>
     );
@@ -161,7 +164,7 @@ function LongSleeveShirt(props){
           geometry={
             nodes["men-shirt_Cotton_50s_Poplin_FRONT_39668_0_1"].geometry
           }
-          material={materials.Cotton_50s_Poplin_FRONT_39668}
+          material={newMaterial}
           scale={2.3}
 
         />
@@ -171,7 +174,7 @@ function LongSleeveShirt(props){
           geometry={
             nodes["men-shirt_Cotton_50s_Poplin_FRONT_39668_0_2"].geometry
           }
-          material={materials.Cotton_50s_Poplin_FRONT_39668}
+          material={newMaterial}
           scale={2.3}
 
         />
@@ -181,7 +184,7 @@ function LongSleeveShirt(props){
           geometry={
             nodes["men-shirt_Cotton_50s_Poplin_FRONT_39668_0_3"].geometry
           }
-          material={materials.Cotton_50s_Poplin_FRONT_39668}
+          material={newMaterial}
           scale={2.3}
 
         />
@@ -189,7 +192,7 @@ function LongSleeveShirt(props){
           castShadow
           receiveShadow
           geometry={nodes["men-shirt_Material665021_0"].geometry}
-          material={materials.Material665021}
+          material={newMaterial}
           scale={2.3}
 
         />
@@ -197,7 +200,7 @@ function LongSleeveShirt(props){
           castShadow
           receiveShadow
           geometry={nodes["men-shirt_Material647667_0"].geometry}
-          material={materials.Material647667}
+          material={newMaterial}
           scale={2.3}
 
         />
@@ -205,7 +208,7 @@ function LongSleeveShirt(props){
           castShadow
           receiveShadow
           geometry={nodes["men-shirt_Material643570_0"].geometry}
-          material={materials.Material643570}
+          material={newMaterial}
           scale={2.3}
 
         />
@@ -213,7 +216,7 @@ function LongSleeveShirt(props){
           castShadow
           receiveShadow
           geometry={nodes["men-shirt_Material655120_0"].geometry}
-          material={materials.Material655120}
+          material={newMaterial}
           scale={2.3}
 
         />
@@ -249,14 +252,14 @@ function TankTop (props){
         castShadow
         receiveShadow
         geometry={nodes.Body_Back_Body_FRONT_1353552_0.geometry}
-        material={materials.Body_FRONT_1353552_0}
+        material={newMaterial}
         scale={3}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Body_Back_Body_FRONT_1353552_0_1.geometry}
-        material={materials.Body_FRONT_1353552_1}
+        material={newMaterial}
         scale={3}
       />
       <mesh
