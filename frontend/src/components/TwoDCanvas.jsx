@@ -12,8 +12,8 @@ const TwoDCanvas = () => {
 
     const ctx = canvasElement.getContext('2d');
     const backgroundImage = new Image();
-    backgroundImage.src = "https://image.toast.com/aaaaab/ticketlink/TKL_10/BigBanner_mo_%EC%82%BC%EC%B4%9D%EC%82%AC.jpg"
-
+    // backgroundImage.src = "https://image.toast.com/aaaaab/ticketlink/TKL_10/BigBanner_mo_%EC%82%BC%EC%B4%9D%EC%82%AC.jpg"
+      backgroundImage.src = "instagram.png"
     backgroundImage.onload = ()=>{
       console.log("?")
       ctx.drawImage(backgroundImage,0,0)
@@ -24,7 +24,7 @@ const TwoDCanvas = () => {
 
 
   return (
-    <canvas id='canvas' width='1000' height='500' ></canvas>
+    <canvas id='canvas' width='1000' height='800' ></canvas>
   )
 }
 
