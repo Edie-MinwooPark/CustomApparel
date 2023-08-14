@@ -7,6 +7,7 @@ const Loginform = () => {
 
   const [user_id, setUser_id] = useState("");
   const [user_pw, setUser_pw] = useState("");
+  const userdata = useSelector((state) => state.user.data);
 
   const handleIdInput = (e) => {
     console.log(e.target.value);
@@ -22,6 +23,9 @@ const Loginform = () => {
     console.log("로그인버튼");
     dispatch(trylogininfo({ user_id, user_pw }));
   };
+  useEffect(() => {
+    console.log("userdata", userdata);
+  }, [handleSubmit]);
   return (
     <div>
       <label htmlFor="user_id">아이디</label>

@@ -14,7 +14,7 @@ export const CustomWrap = styled.div`
   & .customMainWrap {
     box-sizing: border-box;
     width: 1400px;
-    height: 100%;
+    height: 900px;
     padding: 100px 0 0;
   }
   & .customMainWrap .customMain {

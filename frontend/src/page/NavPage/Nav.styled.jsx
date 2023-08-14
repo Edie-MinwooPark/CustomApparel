@@ -2,6 +2,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Navdiv = styled.div`
+  width: 100%;
+  height: auto;
+  /* position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000; */
   & .navContainer {
     margin-bottom: 20px;
     width: 1240px;

@@ -7,6 +7,8 @@ import MYpage from "./MYpage/MYpage";
 import PostList from "./POSTLISTpage/PostList";
 import PostInsert from "./POSTINSERTpage/PostInsert";
 import PayMent from "./PAYMENtPage/PayMent";
+import Cartp from "./CARTPage/Cartp";
+import PayMentDetail from "./PAYMENTDETAILPage/PayMentDetail";
 import PostDetail from "./POSTDETAILpage/PostDetail";
 import TestComponent from "./POSTDETAILpage/test";
 
@@ -20,6 +22,9 @@ export {
   Signup,
   Sign,
   MYpage,
+  PayMent,
+  Cartp,
+  PayMentDetail,
   PostList,
   PostInsert,
   PayMent,

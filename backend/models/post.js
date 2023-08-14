@@ -56,13 +56,17 @@ class POST extends Sequelize.Model {
     );
   }
   static associate(db) {
+    db.POST.hasMany(db.COMMENTS, {
+      foreignKey: "post_primaryKey",
+      sourceKey: "id",
+    });
     db.POST.hasMany(db.HASHTAG, {
       foreignKey: "HASH_TAG_ID",
       sourceKey: "id",
     });
-    db.POST.hasMany(db.COMMENTS, {
-      foreignKey: "post_primaryKey",
-      sourceKey: "id",
+    db.POST.belongsTo(db.USER, {
+      foreignKey: "callbyuser_id",
+      targetKey: "id",
     });
   }
 }

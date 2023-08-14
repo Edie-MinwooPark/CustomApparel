@@ -48,8 +48,8 @@ class USER extends Sequelize.Model {
       foreignKey: "callbyuser_id",
       sourceKey: "id",
     });
-    db.USER.hasMany(db.CART, {
-      foreignKey: "cart_id",
+    db.USER.hasMany(db.PAYMENTVIEW, {
+      foreignKey: "paymentview_id",
       sourceKey: "id",
     });
   }
