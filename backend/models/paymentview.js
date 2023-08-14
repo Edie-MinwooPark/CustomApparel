@@ -37,7 +37,12 @@ class PAYMENTVIEW extends Sequelize.Model {
       }
     );
   }
-  static associate(db) {}
+  static associate(db) {
+    db.PAYMENTVIEW.belongsTo(db.USER, {
+      foreignKey: "paymentview_id",
+      targetKey: "id",
+    });
+  }
 }
 
 module.exports = PAYMENTVIEW;

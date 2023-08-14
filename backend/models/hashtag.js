@@ -26,7 +26,12 @@ class HASHTAG extends Sequelize.Model {
       }
     );
   }
-  static associate(models) {}
+  static associate(db) {
+    db.HASHTAG.belongsTo(db.POST, {
+      foreignKey: "HASH_TAG_ID",
+      targetKey: "id",
+    });
+  }
 }
 
 module.exports = HASHTAG;
