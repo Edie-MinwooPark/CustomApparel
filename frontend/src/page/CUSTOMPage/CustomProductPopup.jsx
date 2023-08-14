@@ -2,7 +2,7 @@ import React from "react";
 import { PopupWrap, Closebtn } from "./CustomProductPopup.styled";
 import { useSelector,useDispatch } from "react-redux";
 import { clothType } from "../../features/clothslice";
-import Canvas from "../../Canvas"
+import Canvas from "../../components/Canvas"
 import { OrbitControls, Center, useGLTF, Environment, AccumulativeShadows, RandomizedLight} from "@react-three/drei"
 
 

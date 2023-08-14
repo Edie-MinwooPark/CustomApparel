@@ -10,7 +10,7 @@ import {
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
 import { useSelector, useDispatch } from "react-redux";
-import Canvas from "../../Canvas"
+import TwoDCanvas from "../../components/TwoDCanvas";
 import { clothColor } from "../../features/clothslice";
 
 const PROXY = process.env.REACT_APP_PROXY;
@@ -106,7 +106,7 @@ const Custom = () => {
       <CustomWrap>
         <div className="customMainWrap">
           <div className="customMain">
-            <Canvas />
+            <TwoDCanvas />
           </div>
         </div>
         {/* CustomSideWrap 부분 나중에 components로 이동 예정*/}
