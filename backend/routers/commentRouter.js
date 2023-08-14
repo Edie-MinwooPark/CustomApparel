@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { comment, recoment } = require("../controller/postController");
+const { comment, recoment } = require("../controller/commnetsController");
 
 // // 대댓글
 router.post("/recomments", recoment);

@@ -33,7 +33,9 @@ exports.getPostDetail = async (req, res) => {
       where: { id },
       include: [{ model: COMMENTS }],
     });
+    // console.log("post :", post);
     res.json(post);
+    // res.json();
   } catch (error) {
     console.error(error);
     return res.json({ error });

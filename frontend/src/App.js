@@ -23,7 +23,6 @@ import {
   Cartp,
   PayMentDetail,
 } from "../src/page/index";
-import Canvas from "./Canvas";
 
 export const PROXY = process.env.REACT_APP_PROXY;
 const queryClient = new QueryClient(); //axios react query 쓸때 사용

@@ -17,6 +17,7 @@ import axios from "axios";
 import { LikeIcon } from "../../components/layout/userbox";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
 
 const fetchPost = async (postId) => {
   const { data } = await axios.get(
@@ -34,10 +35,12 @@ const PostDetail = (post) => {
 
   const [likes, setLikes] = useState(post.likes || 0);
   const [comments, setComments] = useState(post.comments || 0); // 댓글
+  const [addComments, setAddComments] = useState(post.comments);
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
 
   const [expanded, setExpanded] = useState(false);
-
+  const user_info = useSelector((state) => state.mypage.data);
+  console.log("user_info", user_info);
   const { data: postdata, isLoading } = useQuery(["postDetail", postId], () =>
     fetchPost(postId)
   );
@@ -56,14 +59,23 @@ const PostDetail = (post) => {
   };
   // 댓글 추가 기능
   // input value, user 정보
-  // const handleCommentSubmit = async (id) => {
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:4000/comment/comments/",
-  //       {}
-  //     );
-  //   } catch (error) {}
-  // };
+  const handleCommentSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/comment/comments/",
+        {
+          user_id: user_info.user_id,
+          profile_img: user_info.profile_img,
+          addComments,
+          postId,
+        }
+      );
+    } catch (error) {}
+  };
+  const test = () => {
+    setAddComments(addComments);
+    console.log(addComments);
+  };
 
   const content = "여기에 본문 내용을 넣어주세요오오";
 
@@ -107,8 +119,8 @@ const PostDetail = (post) => {
               )
               // console.log(value.comments_content)
             )}
-            <input></input>
-            <button>입력</button>
+            <input onChange={(e) => setAddComments(e.target.value)}></input>
+            <button onClick={handleCommentSubmit}>입력</button>
           </Comment_Box>
         </ContentBox>
       </ContentWrapper>

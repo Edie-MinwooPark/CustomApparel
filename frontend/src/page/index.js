@@ -27,7 +27,6 @@ export {
   PayMentDetail,
   PostList,
   PostInsert,
-  PayMent,
   PostDetail,
   TestComponent,
 };
