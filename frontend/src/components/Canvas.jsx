@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import { easing } from "maath"
 import * as THREE from 'three';
 import { useSelector } from 'react-redux';
+import TwoDCanvas from "./TwoDCanvas"
 
 const CanvasApp = ({position = [0,10,400], fov =40,cloth2, product}) => {
 
