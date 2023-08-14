@@ -3,13 +3,15 @@ import React from "react";
 function Content({ post }) {
   console.log("connnn,post", post);
   // const hashTag = post.hash_tag;
-  const extractHashTags = (post) => {
-    const regex = /#([a-zA-Z0-9_]+)/g;
-    const matches = [...post.matchAll(regex)];
-    return matches.map((match) => match[1]); // # 를 제외한 해시태그만 추출
-  };
+  // const extractHashTags = (post) => {
+  //   if (typeof text !== "string") return [];
 
-  const hashtags = extractHashTags(post.content);
+  //   const regex = /#([a-zA-Z0-9_]+)/g;
+  //   const matches = [...post.matchAll(regex)];
+  //   return matches.map((match) => match[1]); // # 를 제외한 해시태그만 추출
+  // };
+
+  // const hashTags = typeof post === "string" ? extractHashTags(post) : [];
 
   return (
     <div>

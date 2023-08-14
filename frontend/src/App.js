@@ -39,7 +39,7 @@ const App = () => {
           <Route path="/payment" element={<PayMent />} />
           <Route path="/canvas" element={<Canvas />} />
           <Route path="/postinsert" element={<PostInsert />} />
-          <Route path="/postdetail" element={<PostDetail />} />
+          <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/test" element={<TestComponent />} />
         </Routes>
       </div>

@@ -13,14 +13,36 @@ import {
   More,
   Comment_Box,
 } from "./PostDetail.styled";
+import axios from "axios";
 import { LikeIcon } from "../../components/layout/userbox";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+
+const fetchPost = async (postId) => {
+  const { data } = await axios.get(
+    `http://localhost:4000/post/posts/${postId}`
+  );
+  console.log(data, "detaildata");
+  return data;
+};
+// 이제 상세게시글 데이터만 뿌려주면 됨
 
 const PostDetail = (post) => {
+  const { postId } = useParams(); // URL로부터 postId 가져오기
+
   const [likes, setLikes] = useState(post.likes || 0);
   const [comments, setComments] = useState(post.comments || 0); // 댓글
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
 
   const [expanded, setExpanded] = useState(false);
+
+  const { data: postdata, isLoading } = useQuery(["postDetail", postId], () =>
+    fetchPost(postId)
+  );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const handleLike = () => {
     setIsLiked(!isLiked); // 좋아요 상태 토글

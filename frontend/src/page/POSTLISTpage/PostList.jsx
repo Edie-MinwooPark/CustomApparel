@@ -6,6 +6,7 @@ import Masonry from "react-masonry-css";
 import Nav from "../NavPage/Nav";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 
 const fetchPost = async () => {
   const { data } = await axios.get("http://localhost:4000/post/posts");
@@ -37,7 +38,9 @@ function PostList() {
           columnClassName="my-masonry-grid_column"
         >
           {posts.map((post) => (
-            <CardComponent post={post} key={post.user_id}></CardComponent>
+            <Link to={`/posts/${post.id}`} key={post.user_id}>
+              <CardComponent post={post}></CardComponent>
+            </Link>
           ))}
         </Masonry>
       </Container>
