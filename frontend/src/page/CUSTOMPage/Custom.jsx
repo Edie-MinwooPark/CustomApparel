@@ -9,9 +9,9 @@ import {
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
 import { useSelector, useDispatch } from "react-redux";
-import Canvas from "../../Canvas";
+import CanvasComponent from "../../Canvas";
 import { clothColor } from "../../features/clothslice";
-import domtoimage from "dom-to-image";
+
 import html2canvas from "html2canvas";
 
 const PROXY = process.env.REACT_APP_PROXY;
@@ -32,6 +32,8 @@ const Custom = () => {
   const [size, setSize] = useState("M");
   const [selectsize, setSelectsize] = useState("FREE");
   const [selectNum, setSelectNum] = useState(0);
+  const [shouldCapture, setShouldCapture] = useState(false);
+  const [gl, setGl] = useState(null);
   const dispatch = useDispatch();
   const colors = useSelector((state) => state.cloth.clothColor);
 
@@ -42,34 +44,16 @@ const Custom = () => {
   // 로그인된 아이디를 가져옴
   const getUserId = useSelector((state) => state.mypage.data);
 
-  // canvas에 있는 티셔츠 이미지를 받을 공간
-  const divRef = useRef(null);
+  const captureRef = useRef();
 
-  // canvas에 있는 이미지를 받음
-  const handleDownload = () => {
-    const targetDiv = divRef.current;
-    const canvas = targetDiv.querySelector("canvas"); // Canvas 요소에 대한 참조를 가져옵니다.
-    if (!targetDiv || !canvas) return;
-
-    // Canvas의 내용을 이미지로 변환
-    const canvasImage = canvas.toDataURL("image/png");
-    const imgElement = document.createElement("img");
-    imgElement.src = canvasImage;
-    targetDiv.appendChild(imgElement); // 변환된 이미지를 div에 삽입
-
-    // 변환된 이미지가 포함된 div를 캡쳐
-    html2canvas(targetDiv).then((capturedCanvas) => {
-      const imageUrl = capturedCanvas.toDataURL("image/png");
-      const downloadLink = document.createElement("a");
-      downloadLink.href = imageUrl;
-      downloadLink.download = "screenshot.png";
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-
-      // 캡쳐가 완료된 후 삽입한 이미지 요소를 제거
-      targetDiv.removeChild(imgElement);
-    });
+  const handleCapture = () => {
+    if (gl) {
+      const imgData = gl.domElement.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = imgData;
+      link.download = "screenshot.png";
+      link.click();
+    }
   };
 
   // 팝업창 크고 켜기
@@ -173,9 +157,10 @@ const Custom = () => {
       <Nav />
       <CustomWrap>
         <div className="customMainWrap">
-          <div className="customMain" ref={divRef}>
-            <Canvas />
+          <div className="customMain" ref={captureRef}>
+            <CanvasComponent setGl={setGl} />
           </div>
+          <button onClick={handleCapture}>Capture Screenshot</button>
         </div>
         {/* CustomSideWrap 부분 나중에 components로 이동 예정*/}
         <CustomSideWrap>
@@ -196,11 +181,9 @@ const Custom = () => {
                   </div>
                   <span>DECALS</span>
                 </div>
-                <div className="imageWrap" onClick={handleDownload}>
-                  <div className="addImageBtn">
-                    <img src={`${PROXY}/img/smile.png`} />
-                  </div>
-                  <span>DOWNLOAD</span>
+                <div className="imageWrap">
+                  {/*  */}
+                  <button onClick={handleCapture}>Capture</button>
                 </div>
               </div>
             </div>

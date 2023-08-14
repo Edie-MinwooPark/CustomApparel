@@ -1,5 +1,5 @@
-import React from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
   Center,
@@ -13,23 +13,36 @@ import { easing } from "maath";
 import * as THREE from "three";
 import { useSelector } from "react-redux";
 
-const CanvasApp = ({ position = [0, 10, 70], fov = 40 }) => (
-  <Canvas
-    shadows
-    camera={{ position, fov }}
-    eventSource={document.getElementById("root")}
-    eventPrefix="client"
-  >
-    <ambientLight intensity={0.5} />
-    <Environment preset="city" />
-    {/* <CameraRig> */}
-    <Center>
-      <Shirt />
-      {/* <Backdrop /> */}
-    </Center>
-    {/* </CameraRig> */}
-  </Canvas>
-);
+const CanvasContent = ({ setGl }) => {
+  const { gl } = useThree();
+
+  useEffect(() => {
+    if (setGl) {
+      setGl(gl);
+    }
+  }, [gl, setGl]);
+
+  return null; // This component doesn't render anything visible.
+};
+
+const CanvasApp = ({ position = [0, 10, 70], fov = 40, setGl }) => {
+  return (
+    <Canvas
+      gl={{ preserveDrawingBuffer: true }}
+      shadows
+      camera={{ position, fov }}
+      eventSource={document.getElementById("root")}
+      eventPrefix="client"
+    >
+      <ambientLight intensity={0.5} />
+      <Environment preset="city" />
+      <CanvasContent setGl={setGl} />
+      <Center>
+        <Shirt />
+      </Center>
+    </Canvas>
+  );
+};
 
 function Shirt(props) {
   const color = useSelector((state) => state.cloth.clothColor);
