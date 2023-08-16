@@ -9,6 +9,8 @@ const axios = require("axios");
 const userRouter = require("./routers/userRouter");
 const mypageRouter = require("./routers/mypageRouter");
 const paymentRouter = require("./routers/paymentRouter");
+const postRouter = require("./routers/postRouter");
+const commentRouter = require("./routers/commentRouter");
 const PORT = process.env.PORT;
 const { payment, payments } = require("./controller/paymentController");
 // 1. axios 전역 설정
@@ -42,6 +44,8 @@ app.use(
 app.use(express.json());
 app.use("/mypage", mypageRouter);
 app.use("/user", userRouter);
+app.use("/post", postRouter);
+app.use("/comment", commentRouter);
 app.use("/payment", paymentRouter);
 
 const server = app.listen(PORT, () => {

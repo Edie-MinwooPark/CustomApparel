@@ -13,7 +13,6 @@ export const PopupWrap = styled.div`
   align-items: center;
   & .popupContainer {
     box-sizing: border-box;
-    width: 900px;
     height: 800px;
     background-color: white;
     border-radius: 20px;

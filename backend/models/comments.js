@@ -21,6 +21,10 @@ class COMMENTS extends Sequelize.Model {
           type: Sequelize.TEXT,
           allowNull: true,
         },
+        profile_img: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
       },
       {
         sequelize,

@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 export const Navdiv = styled.div`
   width: 100%;
   height: auto;
-  /* position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 10000; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   & .navContainer {
-    margin: 0 auto;
-    width: 1280px;
+    margin-bottom: 20px;
+    width: 1240px;
     height: 100px;
     border: 1px solid;
     box-sizing: border-box;
