@@ -14,8 +14,8 @@ exports.signUp = async (req, res) => {
 
     const user = await User.findOne({ where: { user_id } });
     if (user != null) {
-      console.log("Duplicate entry blocked");
-      return res.send("Prevent duplicate member registration");
+      console.log("중복가입방지");
+      return res.send("중복된 유저가 있어 가입을 방지했습니다.");
     }
 
     const hash = bcrypt.hashSync(user_pw, 10);
