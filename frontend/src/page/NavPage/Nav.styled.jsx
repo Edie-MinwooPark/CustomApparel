@@ -9,8 +9,8 @@ export const Navdiv = styled.div`
   top: 0;
   z-index: 10000; */
   & .navContainer {
-    margin: 0 auto;
-    width: 1280px;
+    margin-bottom: 20px;
+    width: 1240px;
     height: 100px;
     border: 1px solid;
     box-sizing: border-box;
