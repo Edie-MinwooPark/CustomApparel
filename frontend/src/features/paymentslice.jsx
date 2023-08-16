@@ -11,7 +11,7 @@ export const getPaymentDetailinfo = createAsyncThunk("payment/", async () => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("getPaymentDetailinfo", error);
   }
 });
 export const getPaymenthistorydetails = createAsyncThunk(

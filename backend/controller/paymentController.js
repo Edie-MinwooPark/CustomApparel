@@ -57,7 +57,7 @@ exports.paymentdetail = async (req, res) => {
   }
 };
 
-exports.Paymenthistorydetails = async (req, res) => {
+exports.paymenthistorydetails = async (req, res) => {
   console.log("Paymenthistorydetails", req.specificValue.response.access_token);
   console.log("Paymenthistorydetails,", req.body.array);
   let token = req.specificValue.response.access_token;
