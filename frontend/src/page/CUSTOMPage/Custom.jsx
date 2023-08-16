@@ -160,7 +160,8 @@ const Custom = () => {
       <CustomWrap>
         <div className="customMainWrap">
           <div className="customMain" ref={captureRef}>
-            <CanvasComponent setGl={setGl} />
+            <TwoDCanvas></TwoDCanvas>
+            {/* <CanvasComponent setGl={setGl} /> */}
           </div>
           <button onClick={handleCapture}>Capture Screenshot</button>
         </div>
