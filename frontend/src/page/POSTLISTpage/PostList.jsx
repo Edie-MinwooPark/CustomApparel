@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "./PostList.styled";
-import CardComponent from "../../components/layout/card";
+import CardComponent from "../../components/layout/card";
 // import Button from "react-bootstrap/Button";
 import Masonry from "react-masonry-css";
 import Nav from "../NavPage/Nav";
