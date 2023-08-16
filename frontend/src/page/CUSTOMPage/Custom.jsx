@@ -47,13 +47,15 @@ const Custom = () => {
   const captureRef = useRef();
 
   const handleCapture = () => {
-    if (gl) {
-      const imgData = gl.domElement.toDataURL("image/png");
+    const canvasElement = document.querySelector(".customMain");
+
+    html2canvas(canvasElement).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = imgData;
       link.download = "screenshot.png";
       link.click();
-    }
+    });
   };
 
   // 팝업창 크고 켜기
@@ -152,7 +154,7 @@ const Custom = () => {
         <CustomProductPopup
           handleProduct={handleProduct}
           num={{ selectNum, setSelectNum }}
-          product = {product}
+          product={product}
         />
       ) : null}
       {decals ? <CustomDecalsPopup data={handleDecals} /> : null}
@@ -163,7 +165,6 @@ const Custom = () => {
             <TwoDCanvas></TwoDCanvas>
             {/* <CanvasComponent setGl={setGl} /> */}
           </div>
-          <button onClick={handleCapture}>Capture Screenshot</button>
         </div>
         {/* CustomSideWrap 부분 나중에 components로 이동 예정*/}
         <CustomSideWrap>
