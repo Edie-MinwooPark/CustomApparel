@@ -8,7 +8,7 @@ import {
   StyledUploadTime,
   FollowButton,
 } from "./styled";
-import proImg from "/Users/yoodonghee/Desktop/nike/frontend/src/components/layout/userstate/5.jpeg";
+import proImg from "./5.jpeg";
 
 const UserState = ({ userProfileImage, userName, uploadTime }) => {
   const userImg = proImg;
