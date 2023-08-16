@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const db = require("../models");
 const POST = db.POST;
 const COMMENTS = db.COMMENTS;
@@ -42,40 +43,6 @@ exports.getPostDetail = async (req, res) => {
   }
 };
 
-// // 상세 - 댓글 추가해주는 함수
-// exports.postComment = async (req, res) => {
-//   // const { id } = req.params;
-//   const user_id = 1;
-//   const { comment_id, comment_content } = req.body;
-//   try {
-//     const comment = await COMMENTS.create({
-//       user_id,
-//       comment_id,
-//       comment_content,
-//     });
-//     res.json(comment);
-//   } catch (error) {
-//     console.log(error);
-//     return res.json({ error });
-//   }
-// };
-
-// // 대댓글
-// exports.postRecoment = async (req, res) => {
-//   const user_id = 1; // 임시 user_id
-//   const { comment_id, comment_content } = req.body;
-//   try {
-//     const recomment = await RECOMMENTS.create({
-//       user_id,
-//       comment_id,
-//       comment_content,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res.json({ error });
-//   }
-// };
-
 // post 등록하는 함수
 exports.createPost = async (req, res) => {
   const { title, content, hash_tag } = req.body;
@@ -85,5 +52,27 @@ exports.createPost = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.json({ error });
+  }
+};
+
+// 좋아요 업데이트
+exports.postLikes = async (req, res) => {
+  // const { id } = req.body;
+  // const user_id = 123;
+  console.log(req.body);
+  const { likes: likeValue, post_title, post_content } = req.body;
+  try {
+    // const existingLikes = await POST.findAll(where:{
+
+    // })
+    const updatedLikes = await POST.update({
+      likes: likeValue,
+      post_title,
+      post_content,
+    });
+    res.json({ data: updatedLikes, success: true });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, error: error.message });
   }
 };

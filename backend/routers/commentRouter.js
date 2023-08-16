@@ -1,5 +1,12 @@
 const router = require("express").Router();
-const { comment, recoment } = require("../controller/commnetsController");
+const {
+  comment,
+  recoment,
+  getComments,
+} = require("../controller/commnetsController");
+
+// 댓글 보여주기
+router.get("/comments/:postId", getComments);
 
 // // 대댓글
 router.post("/recomments", recoment);

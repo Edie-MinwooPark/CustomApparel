@@ -1,5 +1,6 @@
 const db = require("../models");
 const COMMENTS = db.COMMENTS;
+const RECOMMENTS = db.RECOMMENTS;
 
 // 상세 - 댓글 추가해주는 함수
 exports.comment = async (req, res) => {
@@ -15,7 +16,7 @@ exports.comment = async (req, res) => {
       profile_img,
       post_primaryKey: postId,
     });
-    res.json(comment);
+    res.json({ success: true, comment });
   } catch (error) {
     console.log(error);
     return res.json({ error });
@@ -36,5 +37,19 @@ exports.recoment = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.json({ error });
+  }
+};
+
+exports.getComments = async (req, res) => {
+  const { postId } = req.params;
+  try {
+    const comments = await COMMENTS.findAll({
+      where: { post_primaryKey: postId },
+      order: [["createdAt"]],
+    });
+    res.json({ success: true, comments });
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
   }
 };
