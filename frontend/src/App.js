@@ -17,8 +17,7 @@ import {
   Cartp,
   PayMentDetail,
 } from "../src/page/index";
-import Canvas from "./Canvas";
-
+import KonvaCanvas from "./components/KonvaCanvas"
 export const PROXY = process.env.REACT_APP_PROXY;
 
 const App = () => {
@@ -33,7 +32,7 @@ const App = () => {
         <Route path="/nav" element={<Nav />} />
         <Route path="/mypage" element={<MYpage />} />
         <Route path="/payment" element={<PayMent />} />
-        <Route path="/canvas" element={<Canvas />} />
+        <Route path="/konva" element={<KonvaCanvas />} />
         <Route path="/cartp" element={<Cartp />} />
         <Route path="/paymentdetail" element={<PayMentDetail />} />
       </Routes>

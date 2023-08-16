@@ -7,6 +7,10 @@ const TwoDCanvas = () => {
   const clothType = useSelector(state => state.cloth.clothType);
   const clothColor = useSelector(state=>state.cloth.clothColor);
   const [canvas, setCanvas] = useState(null);
+  const innerCanvas = document.createElement("canvas");
+  innerCanvas.width = 200;
+  innerCanvas.height = 200; 
+  innerCanvas.border = '1px solid red'
 
   // 색상 필터 적용 함수
   const applyColorFilter = (data, redAdjustment, greenMultiplier, blueMultiplier) => {
@@ -32,7 +36,7 @@ const TwoDCanvas = () => {
     backgroundImage.src = `${clothType}.png`;
     backgroundImage.onload = () => {
       ctx.drawImage(backgroundImage, 200, 0, 780, 750);
-
+      ctx.drawImage(innerCanvas,100,100);
       // 이미지 데이터 가져오기
       const imageData = ctx.getImageData(200, 0, 780, 750);
       const data = imageData.data;
