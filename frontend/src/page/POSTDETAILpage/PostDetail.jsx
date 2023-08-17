@@ -39,72 +39,69 @@ const PostDetail = (post) => {
     return data.comments;
   };
 
-  const [comments, setComments] = useState(post.comments || 0); // 댓글 갯수
   const [likes, setLikes] = useState(post.likes || 0);
   const [addComments, setAddComments] = useState(post.comments); // 댓글
 
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
   const [expanded, setExpanded] = useState(false);
   const user_info = useSelector((state) => state.mypage.data);
-  console.log("user_info", user_info);
-
   const { postId } = useParams(); // URL로부터 postId 가져오기
-  const { data: postdata, isLoading } = useQuery(
-    ["postDetail", postId],
-    () => fetchPost(postId),
-    {
-      onSuccess: (e) => setCommentsList(e.COMMENTs),
-    }
-  );
+  const {
+    data: postdata,
+    isLoading,
+    refetch,
+  } = useQuery(["postDetail", postId], () => fetchPost(postId), {
+    onSuccess: (e) => setCommentsList(e.COMMENTs),
+  });
+
   useEffect(() => {
+    if (!user_info || !postdata) return;
+
     let likesData = JSON.parse(postdata.likes);
+    console.log("user_info :", user_info);
     const likeUser = likesData.find((value) => value == user_info.id);
 
     if (likeUser) {
-      setIsLiked(!isLiked);
-      setLikes(isLiked ? likes - 1 : likes + 1);
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
     }
-  }, []);
-
-  // 댓글 목록을 저장하는 상태
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  // const { data: commentsData, isLoading: commentsLoading } = useQuery(
-  //   ["postComments", postId],
-  //   () => fetchComments(postId)
-  // );
-
-  // if (commentsLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // console.log("data?", data);
+  }, [postdata, user_info]);
 
   const handleLike = async () => {
     try {
+      if (isLoading) {
+        return;
+      }
+
       let likesData = JSON.parse(postdata.likes);
       const likeUser = likesData.find((value) => value == user_info.id);
 
-      //   const response = await axios.post(
-      //     "http://localhost:4000/post/postLikes/",
-      //     {
-      //       likes: user_info.id,
-      //       post_id : postId
-      //       // post_title: postdata.post_title,
-      //       // post_content: postdata.post_content,
-      //     }
-      //   );
-      if (likeUser) {
-        setIsLiked(!isLiked);
-        setLikes(isLiked ? likes - 1 : likes + 1);
+      let url = "http://localhost:4000/post/postLikes/";
+      let action = likeUser ? "unlike" : "like"; // like 또는 unlike를 결정
+
+      const response = await axios.post(url, {
+        action: action, // 서버에서 이 action을 확인하여 좋아요 추가 또는 취소 처리
+        user_id: user_info.id,
+        post_id: postId,
+        post_title: postdata.post_title,
+        post_content: postdata.post_content,
+      });
+
+      if (response.data.success) {
+        console.log("여기까진 오니?");
+        setIsLiked((prevState) => !prevState);
+        setLikes((prevLikes, prevState) =>
+          prevState ? prevLikes - 1 : prevLikes + 1
+        );
+        refetch();
       }
     } catch (error) {
       console.error("Failed to toggle like", error);
     }
   };
+
   // 댓글 추가 기능
-  // input value, user 정보
   const handleCommentSubmit = async () => {
     try {
       const response = await axios.post(
@@ -126,18 +123,16 @@ const PostDetail = (post) => {
       console.log("댓글 추가 실패", error);
     }
   };
-  // const test = () => {
-  //   setAddComments(addComments);
-  //   console.log(addComments);
-  // };
-
-  const content = "여기에 본문 내용을 넣어주세요오오";
+  // 댓글 목록을 저장하는 상태
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <Nav />
       <ContentWrapper>
-        <UserState />
+        {isLoading ? <UserState user_info={user_info} /> : null}
         <ImageBox />
         <ContentBox>
           <StyledLikeIconWrapper
@@ -158,13 +153,20 @@ const PostDetail = (post) => {
           <Text
             expanded={expanded}
             onClick={() =>
-              content.length > 10 && !expanded && setExpanded(true)
+              postdata.post_content.length > 10 &&
+              !expanded &&
+              setExpanded(true)
             }
           >
             <Text_Span expanded={expanded}>
-              {content.slice(0, expanded ? content.length : 10)}
+              {postdata.post_content.slice(
+                0,
+                expanded ? postdata.post_content.length : 10
+              )}
             </Text_Span>
-            {content.length > 10 && !expanded && <More>더보기</More>}
+            {postdata.post_content.length > 10 && !expanded && (
+              <More>더보기</More>
+            )}
           </Text>
           <Comment_Box>
             {commentsList &&

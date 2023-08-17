@@ -55,24 +55,39 @@ exports.createPost = async (req, res) => {
   }
 };
 
-// 좋아요 업데이트
 exports.postLikes = async (req, res) => {
-  // const { id } = req.body;
-  // const user_id = 123;
-  console.log(req.body);
-  const { likes: likeValue, post_title, post_content } = req.body;
   try {
-    // const existingLikes = await POST.findAll(where:{
+    const { action, user_id, post_id, post_title, post_content } = req.body;
 
-    // })
-    const updatedLikes = await POST.update({
-      likes: likeValue,
-      post_title,
-      post_content,
+    // 특정 게시글을 찾습니다.
+    const post = await POST.findOne({ where: { id: post_id } });
+
+    if (!post) {
+      return res.json({ success: false, message: "Post not found" });
+    }
+
+    let likesArray = JSON.parse(post.likes) || []; // likes를 배열로 파싱
+
+    if (action === "like") {
+      // 중복 좋아요 방지
+      if (!likesArray.includes(user_id)) {
+        likesArray.push(user_id);
+      }
+    } else if (action === "unlike") {
+      // 사용자 ID를 배열에서 제거
+      likesArray = likesArray.filter((id) => id !== user_id);
+    }
+
+    // 좋아요 목록을 업데이트
+    await post.update({
+      likes: JSON.stringify(likesArray),
+      post_title: post_title, // 이 부분은 필요한지 재확인이 필요합니다.
+      post_content: post_content, // 이 부분은 필요한지 재확인이 필요합니다.
     });
-    res.json({ data: updatedLikes, success: true });
+
+    res.json({ success: true });
   } catch (error) {
-    console.log(error);
+    console.log("에러럴", error);
     res.json({ success: false, error: error.message });
   }
 };

@@ -5,21 +5,22 @@ import { getmypageinfo } from "../../features/mypageslice";
 
 const Nav = () => {
   const dispatch = useDispatch();
-  const [userloginstate, setuserloginstate] = useState(false);
-  useEffect(() => {
-    // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
-    const fetchData = async () => {
-      const data = await dispatch(getmypageinfo());
-      console.log(data);
-      console.log(
-        data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
-      );
-      setuserloginstate(
-        data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
-      );
-    };
-    fetchData();
-  }, [dispatch]);
+  // const [userloginstate, setuserloginstate] = useState(false);
+  // useEffect(() => {
+  //   // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
+  //   const fetchData = async () => {
+  //     const data = await dispatch(getmypageinfo());
+  //     console.log(data);
+  //     console.log(
+  //       data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
+  //     );
+  //     setuserloginstate(
+  //       data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
+  //     );
+  //   };
+  //   fetchData();
+  // }, [dispatch]);
+  dispatch(getmypageinfo());
   return (
     <Navdiv>
       <div className="navContainer">
@@ -37,7 +38,8 @@ const Nav = () => {
               <NavLink to={"/photo"}> PHOTO</NavLink>
             </li>
             <li>
-              <NavLink to={"/login"}> {userloginstate}</NavLink>
+              {/* <NavLink to={"/login"}> {userloginstate}</NavLink> */}
+              <NavLink to={"/login"}> login</NavLink>
             </li>
             <li>
               <NavLink to={"/signup"}> SIGNUP</NavLink>
