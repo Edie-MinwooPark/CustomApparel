@@ -11,6 +11,7 @@ import Cartp from "./CARTPage/Cartp";
 import PayMentDetail from "./PAYMENTDETAILPage/PayMentDetail";
 import PostDetail from "./POSTDETAILpage/PostDetail";
 import TestComponent from "./POSTDETAILpage/test";
+import Admin from "./AdminPage/Admin";
 
 import { Sign } from "../components/index";
 
@@ -29,4 +30,5 @@ export {
   PostInsert,
   PostDetail,
   TestComponent,
+  Admin,
 };

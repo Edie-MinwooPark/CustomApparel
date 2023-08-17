@@ -23,6 +23,7 @@ import {
   TestComponent,
   Cartp,
   PayMentDetail,
+  Admin,
 } from "../src/page/index";
 import { useDispatch } from "react-redux";
 
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/postinsert" element={<PostInsert />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/test" element={<TestComponent />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </QueryClientProvider>

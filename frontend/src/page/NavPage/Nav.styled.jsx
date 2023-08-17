@@ -11,7 +11,7 @@ export const Navdiv = styled.div`
     margin-bottom: 20px;
     width: 1240px;
     height: 100px;
-    border: 1px solid;
+    /* border: 1px solid; */
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
