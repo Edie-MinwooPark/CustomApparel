@@ -2,6 +2,7 @@ const { where } = require("sequelize");
 const db = require("../models");
 const POST = db.POST;
 const COMMENTS = db.COMMENTS;
+const RECOMMENTS = db.RECOMMENTS;
 
 // 전체 post 목록 반환하는 함수
 exports.getAllPosts = async (req, res) => {
@@ -32,7 +33,7 @@ exports.getPostDetail = async (req, res) => {
   try {
     const post = await POST.findOne({
       where: { id },
-      include: [{ model: COMMENTS }],
+      include: [{ model: COMMENTS, include: [{ model: RECOMMENTS }] }],
     });
     // console.log("post :", post);
     res.json(post);

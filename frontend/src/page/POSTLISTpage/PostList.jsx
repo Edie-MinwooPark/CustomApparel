@@ -12,6 +12,7 @@ const fetchPost = async () => {
   const { data } = await axios.get("http://localhost:4000/post/posts");
   // const { userdata } = await axios.get("http://localhost:4000/user/viewUser");
   // console.log("받은데이터", userdata);
+  console.log(data);
   return data;
 };
 
@@ -38,7 +39,11 @@ function PostList() {
           columnClassName="my-masonry-grid_column"
         >
           {posts.map((post) => (
-            <Link to={`/posts/${post.id}`} key={post.user_id}>
+            <Link
+              to={`/posts/${post.id}`}
+              // state={{ post: post }}
+              key={post.user_id}
+            >
               <CardComponent post={post}></CardComponent>
             </Link>
           ))}

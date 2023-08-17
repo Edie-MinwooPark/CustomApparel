@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useState, useEffect } from "react";
 import Main from "./page/MainPage/Main";
 import {
   Route,
@@ -23,6 +24,7 @@ import {
   Cartp,
   PayMentDetail,
 } from "../src/page/index";
+import { useDispatch } from "react-redux";
 
 export const PROXY = process.env.REACT_APP_PROXY;
 const queryClient = new QueryClient(); //axios react query 쓸때 사용
