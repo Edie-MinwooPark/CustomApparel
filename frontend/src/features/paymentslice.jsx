@@ -11,23 +11,23 @@ export const getPaymentDetailinfo = createAsyncThunk("payment/", async () => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("getPaymentDetailinfo", error);
   }
 });
 export const getPaymenthistorydetails = createAsyncThunk(
   "payment/paymenthistorydetails",
   async (data) => {
     try {
-      console.log("Paymenthistorydetails slice에 접근함");
+      console.log("Paymenthistorydetails slice에 접근함", data);
       const response = await axios.post(
         `${PROXY}/payment/paymenthistorydetails`,
-        { imp_uid: data },
+        { array: data },
         {
           withCredentials: true,
         }
       );
       // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
-      console.log(response.data);
+      console.log("getPaymenthistorydetails", response.data);
       return response.data;
     } catch (error) {
       console.log("Paymenthistorydetails", error);
@@ -60,12 +60,16 @@ export const paymentSlice = createSlice({
   name: "payment",
   initialState: {
     data: null,
+    paymentdata: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     // 비동기 액션의 성공 시 상태 업데이트
     builder.addCase(getPaymentDetailinfo.fulfilled, (state, action) => {
       state.data = action.payload;
+    });
+    builder.addCase(getPaymenthistorydetails.fulfilled, (state, action) => {
+      state.paymentdata = action.payload;
     });
   },
 });

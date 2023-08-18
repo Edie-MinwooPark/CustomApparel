@@ -4,7 +4,6 @@ import { Sign } from "../index";
 const Signup = () => {
   return (
     <div>
-      Signup
       <Sign />
     </div>
   );

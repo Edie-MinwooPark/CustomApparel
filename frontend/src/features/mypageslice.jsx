@@ -8,6 +8,58 @@ export const getmypageinfo = createAsyncThunk("mypage/", async () => {
       withCredentials: true,
     });
     // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
+    console.log("getmypageinfo", response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const updateuserpw = createAsyncThunk("mypage/", async (data) => {
+  try {
+    const response = await axios.post(
+      `${PROXY}/mypage/updateuserpw`,
+      { pw: data },
+      {
+        withCredentials: true,
+      }
+    );
+    // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
+    console.log("updateuserpw", response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const updateusernick = createAsyncThunk("mypage/", async (data) => {
+  try {
+    const response = await axios.post(
+      `${PROXY}/mypage/updateusernick`,
+      { nick: data },
+      {
+        withCredentials: true,
+      }
+    );
+    // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
+    console.log("updateusernick", response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const imgUpdate = createAsyncThunk("mypage/imgUpdate", async (form) => {
+  try {
+    console.log("imgUpdate", form);
+    const response = await axios.post(`${PROXY}/mypage/imgUpdate`, form, {
+      headers: {
+        "Content-Type": "multipart/form-data; charset=utf-8",
+      },
+      withCredentials: true,
+    });
+    // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
+    console.log("imgUpdate", response.data);
     return response.data;
   } catch (error) {
     console.log(error);

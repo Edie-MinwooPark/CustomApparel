@@ -57,25 +57,39 @@ exports.paymentdetail = async (req, res) => {
   }
 };
 
-exports.Paymenthistorydetails = async (req, res) => {
+exports.paymenthistorydetails = async (req, res) => {
   console.log("Paymenthistorydetails", req.specificValue.response.access_token);
-  console.log("Paymenthistorydetails,", req.body);
-  let imp_uid = req.body.imp_uid.trim();
+  console.log("Paymenthistorydetails,", req.body.array);
   let token = req.specificValue.response.access_token;
-  console.log("token", token);
-
-  const url = `https://api.iamport.kr/payments/${imp_uid}?_token=${token}`;
-
-  try {
-    const response = await axios.get(url, {
-      withCredentials: true,
-    });
-    console.log("Paymenthistorydetails", response.data);
-    res.status(200).json(response.data);
-  } catch (error) {
-    console.log("paymentdetails 에러");
-    console.log(error);
+  const history = [];
+  for (let index = 0; index < req.body.array.length; index++) {
+    let imp_uid = req.body.array[index].trim();
+    const url = `https://api.iamport.kr/payments/find/${imp_uid}/?sorting=-started&_token=${token}`;
+    try {
+      const response = await axios.get(url, {
+        withCredentials: true,
+      });
+      console.log("Paymenthistorydetails", response.data);
+      history.push(response.data);
+    } catch (error) {
+      console.log("paymentdetails 에러");
+      console.log(error);
+    }
   }
+  res.status(200).json(history);
+
+  // // const url = `https://api.iamport.kr/payments/${imp_uid}?_token=${token}`;
+
+  // try {
+  //   const response = await axios.get(url, {
+  //     withCredentials: true,
+  //   });
+  //   console.log("Paymenthistorydetails", response.data);
+  //   res.status(200).json(response.data);
+  // } catch (error) {
+  //   console.log("paymentdetails 에러");
+  //   console.log(error);
+  // }
 };
 
 exports.paymentsucceeded = async (req, res) => {

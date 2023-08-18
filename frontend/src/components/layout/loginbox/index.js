@@ -1,7 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { trylogininfo } from "../../../features/mainslice";
-
+import {
+  Body,
+  Wrap,
+  Header,
+  Container,
+  Footer,
+  Menutext,
+} from "./Login.styled";
 const Loginform = () => {
   const dispatch = useDispatch();
 
@@ -27,17 +34,78 @@ const Loginform = () => {
     console.log("userdata", userdata);
   }, [handleSubmit]);
   return (
-    <div>
-      <label htmlFor="user_id">아이디</label>
-      <input onChange={handleIdInput} />
-      <br />
-      <label htmlFor="user_pw">비밀번호</label>
-      <input onChange={handlePwInput} />
-      <button onClick={() => handleSubmit()} id="uploadBtn">
-        {" "}
-        로그인{" "}
-      </button>
-    </div>
+    <Body>
+      <Wrap>
+        <Header>
+          <div className="headerinner"></div>
+        </Header>
+        <Container>
+          <div className="content">
+            <div className="loginwrap">
+              <ul className="menuwrap">
+                <li className="menuitem">
+                  <a className="menuidon">
+                    <Menutext>
+                      <span className="before"></span>
+                      <span className="text">ID 로그인</span>
+                    </Menutext>
+                  </a>
+                </li>
+              </ul>
+              <div className="panelwrap">
+                <div className="panelitem">
+                  <div className="panelinner">
+                    <div className="idpwwrap">
+                      <div className="inputrow">
+                        <div className="iconcell">
+                          <div className="iconid">
+                            <span className="blind">아이디</span>
+                          </div>
+                          <input
+                            className="inputtext"
+                            onChange={handleIdInput}
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="inputrow">
+                        <div className="iconcell">
+                          <div className="iconpw"></div>
+                          <input
+                            className="inputtext"
+                            onChange={handlePwInput}
+                          ></input>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="btnloginwrap">
+                      <button
+                        className="btnlogin"
+                        onClick={() => handleSubmit()}
+                        id="uploadBtn"
+                      >
+                        <span className="btntext">로그인</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+        <Footer></Footer>
+        {/* <div>
+          <label htmlFor="user_id">아이디</label>
+          <input onChange={handleIdInput} />
+          <br />
+          <label htmlFor="user_pw">비밀번호</label>
+          <input onChange={handlePwInput} />
+          <button onClick={() => handleSubmit()} id="uploadBtn">
+            {" "}
+            로그인{" "}
+          </button>
+        </div> */}
+      </Wrap>
+    </Body>
   );
 };
 
