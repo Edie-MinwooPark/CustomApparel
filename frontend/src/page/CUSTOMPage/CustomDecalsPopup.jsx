@@ -15,8 +15,7 @@ const CustomDecalsPopup = ({ handlerDecal }) => {
   const ta = (e)=>{
     const decal = e.target.src.split('/')[3];
     dispatch(decalName(decal));
-    dispatch(decalNum);
-    console.log("리덕스 작업끝")
+    dispatch(decalNum());
     handlerDecal();
   }
 

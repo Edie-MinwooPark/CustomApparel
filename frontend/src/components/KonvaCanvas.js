@@ -1,12 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Konva from 'konva';
+import { useSelector } from 'react-redux';
+import { decalName } from '../features/decalslice';
 
 const KonvaCanvas = (props) => {
 
-
+  
   const [selectedNodes, setSelectedNodes] = useState([]);
   const [konvaStage, setKonvaStage] = useState(null);
   const [konvaLayer, setKonvaLayer] = useState(null);
+
+  const decalName = useSelector(state=>state.decal.decalName);
+  const decalNum = useSelector(state=>state.decal.decalNum);
+  // const decalNum = useSelector(state=>state.decal.decalNum);
 
   const selectionRectangleRef = useRef(null);
 
@@ -172,7 +178,6 @@ const KonvaCanvas = (props) => {
     },[])
 
     function destroySelected() {
-      console.log("여기")
       selectedNodes.forEach((node) => {
         node.destroy();
       });
@@ -200,11 +205,17 @@ const KonvaCanvas = (props) => {
 
     document.addEventListener('mouseup',handleMouseUp)
 
+    useEffect(()=>{
+      console.log("decal 추가!",decalName)
+    },[decalName])
+
     
   return (
     <div style={props.style}>
     <div id="container" style={containerStyle} onMouseDown={handleMouseDown}   ></div>
     <button onClick={()=>destroySelected()}>삭제</button>
+    <div>{decalName}</div>
+    <div>{decalNum}</div>
    </div>
   );
 }

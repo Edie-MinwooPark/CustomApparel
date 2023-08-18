@@ -14,5 +14,6 @@ export const store = configureStore({
     // 가게만들면서 메뉴판 전달
     cloth: clothSlice.reducer,
     payment: paymentSlice.reducer,
+    decal : decalSlice.reducer,
   },
 });
