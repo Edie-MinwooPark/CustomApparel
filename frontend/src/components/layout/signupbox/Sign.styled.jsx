@@ -37,7 +37,7 @@ export const Content = styled.div`
     padding: 14px 0;
     border-radius: 6px;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    background: #09aa5c;
+    background: black;
     font-size: 18px;
     font-weight: 700;
     line-height: 22px;

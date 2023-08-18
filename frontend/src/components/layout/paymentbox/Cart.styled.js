@@ -61,4 +61,17 @@ export const Cartwrapper = styled.div`
   & .price {
     padding-left: 15px;
   }
+  & .orderbuttons {
+    margin-top: 30px;
+    text-align: center;
+    position: relative;
+  }
+  & .carttitle {
+    clear: both;
+    height: 45px;
+    margin-bottom: 0;
+    padding-bottom: 32px;
+    background: url(//img1a.coupangcdn.com/image/order/img_orderstep4.gif)
+      no-repeat 0 -200px;
+  }
 `;

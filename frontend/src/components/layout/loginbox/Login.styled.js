@@ -176,7 +176,7 @@ export const Container = styled.div`
     padding: 13px 0 13px;
     border-radius: 6px;
     border: solid 1px rgba(0, 0, 0, 0.15);
-    background-color: #03c75a;
+    background-color: black;
     box-sizing: border-box;
   }
   & .btntext {

@@ -2,7 +2,12 @@ import { Select } from "@react-three/drei";
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postpaymentsucceeded } from "../../../features/paymentslice";
+import { IndexPayment } from "./IndexPaymnet.styled";
+import { useNavigate } from "react-router-dom";
+
 const Payment = (props) => {
+  const navigate = useNavigate();
+
   console.log("Payment 컴포넌트", props.productinfo.selected);
   const dispatch = useDispatch();
   const userinformation = useSelector((state) => state.mypage.data);
@@ -13,6 +18,9 @@ const Payment = (props) => {
   const merchantUid = `mid_${paymentSucceededTime}`;
   // const data = useSelector((state) => state.payment.data);
 
+  const handleLinkClick = () => {
+    navigate("/Custom"); // Navigate to the 'Details' screen
+  };
   useEffect(() => {
     console.log("userinformation", userinformation);
     let totalPrice = 0;
@@ -56,6 +64,7 @@ const Payment = (props) => {
   };
 
   function onClickPayment() {
+    props.productinfo.handlepaymentinput();
     const { IMP } = window;
     IMP.init("imp84308847"); //발급받은 가맹점 식별코드를 사용합니다.
     console.log("onClickPayment", paymentSucceededTime, data);
@@ -66,14 +75,25 @@ const Payment = (props) => {
 
     if (success) {
       alert("결제 성공");
+      props.productinfo.handlepaymentinput2();
+
       dispatch(postpaymentsucceeded(merchantUid));
     } else {
+      props.productinfo.handlepaymentinput3();
+
       alert(`결제 실패: ${error_msg}`);
     }
   }
   return (
     <div>
-      <button onClick={onClickPayment}>결제하기</button>
+      <IndexPayment>
+        <button className="asd1" onClick={handleLinkClick}>
+          계속 쇼핑하기
+        </button>
+        <button className="asd" onClick={onClickPayment}>
+          결제하기
+        </button>
+      </IndexPayment>
     </div>
   );
 };
