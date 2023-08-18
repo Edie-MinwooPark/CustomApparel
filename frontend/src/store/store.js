@@ -5,6 +5,7 @@ import { customSlice } from "../features/customslice";
 import { clothSlice } from "../features/clothslice";
 import postsSlice from "../features/postslice";
 import { paymentSlice } from "../features/paymentslice";
+import { decalSlice } from "../features/decalslice";
 export const store = configureStore({
   reducer: {
     // 가게만들면서 메뉴판 전달
@@ -14,6 +15,7 @@ export const store = configureStore({
     // 가게만들면서 메뉴판 전달
     cloth: clothSlice.reducer,
     payment: paymentSlice.reducer,
+    decal: decalSlice.reducer,
     posts: postsSlice,
   },
 });

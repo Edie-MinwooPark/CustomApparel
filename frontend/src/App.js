@@ -25,8 +25,7 @@ import {
   PayMentDetail,
   Admin,
 } from "../src/page/index";
-import { useDispatch } from "react-redux";
-
+import KonvaCanvas from "./components/KonvaCanvas";
 export const PROXY = process.env.REACT_APP_PROXY;
 const queryClient = new QueryClient(); //axios react query 쓸때 사용
 
@@ -44,6 +43,7 @@ const App = () => {
           <Route path="/mypage" element={<MYpage />} />
           <Route path="/payment" element={<PayMent />} />
           <Route path="/canvas" element={<Canvas />} />
+          <Route path="/konva" element={<KonvaCanvas />} />
           <Route path="/cartp" element={<Cartp />} />
           <Route path="/paymentdetail" element={<PayMentDetail />} />
           <Route path="/postinsert" element={<PostInsert />} />

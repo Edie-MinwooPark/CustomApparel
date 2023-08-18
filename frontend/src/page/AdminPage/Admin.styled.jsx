@@ -130,13 +130,16 @@ export const UserListWrap = styled.div`
     justify-content: center;
     padding: 0 10px;
   }
+  .listName {
+    display: block;
+  }
 
   & .listId,
   .listState {
     width: 10%;
   }
   & .listName .profile_img {
-    width: 100px;
+    /* width: 100px; */
   }
   & .listName .profile_img img {
     width: 40px;

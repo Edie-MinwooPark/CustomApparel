@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TwoDCanvas from "../../components/TwoDCanvas";
 import CanvasComponent from "../../Canvas";
 import { clothColor } from "../../features/clothslice";
+import { decalName, decalNum } from "../../features/decalslice";
 
 import html2canvas from "html2canvas";
 
@@ -157,7 +158,7 @@ const Custom = () => {
           product={product}
         />
       ) : null}
-      {decals ? <CustomDecalsPopup data={handleDecals} /> : null}
+      {decals ? <CustomDecalsPopup handlerDecal={handleDecals} /> : null}
       <Nav />
       <CustomWrap>
         <div className="customMainWrap">
