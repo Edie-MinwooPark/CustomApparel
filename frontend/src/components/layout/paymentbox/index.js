@@ -5,6 +5,8 @@ import { postpaymentsucceeded } from "../../../features/paymentslice";
 const Payment = (props) => {
   console.log("Payment 컴포넌트", props.productinfo.selected);
   const dispatch = useDispatch();
+  const userinformation = useSelector((state) => state.mypage.data);
+
   const [price, setPrice] = useState(0);
   const [productname, setProductname] = useState("");
   const paymentSucceededTime = new Date().getTime();
@@ -12,22 +14,32 @@ const Payment = (props) => {
   // const data = useSelector((state) => state.payment.data);
 
   useEffect(() => {
+    console.log("userinformation", userinformation);
     let totalPrice = 0;
     let productName = "";
 
     for (const value of props.productinfo.selected) {
       totalPrice += value.intprice;
       console.log(value.intprice);
+      setPrice(totalPrice);
     }
 
     if (props.productinfo.selected.length > 1) {
       productName = `${props.productinfo.selected[0].name} 외 ${
         props.productinfo.selected.length - 1
       } 개`;
+      setProductname(productName);
+    } else {
+      try {
+        productName = `${props.productinfo.selected[0].name} 1 개`;
+        setProductname(productName);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
-    setPrice(totalPrice);
-    setProductname(productName);
+    // setPrice(totalPrice);
+    // setProductname(productName);
     console.log("Payment", productname, price);
   }, [props.productinfo.selected]);
   const data = {
@@ -36,7 +48,7 @@ const Payment = (props) => {
     merchant_uid: merchantUid, // 주문번호
     amount: `${price}`, // 결제금액
     name: `IKE 상품구매 ${productname}`, // 주문명
-    buyer_name: "홍길동", // 구매자 이름
+    buyer_name: `${userinformation.Nick}`, // 구매자 이름
     buyer_tel: "01012341234", // 구매자 전화번호
     buyer_email: "example@example", // 구매자 이메일
     buyer_addr: "경일아카데미", // 구매자 주소
