@@ -209,17 +209,18 @@ const KonvaCanvas = (props) => {
       console.log("decal 추가!", decalName);
       
       if (konvaLayer) {
-        var rect3 = new Konva.Rect({
-          x: 250,
-          y: 100,
-          width: 150,
-          height: 90,
-          fill: 'blue',
-          name: 'rect',
-          draggable: true,
-        });
+        let image = new Image();
+        image.src = decalName;
+        let imageObj = new Konva.Image({
+          x: 50,
+          y: 50,
+          image: image,
+          width: 100,
+          height: 100,
+        })
+
     
-        konvaLayer.add(rect3);
+        konvaLayer.add(imageObj);
         konvaLayer.batchDraw(); // Manually redraw the layer after adding the new shape
       }
     }, [decalName, konvaLayer]);
