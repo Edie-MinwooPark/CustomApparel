@@ -18,40 +18,26 @@ import { LikeIcon } from "../../components/layout/userbox";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 
-const PostDetail = () => {
-  // const location = useLocation();
-  // const { post } = location.state;
-  // console.log(post);
+const PROXY = process.env.REACT_APP_PROXY;
 
-  const user_info = useSelector((state) => state.mypage.data);
-  // console.log("user_info", user_info);
-
-  const { postId } = useParams(); // URL로부터 postId 가져오기
-
+const PostDetail = (post) => {
   // 게시글 가져오기
   const fetchPost = async (postId) => {
-    const { data } = await axios.get(
-      `http://localhost:4000/post/detail/${postId}`,
-      { params: { id: postId }, withCredential: true }
-    );
-    // console.log(data);
-    setComments(data.COMMENTs.length);
-    setLikes(JSON.parse(data.likes));
-    setCommentsList(data.COMMENTs);
-
+    const { data } = await axios.get(`${PROXY}/post/detail/${postId}`, {
+      params: { id: postId },
+      withCredential: true,
+    });
+    console.log(data, "detaildata");
     return data;
   };
 
   // 댓글가져오기
   const [commentsList, setCommentsList] = useState();
-  // const fetchComments = async (postId) => {
-  //   const { data } = await axios.get(
-  //     `http://localhost:4000/comment/comments/${postId}`
-  //   );
-  //   return data.comments;
-  // };
+  const fetchComments = async (postId) => {
+    const { data } = await axios.get(`${PROXY}/comment/comments/${postId}`);
+    return data.comments;
+  };
 
   const [likes, setLikes] = useState(post.likes || 0);
   const [addComments, setAddComments] = useState(post.comments); // 댓글
@@ -65,13 +51,13 @@ const PostDetail = () => {
     isLoading,
     refetch,
   } = useQuery(["postDetail", postId], () => fetchPost(postId), {
-    onSuccess: (e) => setCommentsList(e.COMMENTs),
+    onSuccess: (e) => setCommentsList(e?.COMMENTs ? e.COMMENTs : ""),
   });
 
   useEffect(() => {
-    if (!user_info || !postdata) return;
-
+    if (!user_info || !postdata || postdata.likes.length == 0) return;
     let likesData = JSON.parse(postdata.likes);
+
     console.log("user_info :", user_info);
     const likeUser = likesData.find((value) => value == user_info.id);
 
@@ -91,7 +77,7 @@ const PostDetail = () => {
       let likesData = JSON.parse(postdata.likes);
       const likeUser = likesData.find((value) => value == user_info.id);
 
-      let url = "http://localhost:4000/post/postLikes/";
+      let url = `${PROXY}/post/postLikes/`;
       let action = likeUser ? "unlike" : "like"; // like 또는 unlike를 결정
 
       const response = await axios.post(url, {
@@ -118,21 +104,18 @@ const PostDetail = () => {
   // 댓글 추가 기능
   const handleCommentSubmit = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/comment/comments/",
-        {
-          user_id: user_info.user_id,
-          profile_img: user_info.profile_img,
-          addComments,
-          postId,
-        }
-      );
-      // console.log("succccesssss?", response);
-      // if (response.data.success) {
-      //   console.log("여기까지옴?");
-      //   const updatedComments = await fetchComments(postId);
-      //   setCommentsList(updatedComments);
-      // }
+      const response = await axios.post(`${PROXY}/comment/comments/`, {
+        user_id: user_info.user_id,
+        profile_img: user_info.profile_img,
+        addComments,
+        postId,
+      });
+      console.log("succccesssss?", response);
+      if (response.data.success) {
+        console.log("여기까지옴?");
+        const updatedComments = await fetchComments(postId);
+        setCommentsList(updatedComments);
+      }
     } catch (error) {
       console.log("댓글 추가 실패", error);
     }
@@ -155,14 +138,13 @@ const PostDetail = () => {
             onClick={handleLike}
           >
             <LikeIcon liked={isLiked} width="30px" />
-            {/* <LikeIcon liked={isLiked} width="30px" /> */}
           </StyledLikeIconWrapper>
           <CountContainer>
             <div className="like_count">
-              좋아요 <strong>{likes.length}</strong>개
+              좋아요 <strong>{postdata.likes.length}</strong>개
             </div>
             <Viewdiv className="comment_count">
-              댓글 <strong>{comments}</strong>개
+              댓글 <strong>{commentsList?.length}</strong>개
             </Viewdiv>
           </CountContainer>
           <Text

@@ -4,11 +4,6 @@ class POST extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        id: {
-          type: Sequelize.INTEGER,
-          autoIncrement: true,
-          primaryKey: true,
-        },
         post_title: {
           type: Sequelize.STRING,
           allowNull: false,

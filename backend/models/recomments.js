@@ -4,11 +4,11 @@ class RECOMMENTS extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        recomments: {
+        user_id: {
           type: Sequelize.STRING,
-          allowNull: true,
+          allowNull: false,
         },
-        comments_id: {
+        recomments: {
           type: Sequelize.STRING,
           allowNull: true,
         },

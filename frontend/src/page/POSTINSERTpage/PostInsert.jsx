@@ -7,6 +7,9 @@ import {
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
+
+const PROXY = process.env.REACT_APP_PROXY;
+
 const PostInsert = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [content, setContent] = useState("");
@@ -92,16 +95,13 @@ const PostInsert = () => {
     formData.tags.forEach((tag, idx) => {
       createdPost.append("tags", JSON.stringify({ id: idx + 1, content: tag }));
     });
-    if (imageFile) {
-      // 이미지 파일이 있다면 추가
-      createdPost.append("image", formData.imageFile);
-    }
+    // if (imageFile) {
+    //   // 이미지 파일이 있다면 추가
+    //   createdPost.append("image", formData.imageFile);
+    // }
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/post/post",
-        createdPost
-      );
+      const response = await axios.post(`${PROXY}/post/post`, createdPost);
 
       // if (response.data.succe) {
 

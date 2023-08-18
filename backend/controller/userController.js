@@ -7,14 +7,15 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 exports.signUp = async (req, res) => {
   try {
-    console.log("This is reqbody", req.body.data);
-    console.log("This is reqbody", req.file.path);
+    console.log(req);
+    // console.log("This is reqbody", req.body.data);
+    // console.log("This is reqbody", req.file.path);
     const obj = JSON.parse(req.body.data);
     const { Nick, user_id, user_pw } = obj;
 
     const user = await User.findOne({ where: { user_id } });
     if (user != null) {
-      console.log("중복가입방지");
+      // console.log("중복가입방지");
       return res.send("중복된 유저가 있어 가입을 방지했습니다.");
     }
 
@@ -28,19 +29,19 @@ exports.signUp = async (req, res) => {
       profile_img: req.file.path,
     });
 
-    console.log("User created successfully:", newUser);
+    // console.log("User created successfully:", newUser);
 
     // Return a success response
     res.status(200).json(newUser);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send("Internal server error");
   }
 };
 
 exports.login = async (req, res) => {
-  console.log(req.body);
-  console.log(req);
+  // console.log(req.body);
+  // console.log(req);
   const { user_id, user_pw } = req.body;
   try {
     const user = await User.findOne({ where: { user_id } });
@@ -62,8 +63,8 @@ exports.login = async (req, res) => {
       req.session.access_token = token;
       req.session.name = user.user_id;
       req.session.Nick = user.Nick;
-      console.log("req.session", req.session);
-      console.log("token", token);
+      // console.log("req.session", req.session);
+      // console.log("token", token);
       // return res.send({
       //   message: "로그인성공",
       //   token: req.session.access_token,
@@ -81,7 +82,7 @@ exports.login = async (req, res) => {
 
 exports.viewUser = async (req, res) => {
   const { acc_decoded } = req;
-  console.log("asd", acc_decoded);
+  // console.log("asd", acc_decoded);
   const user = await User.findOne({ where: { name: acc_decoded.name } });
 
   // json 형태로 데이터를 응답

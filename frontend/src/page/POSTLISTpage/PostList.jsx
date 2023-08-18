@@ -8,8 +8,10 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 
+const PROXY = process.env.REACT_APP_PROXY;
+
 const fetchPost = async () => {
-  const { data } = await axios.get("http://localhost:4000/post/posts");
+  const { data } = await axios.get(`${PROXY}/post/posts`);
   // const { userdata } = await axios.get("http://localhost:4000/user/viewUser");
   // console.log("받은데이터", userdata);
   console.log(data);

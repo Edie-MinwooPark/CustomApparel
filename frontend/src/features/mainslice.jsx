@@ -12,6 +12,7 @@ export const getUserinfo = createAsyncThunk(
 );
 export const setUserinfo = createAsyncThunk("user/setinfo", async (form) => {
   try {
+    console.log(form);
     const response = await axios.post(`${PROXY}/user/signup`, form, {
       headers: {
         "Content-Type": "multipart/form-data; charset=utf-8",
@@ -19,8 +20,8 @@ export const setUserinfo = createAsyncThunk("user/setinfo", async (form) => {
       withCredentials: true,
     });
 
-    console.log("Delivered successfully.");
-    console.log(response.data);
+    // console.log("Delivered successfully.");
+    // console.log(response.data);
     return response.data; // 성공 액션의 페이로드로 응답 데이터를 반환합니다
   } catch (err) {
     console.log(err);
@@ -55,7 +56,7 @@ export const userSlice = createSlice({
       .addCase(trylogininfo.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
-        console.log("datainit되었음");
+        // console.log("datainit되었음");
       })
       .addCase(trylogininfo.rejected, (state, action) => {
         state.loading = false;

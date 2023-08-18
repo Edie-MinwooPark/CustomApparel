@@ -4,11 +4,6 @@ class USER extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        id: {
-          type: Sequelize.INTEGER,
-          autoIncrement: true,
-          primaryKey: true,
-        },
         user_id: {
           type: Sequelize.STRING,
           allowNull: false,
@@ -20,6 +15,7 @@ class USER extends Sequelize.Model {
         profile_img: {
           type: Sequelize.STRING,
           allowNull: true,
+          defaultValue: "img/default_img.png",
         },
         Nick: {
           type: Sequelize.STRING,
