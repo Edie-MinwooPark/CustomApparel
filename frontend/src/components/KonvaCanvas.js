@@ -16,16 +16,16 @@ const KonvaCanvas = (props) => {
 
   const selectionRectangleRef = useRef(null);
 
-    useEffect(()=>{
-      var width = 300;
-      var height = 400;
+  useEffect(()=>{
+    var width = 300;
+    var height = 400;
+    
+    var stage = new Konva.Stage({
+      container: 'container',
+      width: 300,
+      height: 400,
+    });
 
-
-      var stage = new Konva.Stage({
-        container: 'container',
-        width: width,
-        height: height,
-      });
 
       var layer = new Konva.Layer();
       stage.add(layer);
@@ -205,9 +205,24 @@ const KonvaCanvas = (props) => {
 
     document.addEventListener('mouseup',handleMouseUp)
 
-    useEffect(()=>{
-      console.log("decal 추가!",decalName)
-    },[decalName])
+    useEffect(() => {
+      console.log("decal 추가!", decalName);
+      
+      if (konvaLayer) {
+        var rect3 = new Konva.Rect({
+          x: 250,
+          y: 100,
+          width: 150,
+          height: 90,
+          fill: 'blue',
+          name: 'rect',
+          draggable: true,
+        });
+    
+        konvaLayer.add(rect3);
+        konvaLayer.batchDraw(); // Manually redraw the layer after adding the new shape
+      }
+    }, [decalName, konvaLayer]);
 
     
   return (
