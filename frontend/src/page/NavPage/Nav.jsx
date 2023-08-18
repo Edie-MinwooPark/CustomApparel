@@ -5,7 +5,24 @@ import { getmypageinfo } from "../..//features/mypageslice";
 
 const Nav = () => {
   const dispatch = useDispatch();
-  dispatch(getmypageinfo());
+  // const [userloginstate, setuserloginstate] = useState(false);
+  // useEffect(() => {
+  //   // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
+  //   const fetchData = async () => {
+  //     const data = await dispatch(getmypageinfo());
+  //     console.log(data);
+  //     console.log(
+  //       data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
+  //     );
+  //     setuserloginstate(
+  //       data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
+  //     );
+  //   };
+  //   fetchData();
+  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getmypageinfo());
+  }, []);
   return (
     <Navdiv>
       <div className="navContainer">
