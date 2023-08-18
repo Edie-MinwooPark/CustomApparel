@@ -20,7 +20,9 @@ const Nav = () => {
   //   };
   //   fetchData();
   // }, [dispatch]);
-  dispatch(getmypageinfo());
+  useEffect(() => {
+    dispatch(getmypageinfo());
+  }, []);
   return (
     <Navdiv>
       <div className="navContainer">
