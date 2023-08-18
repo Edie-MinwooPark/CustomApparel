@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Konva from 'konva';
 
-const KonvaCanvas = () => {
+const KonvaCanvas = (props) => {
 
 
-  const [history,setHistory] = useState();
+  const [selectedNodes, setSelectedNodes] = useState([]);
+  const [konvaStage, setKonvaStage] = useState(null);
+  const [konvaLayer, setKonvaLayer] = useState(null);
+
+  const selectionRectangleRef = useRef(null);
 
     useEffect(()=>{
-      var width = window.innerWidth;
-      var height = window.innerHeight;
+      var width = 300;
+      var height = 400;
+
 
       var stage = new Konva.Stage({
         container: 'container',
@@ -29,7 +34,6 @@ const KonvaCanvas = () => {
         draggable: true,
       });
       layer.add(rect1);
-      setHistory(rect1);
       var rect2 = new Konva.Rect({
         x: 250,
         y: 100,
@@ -45,7 +49,7 @@ const KonvaCanvas = () => {
       layer.add(tr);
 
       // by default select all shapes
-      tr.nodes([rect1, rect2]);
+      tr.nodes([]);
 
       // add a new feature, lets add ability to draw selection rectangle
       var selectionRectangle = new Konva.Rect({
@@ -53,6 +57,7 @@ const KonvaCanvas = () => {
         visible: false,
       });
       layer.add(selectionRectangle);
+      selectionRectangleRef.current = selectionRectangle;
 
       var x1, y1, x2, y2;
       stage.on('mousedown touchstart', (e) => {
@@ -76,10 +81,23 @@ const KonvaCanvas = () => {
         if (!selectionRectangle.visible()) {
           return;
         }
+      
         e.evt.preventDefault();
-        x2 = stage.getPointerPosition().x;
-        y2 = stage.getPointerPosition().y;
-
+        
+        const containerRect = stage.container().getBoundingClientRect();
+        const mouseX = e.evt.clientX - containerRect.left;
+        const mouseY = e.evt.clientY - containerRect.top;
+      
+        // Check if the mouse is outside the container bounds
+        if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
+          // Cancel the selection
+          selectionRectangle.visible(false);
+          return;
+        }
+      
+        x2 = Math.max(Math.min(mouseX, width), 0);
+        y2 = Math.max(Math.min(mouseY, height), 0);
+      
         selectionRectangle.setAttrs({
           x: Math.min(x1, x2),
           y: Math.min(y1, y2),
@@ -87,6 +105,7 @@ const KonvaCanvas = () => {
           height: Math.abs(y2 - y1),
         });
       });
+      
 
       stage.on('mouseup touchend', (e) => {
         // do nothing if we didn't start selection
@@ -105,6 +124,7 @@ const KonvaCanvas = () => {
           Konva.Util.haveIntersection(box, shape.getClientRect())
         );
         tr.nodes(selected);
+        setSelectedNodes(selected)
       });
 
       // clicks should select/deselect shapes
@@ -133,6 +153,7 @@ const KonvaCanvas = () => {
           // if no key pressed and the node is not selected
           // select just one
           tr.nodes([e.target]);
+          setSelectedNodes([e.target])
         } else if (metaPressed && isSelected) {
           // if we pressed keys and node was selected
           // we need to remove it from selection:
@@ -146,16 +167,45 @@ const KonvaCanvas = () => {
           tr.nodes(nodes);
         }
       });
+      setKonvaStage(stage);
+      setKonvaLayer(layer);
     },[])
 
-    function destroy1(){
-      history.destroy();
+    function destroySelected() {
+      console.log("여기")
+      selectedNodes.forEach((node) => {
+        node.destroy();
+      });
+  
+      setSelectedNodes([]);
+      konvaLayer.batchDraw(); // Manually redraw the layer after making changes
     }
+
+    const [isClicked, setIsClicked] = useState(false);
+
+    const containerStyle = {
+      width: '300px',
+      height: '400px',
+      zIndex: 20,
+      border: isClicked ? '1px solid black' : 'none'
+    };
+  
+    const handleMouseDown = () => {
+      setIsClicked(true);
+    };
+    const handleMouseUp = () => {
+      setIsClicked(false);
+
+    };
+
+    document.addEventListener('mouseup',handleMouseUp)
+
+    
   return (
-    <>
-    <div id="container" style={{border: '2px solid black', width: '500px', height : '500px', overflow: "hidden"}} ></div>
-    <button onClick={()=>destroy1()}>삭제</button>
-   </>
+    <div style={props.style}>
+    <div id="container" style={containerStyle} onMouseDown={handleMouseDown}   ></div>
+    <button onClick={()=>destroySelected()}>삭제</button>
+   </div>
   );
 }
 

@@ -4,6 +4,7 @@ import { myPageSlice } from "../features/mypageslice";
 import { customSlice } from "../features/customslice";
 import { clothSlice } from "../features/clothslice";
 import { paymentSlice } from "../features/paymentslice";
+import { decalSlice } from "../features/decalslice";
 export const store = configureStore({
   reducer: {
     // 가게만들면서 메뉴판 전달

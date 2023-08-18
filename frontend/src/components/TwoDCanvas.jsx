@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import KonvaCanvas from './KonvaCanvas';
 
 const TwoDCanvas = () => {
   const clothType = useSelector(state => state.cloth.clothType);
@@ -41,7 +42,7 @@ const TwoDCanvas = () => {
       const imageData = ctx.getImageData(200, 0, 780, 750);
       const data = imageData.data;
 
-      // 변경된 픽셀 데이터로 이미지 업데이트
+      // // 변경된 픽셀 데이터로 이미지 업데이트
       ctx.putImageData(imageData, 200, 0);
     };
   }, [clothType]);
@@ -89,7 +90,12 @@ const TwoDCanvas = () => {
 
 
   return (
-    <canvas id='canvas' width='1000' height='800'></canvas>
+    <>
+      <div style={{ position: 'relative', width: '1000px', height: '800px' }}>
+      <canvas id='canvas' width='1000' height='800' style={{ position: 'absolute', top: 0, left: 0, zIndex: 100 }} />
+      <KonvaCanvas style={{ position: 'absolute', top: 200, left: 435, zIndex: 500 }}/>
+      </div>
+    </>
   );
 }
 
