@@ -102,7 +102,7 @@ const Sign = () => {
                     <div className="signupbutton">
                       <button
                         className="btn_submit"
-                        onClick={() => handleSubmit()}
+                        onClick={handleSubmit}
                         id="uploadBtn"
                       >
                         회원가입

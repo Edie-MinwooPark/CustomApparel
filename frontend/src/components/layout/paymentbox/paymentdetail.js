@@ -70,7 +70,8 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import "./Paymentdetail.css"; // Import your CSS file for styling
+// import "./Paymentdetail.css"; // Import your CSS file for styling
+import { Paymentdetailwrapper } from "./Paymentdetail.styled";
 const PROXY = process.env.REACT_APP_PROXY;
 
 const Paymentdetail = () => {
@@ -117,30 +118,128 @@ const Paymentdetail = () => {
 
   return (
     <div>
-      {paymentdataHIS ? (
-        <ul>
-          {paymentdataHIS.map((element, index) => (
-            <li key={index}>
-              {paymentdataHIS[index]?.response.name}
-              <button
-                className="details-button"
-                onClick={() => handlePaymentDetail(index)}
-              >
-                자세히보기
-              </button>
-              {selectedDetailIndex === index && (
-                <div className="details">
-                  {paymentdataHIS[index]?.response.amount}
-                  {paymentdataHIS[index]?.response.name}
-                  {paymentdataHIS[index]?.response.status}
+      <Paymentdetailwrapper>
+        <div className="main">
+          {paymentdataHIS ? (
+            paymentdataHIS.map((element, index) => (
+              <div className="mainitembox" key={index}>
+                <div className="paydateanddetailbox">
+                  <div className="paydate"></div>
+                  <div className="paydetailbutton">
+                    <span
+                      className="paydetailspan"
+                      onClick={() => handlePaymentDetail(index)}
+                    >
+                      주문 상세보기
+                    </span>
+                  </div>
                 </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading payment history data...</p>
-      )}
+                <div className="summarybox">
+                  <table>
+                    <colgroup>
+                      <col width={600}></col>
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <td className="summaryinnertabletd">
+                          <div className="summaryinnerbox1">
+                            배송지:
+                            {paymentdataHIS[index]?.response.buyer_addr}
+                          </div>
+                          <div className="summaryinnerdownbox">
+                            <div className="summaryinnerdownbox1">
+                              <div className="shieldbox">
+                                <div className="swordbox">
+                                  <div className="shieldinnerbox">
+                                    {" "}
+                                    {paymentdataHIS[index]?.response.name}
+                                  </div>
+                                  <div className="shieldinnerbox">
+                                    <div className="shieldinnerbox1">
+                                      가격{" "}
+                                      {paymentdataHIS[index]?.response.amount}원
+                                      개
+                                    </div>
+                                    <div className="shieldinnerbox2">
+                                      <button className="shieldinnerbox2button">
+                                        뭔가버튼
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="threebutton">
+                            <button className="threebuttonbutton">
+                              주문취소
+                            </button>
+                            <button className="threebuttonbutton1">
+                              뭔가버튼2
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {selectedDetailIndex === index && (
+                  <div className="details">
+                    상품이름 :{paymentdataHIS[index]?.response.name}
+                    <br />
+                    가격 :{paymentdataHIS[index]?.response.amount}
+                    <br />
+                    구매자 이메일:{paymentdataHIS[index]?.response.buyer_email}
+                    <br />
+                    구매자 이름:{paymentdataHIS[index]?.response.buyer_name}
+                    <br />
+                    구매자 번호:{paymentdataHIS[index]?.response.buyer_tel}
+                    <br />
+                    배송지 주소:{paymentdataHIS[index]?.response.buyer_addr}
+                    <br />
+                    우편번호:{paymentdataHIS[index]?.response.buyer_postcode}
+                    <br />
+                    결제사:{paymentdataHIS[index]?.response.emb_pg_provider}
+                    <br />
+                    결제시간:{paymentdataHIS[index]?.response.paid_at}
+                    <br />
+                    결제상태:{paymentdataHIS[index]?.response.status}
+                    <br />
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <p>Loading payment history data...</p>
+          )}
+        </div>
+        {/* {paymentdataHIS ? (
+          <ul>
+            {paymentdataHIS.map((element, index) => (
+              <li key={index}>
+                {paymentdataHIS[index]?.response.name}
+                <button
+                  className="details-button"
+                  onClick={() => handlePaymentDetail(index)}
+                >
+                  자세히보기
+                </button>
+                {selectedDetailIndex === index && (
+                  <div className="details">
+                    {paymentdataHIS[index]?.response.amount}
+                    {paymentdataHIS[index]?.response.name}
+                    {paymentdataHIS[index]?.response.status}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Loading payment history data...</p>
+        )} */}
+      </Paymentdetailwrapper>
     </div>
   );
 };
