@@ -66,8 +66,10 @@
 // };
 
 // export default Paymentdetail;
-
+import { paymentcancel } from "../../../features/paymentslice";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { useQuery } from "react-query";
 import axios from "axios";
 // import "./Paymentdetail.css"; // Import your CSS file for styling
@@ -75,7 +77,9 @@ import { Paymentdetailwrapper } from "./Paymentdetail.styled";
 const PROXY = process.env.REACT_APP_PROXY;
 
 const Paymentdetail = () => {
+  const dispatch = useDispatch();
   const [selectedDetailIndex, setSelectedDetailIndex] = useState(null);
+  const [formData, setFormData] = useState(new FormData());
 
   const { data: paymentdata } = useQuery("paymentDetail", async () => {
     const response = await axios.get(`${PROXY}/payment/paymentdetail`, {
@@ -83,7 +87,19 @@ const Paymentdetail = () => {
     });
     return response.data;
   });
+  const handleSubmit = async (data) => {
+    // Create formData here
+    // const form = {};
+    // console.log(data);
+    // formData.append("merchant_uid", data);
 
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
+    // setFormData(formData);
+    // console.log("handleSubmit 작동함");
+    dispatch(paymentcancel(data));
+  };
   // Fetch payment history data using React Query
   const { data: paymentdataHIS } = useQuery(
     "paymentHistory",
@@ -124,7 +140,18 @@ const Paymentdetail = () => {
             paymentdataHIS.map((element, index) => (
               <div className="mainitembox" key={index}>
                 <div className="paydateanddetailbox">
-                  <div className="paydate"></div>
+                  <div className="paydate">
+                    {" "}
+                    날짜:
+                    {new Date(
+                      parseInt(
+                        paymentdataHIS[index]?.response.merchant_uid.replace(
+                          "mid_",
+                          ""
+                        )
+                      )
+                    ).toLocaleDateString()}
+                  </div>
                   <div className="paydetailbutton">
                     <span
                       className="paydetailspan"
@@ -173,7 +200,14 @@ const Paymentdetail = () => {
                         </td>
                         <td>
                           <div className="threebutton">
-                            <button className="threebuttonbutton">
+                            <button
+                              onClick={() => {
+                                handleSubmit(
+                                  paymentdataHIS[index]?.response.merchant_uid
+                                );
+                              }}
+                              className="threebuttonbutton"
+                            >
                               주문취소
                             </button>
                             <button className="threebuttonbutton1">

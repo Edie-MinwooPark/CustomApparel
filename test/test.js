@@ -3,4 +3,6 @@ const timestampString = inputString.replace("mid_", "");
 const timestamp = parseInt(timestampString, 10);
 
 const date = new Date(timestamp);
-console.log(date);
+console.log(
+  new Date(parseInt(inputString.replace("mid_", ""))).toLocaleDateString()
+);

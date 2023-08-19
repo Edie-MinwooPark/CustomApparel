@@ -42,6 +42,26 @@ exports.payment = async (req, res, next) => {
   next();
 };
 
+exports.paymentcancel = async (req, res) => {
+  console.log("paymentcancel 여기까지오냥?");
+  console.log("paymentcancel", req.body);
+  console.log("paymentcancel", req.specificValue.response.access_token);
+  let token = req.specificValue.response.access_token;
+  const formdata = new FormData();
+  formdata.append("merchant_uid", req.body.value);
+  try {
+    const url = `https://api.iamport.kr/payments/cancel?_token=${token}`;
+    const response = await axios.post(url, formdata, {
+      headers: {
+        "Content-Type": "multipart/form-data; charset=utf-8",
+      },
+      withCredentials: true,
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 exports.paymentdetail = async (req, res) => {
   try {
     const { acc_decoded } = req;
