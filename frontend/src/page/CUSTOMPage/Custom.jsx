@@ -107,15 +107,20 @@ const Custom = () => {
     const name = shirtInfo[selectNum].name;
     const price = shirtInfo[selectNum].price;
     const intprice = shirtInfo[selectNum].intprice;
+    const count = shirtInfo[selectNum].count;
+    const sum = shirtInfo[selectNum].sum;
+
     let cartInfo = localStorage.getItem(getUserId?.user_id);
     if (!cartInfo) {
       localStorage.setItem(
         getUserId?.user_id,
-        JSON.stringify([{ name, price, color, selectsize, intprice }])
+        JSON.stringify([
+          { name, price, color, selectsize, intprice, count, sum },
+        ])
       );
     }
     if (cartInfo) {
-      let newArr = { name, price, color, selectsize, intprice };
+      let newArr = { name, price, color, selectsize, intprice, count, sum };
 
       let cartArr = JSON.parse(localStorage.getItem(getUserId?.user_id)) || [];
 

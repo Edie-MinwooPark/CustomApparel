@@ -142,7 +142,7 @@ const Paymentdetail = () => {
                 <div className="paydateanddetailbox">
                   <div className="paydate">
                     {" "}
-                    날짜:
+                    결제일:
                     {new Date(
                       parseInt(
                         paymentdataHIS[index]?.response.merchant_uid.replace(
@@ -151,6 +151,12 @@ const Paymentdetail = () => {
                         )
                       )
                     ).toLocaleDateString()}
+                    <span>
+                      결제상태:
+                      {paymentdataHIS[index]?.response.status == "paid"
+                        ? "결제 완료"
+                        : "결제 취소"}
+                    </span>
                   </div>
                   <div className="paydetailbutton">
                     <span
@@ -185,7 +191,6 @@ const Paymentdetail = () => {
                                     <div className="shieldinnerbox1">
                                       가격{" "}
                                       {paymentdataHIS[index]?.response.amount}원
-                                      개
                                     </div>
                                     <div className="shieldinnerbox2">
                                       <button className="shieldinnerbox2button">
