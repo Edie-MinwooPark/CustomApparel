@@ -15,7 +15,7 @@ const CustomDecalsPopup = ({ handlerDecal }) => {
   const ta = (e)=>{
     const decal = e.target.src.split('/')[3];
     dispatch(decalName(decal));
-    dispatch(decalNum());
+    dispatch(decalNum("plus"));
     handlerDecal();
   }
 

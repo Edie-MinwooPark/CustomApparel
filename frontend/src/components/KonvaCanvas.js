@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Konva from 'konva';
-import { useSelector } from 'react-redux';
-import { decalName } from '../features/decalslice';
+import { useSelector,useDispatch } from 'react-redux';
+import { decalName,decalNum } from '../features/decalslice';
 
 const KonvaCanvas = (props) => {
 
-  
+  const dispatch = useDispatch();  
   const [selectedNodes, setSelectedNodes] = useState([]);
   const [allDecals,setAllDecals] = useState([]);
   const [konvaStage, setKonvaStage] = useState(null);
   const [konvaLayer, setKonvaLayer] = useState(null);
   const [konvaTr, setKonvaTr] = useState();
   const decalName = useSelector(state=>state.decal.decalName);
-  const decalNum = useSelector(state=>state.decal.decalNum);
+  const decalNumber = useSelector(state=>state.decal.decalNum);
   // const decalNum = useSelector(state=>state.decal.decalNum);
 
   const selectionRectangleRef = useRef(null);
@@ -176,12 +176,11 @@ const KonvaCanvas = (props) => {
 
     function destroySelected() {
       selectedNodes.forEach((node) => {
-        console.log(selectedNodes);
         node.destroy();
       });
   
       setSelectedNodes([]);
-      
+      dispatch(decalNum("minus"));
       konvaLayer.batchDraw(); // Manually redraw the layer after making changes
     }
 
@@ -191,6 +190,7 @@ const KonvaCanvas = (props) => {
       })
       setAllDecals([]);
 
+      dispatch(decalNum(""));
       konvaLayer.batchDraw();
     }
 
@@ -216,8 +216,9 @@ const KonvaCanvas = (props) => {
     useEffect(() => {
       
       if (konvaLayer && decalName) {
+
         let image = new Image();
-        image.src = decalName;
+        image.src = decalName[decalName.length - 1];
         let imageObj = new Konva.Image({
           x: 50,
           y: 50,
@@ -264,7 +265,7 @@ const KonvaCanvas = (props) => {
     <button onClick={()=>destroySelected()}>삭제</button>
     <button onClick={destroyAll}>전체삭제</button>
     <div>{decalName}</div>
-    <div>{decalNum}</div>
+    <div>{decalNumber}</div>
    </div>
   );
 }

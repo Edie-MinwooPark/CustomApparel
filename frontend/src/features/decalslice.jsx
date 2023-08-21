@@ -3,15 +3,21 @@ import { createSlice } from "@reduxjs/toolkit";
 export const decalSlice = createSlice({
     name : "decal",
     initialState : {
-        decalName : [],
+        decalName : [""],
         decalNum : 0
     },
     reducers : {
         decalName : (state,action)=>{
-            state.decalName = action.payload;
+            state.decalName.push(action.payload);
         },
         decalNum : (state,action)=>{
-            state.decalNum += 1;
+            if(action.payload == "plus"){
+                state.decalNum += 1;
+            }else if(action.payload == 'minus'){
+                state.decalNum -= 1;
+            }else{
+                state.decalNum = 0;
+            }
         }
     }
 })
