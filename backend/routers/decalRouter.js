@@ -6,7 +6,7 @@ const {
   } = require("../controller/decalController");
 
 
-router.post("/postdecal", islogin, postDecal.single("image"),(req,res)=>{
+router.post("/postdecal", postDecal.single("image"),(req,res)=>{
     res.json({
         success : true,
         filename : req.file.filename

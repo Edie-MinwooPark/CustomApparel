@@ -16,6 +16,7 @@ const KonvaCanvas = (props) => {
   const decalNumber = useSelector(state=>state.decal.decalNum);
   const decalText = useSelector(state=>state.decal.decalText);
   const selectionRectangleRef = useRef(null);
+  const decalMyPic = useSelector(state=>state.decal.decalMyPic);
 
   useEffect(()=>{
     var width = 300;
@@ -318,15 +319,20 @@ const KonvaCanvas = (props) => {
         setAllTexts([...allTexts,simpleText])
         konvaLayer.batchDraw();
       }
+
     }, [decalText, konvaLayer]);
     
-    
+    useEffect(()=>{
+      console.log("바뀐다")
+      console.log(decalMyPic)
+    },[decalMyPic])
+
+
   return (
     <div style={props.style}>
     <div id="container" style={containerStyle} onMouseDown={handleMouseDown}   ></div>
     <button onClick={()=>destroySelected()}>삭제</button>
     <button onClick={destroyAll}>전체삭제</button>
-    <div>{decalName}</div>
     <div>{decalNumber}</div>
    </div>
   );

@@ -6,6 +6,7 @@ export const decalSlice = createSlice({
         decalName : ["kga2.png"],
         decalNum : 0,
         decalText : 0,
+        decalMyPic : []
     },
     reducers : {
         decalName : (state,action)=>{
@@ -22,8 +23,11 @@ export const decalSlice = createSlice({
         },
         decalText : (state,action)=>{
             state.decalText += 1;
+        },
+        decalMyPic : (state,action)=>{
+            state.decalMyPic.push(action.payload);
         }
     }
 })
 
-export const { decalName, decalNum, decalText } = decalSlice.actions;
+export const { decalName, decalNum, decalText, decalMyPic } = decalSlice.actions;
