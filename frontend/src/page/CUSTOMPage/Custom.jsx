@@ -8,14 +8,17 @@ import {
 } from "./Custom.styled";
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
+import CustomMyPicPopup from "./CustomMyPicPopup";
 import { useSelector, useDispatch } from "react-redux";
 import TwoDCanvas from "../../components/TwoDCanvas";
 import CanvasComponent from "../../Canvas";
 import { clothColor } from "../../features/clothslice";
-import { decalName, decalNum } from "../../features/decalslice";
+import { decalName, decalNum, decalText } from "../../features/decalslice";
 
 import html2canvas from "html2canvas";
 
+
+import axios from 'axios'
 const PROXY = process.env.REACT_APP_PROXY;
 // custom 테이블 정보 가져오기
 // async function getCustom() {
@@ -38,6 +41,7 @@ const Custom = () => {
   const [gl, setGl] = useState(null);
   const dispatch = useDispatch();
   const colors = useSelector((state) => state.cloth.clothColor);
+  const [myPic, setMyPic] = useState(false);
 
   // customSlice의 초기값을 가져옴
   const shirtInfo = useSelector((state) => state.custom.basic);
@@ -148,6 +152,16 @@ const Custom = () => {
       />
     ));
   }
+  // 텍스트 추가하기
+  function handleText(){
+    dispatch(decalText());
+  }
+
+  function handleMypic(){
+    setMyPic(!myPic)
+  }
+
+
   return (
     <div>
       {/* 팝업창이 나오는 부분  */}
@@ -159,6 +173,7 @@ const Custom = () => {
         />
       ) : null}
       {decals ? <CustomDecalsPopup handlerDecal={handleDecals} /> : null}
+      { myPic ? <CustomMyPicPopup handlerMyPic={handleMypic} /> : null}
       <Nav />
       <CustomWrap>
         <div className="customMainWrap">
@@ -180,11 +195,24 @@ const Custom = () => {
                   </div>
                   <span>PRODUCT</span>
                 </div>
+
                 <div className="imageWrap" onClick={handleDecals}>
                   <div className="addImageBtn">
                     <img src={`${PROXY}/img/smile.png`} />
                   </div>
                   <span>DECALS</span>
+                </div>
+                <div className="productWrap" onClick={handleText}>
+                  <div className="changeProductBtn">
+                    <img src={`${PROXY}/img/lettert.png`} />
+                  </div>
+                  <span>TEXT</span>
+                </div>
+                <div className="productWrap" onClick={handleMypic}>
+                  <div className="changeProductBtn">
+                    <img src={`${PROXY}/img/mypicture2.png`} />
+                  </div>
+                  <span>MyPicture</span>
                 </div>
                 <div className="imageWrap">
                   {/*  */}

@@ -4,16 +4,30 @@ export const decalSlice = createSlice({
     name : "decal",
     initialState : {
         decalName : [],
-        decalNum : 0
+        decalNum : 0,
+        decalText : 0,
+        decalMyPic : []
     },
     reducers : {
         decalName : (state,action)=>{
-            state.decalName = action.payload;
+            state.decalName.push(action.payload);
         },
         decalNum : (state,action)=>{
-            state.decalNum += 1;
+            if(action.payload == "plus"){
+                state.decalNum += 1;
+            }else if(action.payload == 'minus'){
+                state.decalNum -= 1;
+            }else{
+                state.decalNum = 0;
+            }
+        },
+        decalText : (state,action)=>{
+            state.decalText += 1;
+        },
+        decalMyPic : (state,action)=>{
+            state.decalMyPic.push(action.payload);
         }
     }
 })
 
-export const { decalName, decalNum } = decalSlice.actions;
+export const { decalName, decalNum, decalText, decalMyPic } = decalSlice.actions;
