@@ -84,7 +84,6 @@ const PostDetail = () => {
         return;
       }
 
-      // let likesData = JSON.parse(postdata.likes);
       let likesData = postdata.likes ? JSON.parse(postdata.likes) : [];
       let updatedLikesData;
       const likeUserIndex = likesData.findIndex(
