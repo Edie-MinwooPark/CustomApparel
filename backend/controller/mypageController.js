@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const bcrypt = require("bcrypt");
 
-const { USER } = require("../models");
+const { USER, POST, COMMENTS, RECOMMENTS } = require("../models");
 
 exports.postImg = multer({
   storage: multer.diskStorage({
@@ -149,6 +149,39 @@ exports.updateusernick = async (req, res) => {
         res.status(200).json({ data: nick });
       });
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getmypostsIliked = async (req, res) => {
+  const { acc_decoded } = req;
+  console.log("getmypostsIliked", acc_decoded);
+  try {
+    // const post = await POST.findOne({
+    //   where: { id },
+    //   include: [{ model: COMMENTS, include: [{ model: RECOMMENTS }] }],
+    // });
+    // // console.log("post :", post);
+    // res.json(post);
+    // console.log("getmypostsIliked", acc_decoded);
+    res.status(200).json({ value: "성공" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.postWrittenbyme = async (req, res) => {
+  try {
+    const { acc_decoded } = req;
+    console.log("postWrittenbyme", acc_decoded);
+    const user_id = acc_decoded.id;
+    const posts = await POST.findAll({
+      where: { callbyuser_id: user_id },
+      // include: [{ model: COMMENTS, include: [{ model: RECOMMENTS }] }],
+    });
+
+    console.log("post :", posts);
+    res.status(200).json(posts);
   } catch (error) {
     console.log(error);
   }

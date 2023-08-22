@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Payment from "../../layout/paymentbox";
 import { Cartwrapper } from "./Cart.styled";
@@ -33,6 +33,34 @@ const Cart = () => {
   const handlepaymentinput3 = () => {
     setPaymentProgress(0);
   };
+  const handleSelectChange = (event, index) => {
+    console.log("상호작용이 작동함");
+    const selectedValue = event.target.value;
+    console.log(`Selected value for row ${index}:`, selectedValue);
+    // Now you can use the selected value as needed
+    let updatecountItem = JSON.parse(localStorage.getItem(userdata.user_id));
+    updatecountItem[index].count = parseInt(selectedValue);
+    updatecountItem[index].sum =
+      updatecountItem[index].intprice * parseInt(selectedValue);
+    localStorage.setItem(userdata.user_id, JSON.stringify(updatecountItem));
+    setSelected(updatecountItem);
+  };
+  // useEffect(() => {
+  //   console.log("원래 이벤트 자동 발동 ");
+  //   selected.forEach((value, index) => {
+  //     const selectElement = document.getElementById(`quantitySelect_${index}`);
+  //     if (selectElement) {
+  //       const event = new Event("change");
+  //       selectElement.dispatchEvent(event);
+  //     }
+  //   });
+  // }, [selected]);
+  useEffect(() => {
+    selected.forEach((_, index) => {
+      handleSelectChange({ target: { value: selected[index].count } }, index);
+    });
+  }, []);
+
   return (
     <div>
       <Cartwrapper>
@@ -72,23 +100,27 @@ const Cart = () => {
                     <div className="optionpricepart">
                       {value.price}{" "}
                       <span>
-                        <select>
+                        <select
+                          id={`quantitySelect_${index}`}
+                          onChange={(event) => handleSelectChange(event, index)}
+                          value={value.count}
+                        >
                           <option value="1">1</option>
-                          {/* <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option> */}
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
                         </select>
                       </span>{" "}
                     </div>
                   </div>
                 </td>
                 <td className="totalprice">
-                  <span className="price">{value.price}</span>
+                  <span className="price">{value.intprice * value.count}</span>
                 </td>
                 <td className="totalprice">
                   {" "}
-                  <span className="price">0원</span>
+                  <span className="price">3000원</span>
                 </td>
                 <button
                   className="removebutton"

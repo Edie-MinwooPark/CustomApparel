@@ -35,6 +35,27 @@ export const getPaymenthistorydetails = createAsyncThunk(
   }
 );
 
+export const paymentcancel = createAsyncThunk(
+  "payment/paymentcancel",
+  async (form) => {
+    console.log("paymentcancelthunk", form);
+
+    try {
+      const response = await axios.post(
+        `${PROXY}/payment/paymentcancel`,
+        { value: form },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("paymentcancel", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("paymentcancel", error);
+    }
+  }
+);
+
 export const postpaymentsucceeded = createAsyncThunk(
   "payment/paymentsucceeded",
   async (value) => {

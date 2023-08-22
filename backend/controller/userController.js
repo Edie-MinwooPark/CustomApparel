@@ -54,6 +54,7 @@ exports.login = async (req, res) => {
         {
           user_id: user.user_id,
           Nick: user.Nick,
+          id: user.id,
         },
         process.env.ACCESS_TOKEN_KEY,
         {
