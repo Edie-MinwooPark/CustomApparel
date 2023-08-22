@@ -8,17 +8,18 @@ import {
   StyledUploadTime,
   FollowButton,
 } from "./styled";
-import proImg from "./5.jpeg";
 
-const UserState = ({ userProfileImage, userName, uploadTime }) => {
-  const userImg = proImg;
+const UserState = ({ user_info }) => {
+  // const userImg = proImg;
+  console.log("userProfileImage :", user_info);
+
   return (
     <UserStateBox>
-      <ProfileImageBox href={`/social/users/@${userName}`}>
-        <StyledProfileImage src={userImg} alt="프로필 이미지" />
-        <ProfileInfo href={`/social/users/@${userName}`}>
-          <StyledUserName>{(userName = "닉네임")}</StyledUserName>
-          <StyledUploadTime>{(uploadTime = "1시간전")}</StyledUploadTime>
+      <ProfileImageBox href={`/social/users/@${user_info.user_id}`}>
+        <StyledProfileImage src={user_info.profile_img} alt="프로필 이미지" />
+        <ProfileInfo href={`/social/users/@${user_info.user_id}`}>
+          <StyledUserName>{user_info.user_id}</StyledUserName>
+          <StyledUploadTime>{user_info.updatedAt}</StyledUploadTime>
         </ProfileInfo>
       </ProfileImageBox>
       <FollowButton>팔로우</FollowButton>

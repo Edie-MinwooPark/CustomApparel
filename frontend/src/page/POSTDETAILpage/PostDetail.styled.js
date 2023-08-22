@@ -19,7 +19,10 @@ export const ContentBox = styled.div`
   padding: 12px 16px 0;
 `;
 
-export const StyledLikeIconWrapper = styled.div``;
+export const StyledLikeIconWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+`;
 
 export const CountContainer = styled.div`
   align-items: center;

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import KonvaCanvas from "./KonvaCanvas";
 
 const TwoDCanvas = () => {
   const clothType = useSelector((state) => state.cloth.clothType);
   const clothColor = useSelector((state) => state.cloth.clothColor);
   const [canvas, setCanvas] = useState(null);
+  const innerCanvas = document.createElement("canvas");
+  innerCanvas.width = 200;
+  innerCanvas.height = 200;
+  innerCanvas.border = "1px solid red";
 
   // 색상 필터 적용 함수
   const applyColorFilter = (
@@ -34,11 +39,12 @@ const TwoDCanvas = () => {
     backgroundImage.src = `${clothType}.png`;
     backgroundImage.onload = () => {
       ctx.drawImage(backgroundImage, 200, 0, 780, 750);
-
+      ctx.drawImage(innerCanvas, 100, 100);
       // 이미지 데이터 가져오기
       const imageData = ctx.getImageData(200, 0, 780, 750);
       const data = imageData.data;
-      // 변경된 픽셀 데이터로 이미지 업데이트
+
+      // // 변경된 픽셀 데이터로 이미지 업데이트
       ctx.putImageData(imageData, 200, 0);
     };
   }, [clothType]);
@@ -83,7 +89,21 @@ const TwoDCanvas = () => {
     ctx.putImageData(imageData, 200, 0);
   }, [clothColor]);
 
-  return <canvas id="canvas" width="1000" height="800"></canvas>;
+  return (
+    <>
+      <div style={{ position: "relative", width: "1000px", height: "800px" }}>
+        <canvas
+          id="canvas"
+          width="1000"
+          height="800"
+          style={{ position: "absolute", top: 0, left: 0, zIndex: 100 }}
+        />
+        <KonvaCanvas
+          style={{ position: "absolute", top: 200, left: 435, zIndex: 500 }}
+        />
+      </div>
+    </>
+  );
 };
 
 export default TwoDCanvas;

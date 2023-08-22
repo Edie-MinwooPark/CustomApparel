@@ -1,6 +1,8 @@
+const { where } = require("sequelize");
 const db = require("../models");
 const POST = db.POST;
 const COMMENTS = db.COMMENTS;
+const RECOMMENTS = db.RECOMMENTS;
 
 // 전체 post 목록 반환하는 함수
 exports.getAllPosts = async (req, res) => {
@@ -31,7 +33,7 @@ exports.getPostDetail = async (req, res) => {
   try {
     const post = await POST.findOne({
       where: { id },
-      include: [{ model: COMMENTS }],
+      include: [{ model: COMMENTS, include: [{ model: RECOMMENTS }] }],
     });
     // console.log("post :", post);
     res.json(post);
@@ -42,40 +44,6 @@ exports.getPostDetail = async (req, res) => {
   }
 };
 
-// // 상세 - 댓글 추가해주는 함수
-// exports.postComment = async (req, res) => {
-//   // const { id } = req.params;
-//   const user_id = 1;
-//   const { comment_id, comment_content } = req.body;
-//   try {
-//     const comment = await COMMENTS.create({
-//       user_id,
-//       comment_id,
-//       comment_content,
-//     });
-//     res.json(comment);
-//   } catch (error) {
-//     console.log(error);
-//     return res.json({ error });
-//   }
-// };
-
-// // 대댓글
-// exports.postRecoment = async (req, res) => {
-//   const user_id = 1; // 임시 user_id
-//   const { comment_id, comment_content } = req.body;
-//   try {
-//     const recomment = await RECOMMENTS.create({
-//       user_id,
-//       comment_id,
-//       comment_content,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res.json({ error });
-//   }
-// };
-
 // post 등록하는 함수
 exports.createPost = async (req, res) => {
   const { title, content, hash_tag } = req.body;
@@ -85,5 +53,42 @@ exports.createPost = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.json({ error });
+  }
+};
+
+exports.postLikes = async (req, res) => {
+  try {
+    const { action, user_id, post_id, post_title, post_content } = req.body;
+
+    // 특정 게시글을 찾습니다.
+    const post = await POST.findOne({ where: { id: post_id } });
+
+    if (!post) {
+      return res.json({ success: false, message: "Post not found" });
+    }
+
+    let likesArray = JSON.parse(post.likes) || []; // likes를 배열로 파싱
+
+    if (action === "like") {
+      // 중복 좋아요 방지
+      if (!likesArray.includes(user_id)) {
+        likesArray.push(user_id);
+      }
+    } else if (action === "unlike") {
+      // 사용자 ID를 배열에서 제거
+      likesArray = likesArray.filter((id) => id !== user_id);
+    }
+
+    // 좋아요 목록을 업데이트
+    await post.update({
+      likes: JSON.stringify(likesArray),
+      post_title: post_title, // 이 부분은 필요한지 재확인이 필요합니다.
+      post_content: post_content, // 이 부분은 필요한지 재확인이 필요합니다.
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.log("에러럴", error);
+    res.json({ success: false, error: error.message });
   }
 };

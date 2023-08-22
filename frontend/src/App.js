@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useState, useEffect } from "react";
 import Main from "./page/MainPage/Main";
 import {
   Route,
@@ -22,8 +23,9 @@ import {
   TestComponent,
   Cartp,
   PayMentDetail,
+  Admin,
 } from "../src/page/index";
-
+import KonvaCanvas from "./components/KonvaCanvas";
 export const PROXY = process.env.REACT_APP_PROXY;
 const queryClient = new QueryClient(); //axios react query 쓸때 사용
 
@@ -41,11 +43,13 @@ const App = () => {
           <Route path="/mypage" element={<MYpage />} />
           <Route path="/payment" element={<PayMent />} />
           <Route path="/canvas" element={<Canvas />} />
+          <Route path="/konva" element={<KonvaCanvas />} />
           <Route path="/cartp" element={<Cartp />} />
           <Route path="/paymentdetail" element={<PayMentDetail />} />
           <Route path="/postinsert" element={<PostInsert />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/test" element={<TestComponent />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </QueryClientProvider>

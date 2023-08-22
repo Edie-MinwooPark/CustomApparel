@@ -94,7 +94,7 @@ exports.mypage = async (req, res) => {
   try {
     // console.log(req);
     const { acc_decoded } = req;
-    console.log("123123123", acc_decoded);
+    // console.log("123123123", acc_decoded);
     if (acc_decoded) {
       await USER.findOne({
         raw: true,
@@ -111,9 +111,9 @@ exports.mypage = async (req, res) => {
 exports.updateuserpw = async (req, res) => {
   try {
     const { acc_decoded } = req;
-    console.log(req.body);
+    // console.log(req.body);
     const { pw } = req.body;
-    console.log("123123123", acc_decoded);
+    // console.log("123123123", acc_decoded);
     const hash = bcrypt.hashSync(pw, 10);
 
     if (acc_decoded) {
@@ -133,9 +133,9 @@ exports.updateuserpw = async (req, res) => {
 
 exports.updateusernick = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { acc_decoded } = req;
-    console.log("123123123", acc_decoded);
+    // console.log("123123123", acc_decoded);
 
     const { nick } = req.body;
 

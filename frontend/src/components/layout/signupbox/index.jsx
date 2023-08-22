@@ -21,29 +21,29 @@ const Sign = () => {
   const [user_pw, setUser_pw] = useState("");
   const [profile_img, setImageFile] = useState(null);
   const [formData, setFormData] = useState(new FormData());
-  console.log("안녕");
+  // console.log("안녕");
 
   const handleIdInput = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     setUser_id(e.target.value);
   };
   const handlePwInput = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setUser_pw(e.target.value);
   };
   const handleNickInput = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setNick(e.target.value);
   };
 
   useEffect(() => {
-    console.log("profile_img:", profile_img);
+    // console.log("profile_img:", profile_img);
   }, [profile_img]);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
+    // console.log(file);
     setImageFile(file);
   };
   const handleSubmit = async () => {
@@ -56,11 +56,11 @@ const Sign = () => {
     formData.append("data", JSON.stringify(form));
 
     formData.append("profile_img", profile_img);
-    for (let value of formData.values()) {
-      console.log(value);
-    }
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
     setFormData(formData);
-    console.log("handleSubmit 작동함");
+    // console.log("handleSubmit 작동함");
     dispatch(setUserinfo(formData));
   };
   return (

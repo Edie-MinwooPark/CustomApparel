@@ -4,16 +4,7 @@ class COMMENTS extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        id: {
-          type: Sequelize.INTEGER,
-          autoIncrement: true,
-          primaryKey: true,
-        },
         user_id: {
-          type: Sequelize.STRING,
-          allowNull: true,
-        },
-        comments_id: {
           type: Sequelize.STRING,
           allowNull: true,
         },

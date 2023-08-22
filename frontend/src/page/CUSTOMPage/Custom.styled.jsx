@@ -17,6 +17,7 @@ export const CustomWrap = styled.div`
     height: 900px;
     padding: 100px 0 0;
   }
+
   & .customMainWrap .customMain {
     width: 1200px;
     height: 100%;
