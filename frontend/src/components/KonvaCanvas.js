@@ -17,6 +17,8 @@ const KonvaCanvas = (props) => {
   const decalText = useSelector(state=>state.decal.decalText);
   const selectionRectangleRef = useRef(null);
   const decalMyPic = useSelector(state=>state.decal.decalMyPic);
+  const PROXY = process.env.REACT_APP_PROXY;
+
 
   useEffect(()=>{
     var width = 300;
@@ -220,7 +222,7 @@ const KonvaCanvas = (props) => {
 
     useEffect(() => {
       
-      if (konvaLayer && decalName) {
+      if (konvaLayer && decalName.length != 0) {
 
         let image = new Image();
         image.src = decalName[decalName.length - 1];
@@ -259,7 +261,7 @@ const KonvaCanvas = (props) => {
 
     
         konvaLayer.add(imageObj);
-        konvaLayer.batchDraw(); // Manually redraw the layer after adding the new shape
+        konvaLayer.batchDraw(); 
       }
     }, [decalName, konvaLayer]);
 
@@ -323,9 +325,49 @@ const KonvaCanvas = (props) => {
     }, [decalText, konvaLayer]);
     
     useEffect(()=>{
-      console.log("바뀐다")
-      console.log(decalMyPic)
-    },[decalMyPic])
+      if(decalMyPic.length === 0){
+        return;
+      }
+      
+      let image = new Image();
+        image.src = `${PROXY}/img/decals/${decalMyPic[decalMyPic.length - 1]}`;
+        let imageObj = new Konva.Image({
+          x: 100,
+          y: 150,
+          image: image,
+          width: 100,
+          height: 100,
+          draggable : true,
+        })
+
+        setAllDecals([...allDecals, imageObj]);
+
+        imageObj.on('click', (e) => {
+          const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
+          const isSelected = selectedNodes.indexOf(imageObj) >= 0;
+        
+          if (!metaPressed && !isSelected) {
+            // 클릭된 데칼을 선택하도록 처리
+            konvaTr.nodes([imageObj]);
+            setSelectedNodes([imageObj]);
+          } else if (metaPressed && isSelected) {
+            // 선택된 데칼을 선택 해제하도록 처리
+            const nodes = selectedNodes.slice();
+            nodes.splice(nodes.indexOf(imageObj), 1);
+            konvaTr.nodes(nodes);
+          } else if (metaPressed && !isSelected) {
+            // 데칼을 선택하도록 처리
+            const nodes = selectedNodes.concat([imageObj]);
+            konvaTr.nodes(nodes);
+          }
+        });
+
+    
+        konvaLayer.add(imageObj);
+        konvaLayer.batchDraw(); 
+      
+
+    },[decalMyPic, konvaLayer])
 
 
   return (

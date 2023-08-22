@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const decalSlice = createSlice({
     name : "decal",
     initialState : {
-        decalName : ["kga2.png"],
+        decalName : [],
         decalNum : 0,
         decalText : 0,
         decalMyPic : []
