@@ -8,6 +8,7 @@ const KonvaCanvas = (props) => {
   const dispatch = useDispatch();  
   const [selectedNodes, setSelectedNodes] = useState([]);
   const [allDecals,setAllDecals] = useState([]);
+  const [allTexts, setAllTexts] = useState([]);
   const [konvaStage, setKonvaStage] = useState(null);
   const [konvaLayer, setKonvaLayer] = useState(null);
   const [konvaTr, setKonvaTr] = useState();
@@ -188,6 +189,10 @@ const KonvaCanvas = (props) => {
         node.destroy();
       })
       setAllDecals([]);
+      allTexts.forEach((node)=>{
+        node.destroy();
+      })
+      setAllTexts([]);
 
       dispatch(decalNum(""));
       konvaLayer.batchDraw();
@@ -273,7 +278,10 @@ const KonvaCanvas = (props) => {
         simpleText.on('dblclick dbltap', function () {
           // 인풋 요소를 생성
           const input = document.createElement('input');
+          const colorPicker = document.createElement('input');
+          colorPicker.type = 'color';
           document.body.appendChild(input);
+          document.body.appendChild(colorPicker);
       
           // 현재 텍스트 위치에 인풋을 배치
           const box = simpleText.getClientRect();
@@ -281,6 +289,10 @@ const KonvaCanvas = (props) => {
           input.style.top = 330 +box.y + 'px';
           input.style.left = 435 + box.x + 'px';
           input.value = simpleText.text();
+
+          colorPicker.style.position = 'absolute';
+          colorPicker.style.top = 330 + box.y + 'px';
+          colorPicker.style.left = 435 + box.x + 100 + 'px'; // input 옆에 배치
       
           input.focus();
       
@@ -290,13 +302,20 @@ const KonvaCanvas = (props) => {
               simpleText.text(input.value);
               konvaLayer.batchDraw();
               document.body.removeChild(input);
+              document.body.removeChild(colorPicker);
             }
+          });
+
+          colorPicker.addEventListener('input', function (e) {
+            simpleText.fill(e.target.value);
+            konvaLayer.batchDraw();
           });
         });
 
 
       
         konvaLayer.add(simpleText);
+        setAllTexts([...allTexts,simpleText])
         konvaLayer.batchDraw();
       }
     }, [decalText, konvaLayer]);
