@@ -8,6 +8,7 @@ import {
 } from "./Custom.styled";
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
+import CustomMyPicPopup from "./CustomMyPicPopup";
 import { useSelector, useDispatch } from "react-redux";
 import TwoDCanvas from "../../components/TwoDCanvas";
 import CanvasComponent from "../../Canvas";
@@ -40,6 +41,7 @@ const Custom = () => {
   const [gl, setGl] = useState(null);
   const dispatch = useDispatch();
   const colors = useSelector((state) => state.cloth.clothColor);
+  const [myPic, setMyPic] = useState(false);
 
   // customSlice의 초기값을 가져옴
   const shirtInfo = useSelector((state) => state.custom.basic);
@@ -154,7 +156,7 @@ const Custom = () => {
   }
 
   function handleMypic(){
-    console.log("testn")
+    setMyPic(!myPic)
   }
 
 
@@ -169,6 +171,7 @@ const Custom = () => {
         />
       ) : null}
       {decals ? <CustomDecalsPopup handlerDecal={handleDecals} /> : null}
+      { myPic ? <CustomMyPicPopup handlerMyPic={handleMypic} /> : null}
       <Nav />
       <CustomWrap>
         <div className="customMainWrap">
