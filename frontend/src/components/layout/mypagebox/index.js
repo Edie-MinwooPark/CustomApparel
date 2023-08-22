@@ -5,8 +5,12 @@ import {
   updateuserpw,
   updateusernick,
   imgUpdate,
+  postWrittenbyme,
+  getmypostsIliked,
 } from "../../../features/mypageslice";
 import { Mainwrapper } from "./Mypage.styled";
+import PostIliked from "./PostIliked";
+import PostWrittenbyme from "./PostWrittenbyme";
 const PROXY = process.env.REACT_APP_PROXY;
 
 export const Mypage = () => {
@@ -47,6 +51,7 @@ export const Mypage = () => {
       setuser_id(data.payload.user_id);
       setuser_accept(data.payload.Accept);
       setNickname(data.payload.Nick);
+      // const post = await dispatch(getmypostsIliked());
     };
     fetchData();
   }, [dispatch]);
@@ -138,6 +143,8 @@ export const Mypage = () => {
           </div>
         </div>
       </Mainwrapper>
+      <PostWrittenbyme />
+      <PostIliked />
     </div>
     // <div>
     //   <span>아이디:{user_id}</span>
