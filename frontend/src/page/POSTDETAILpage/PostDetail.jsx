@@ -27,7 +27,8 @@ const PostDetail = () => {
       params: { id: postId },
       withCredential: true,
     });
-    console.log(data, "detaildata");
+    console.log("hi");
+    console.log("detaildata??", data);
     return data;
   };
 
@@ -55,12 +56,16 @@ const PostDetail = () => {
     isLoading,
     refetch,
   } = useQuery(["postDetail", postId], () => fetchPost(postId), {
-    onSuccess: (e) => setCommentsList(e?.COMMENTs ? e.COMMENTs : ""),
+    onSuccess: (e) => (
+      setCommentsList(e?.COMMENTs ? e.COMMENTs : ""),
+      setLikes(JSON.parse(e.likes).length)
+    ),
   });
 
   useEffect(() => {
     if (!user_info || !postdata || postdata.likes.length == 0) return;
     let likesData = JSON.parse(postdata.likes);
+    console.log("postdata.likes", likesData);
 
     console.log("user_info :", user_info);
     const likeUser = likesData.find((value) => value == user_info.id);
@@ -187,11 +192,15 @@ const PostDetail = () => {
       console.log("대댓글 추가 실패", error);
     }
   };
+
+  // postdata 의 callbyuser_id 가
   return (
     <>
       <Nav />
       <ContentWrapper>
-        {isLoading ? <UserState user_info={user_info} /> : null}
+        {/* {isLoading ? <UserState user_info={user_info} /> : null} */}
+        {/* 글쓴이 정보 전달해주기 */}
+        <UserState user_info={postdata} />
         <ImageBox />
         <ContentBox>
           <StyledLikeIconWrapper
