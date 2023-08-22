@@ -16,6 +16,8 @@ import { decalName, decalNum, decalText } from "../../features/decalslice";
 
 import html2canvas from "html2canvas";
 
+
+import axios from 'axios'
 const PROXY = process.env.REACT_APP_PROXY;
 // custom 테이블 정보 가져오기
 // async function getCustom() {
@@ -150,6 +152,12 @@ const Custom = () => {
   function handleText(){
     dispatch(decalText());
   }
+
+  function handleMypic(){
+    console.log("testn")
+  }
+
+
   return (
     <div>
       {/* 팝업창이 나오는 부분  */}
@@ -195,6 +203,12 @@ const Custom = () => {
                     <img src={`${PROXY}/img/lettert.png`} />
                   </div>
                   <span>TEXT</span>
+                </div>
+                <div className="productWrap" onClick={handleMypic}>
+                  <div className="changeProductBtn">
+                    <img src={`${PROXY}/img/mypicture2.png`} />
+                  </div>
+                  <span>MyPicture</span>
                 </div>
                 <div className="imageWrap">
                   {/*  */}
