@@ -24,16 +24,18 @@ exports.comment = async (req, res) => {
 };
 
 // 대댓글
-exports.recoment = async (req, res) => {
-  const user_id = 1; // 임시 user_id
-  const { comment_id, comment_content } = req.body;
+exports.reComment = async (req, res) => {
+  // const user_id = 1; // 임시 user_id
+  const { user_id, recomments, profile_img, recomment_id } = req.body;
   try {
     const recomment = await RECOMMENTS.create({
       user_id,
-      comment_id,
-      comment_content,
+      // comment_id,
+      recomments,
       profile_img,
+      recomment_id,
     });
+    res.json({ success: true, recomment });
   } catch (error) {
     console.log(error);
     return res.json({ error });
@@ -48,6 +50,20 @@ exports.getComments = async (req, res) => {
       order: [["createdAt"]],
     });
     res.json({ success: true, comments });
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
+};
+
+exports.getRecomments = async (req, res) => {
+  const { commentId } = req.params; // 대댓글을 가져올 댓글의 ID
+  try {
+    const recomments = await RECOMMENTS.findAll({
+      where: { recomment_id: commentId }, // 대댓글을 가져올 댓글의 ID와 일치하는 recomment_id 값 찾기
+      order: [["createdAt"]],
+    });
+    res.json({ success: true, recomments });
   } catch (error) {
     console.log(error);
     res.json({ error });

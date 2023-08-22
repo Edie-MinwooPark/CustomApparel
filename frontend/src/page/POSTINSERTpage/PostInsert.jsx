@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Nav from "../NavPage/Nav";
 import {
   ContentWrapper,
   ContentBox,
 } from "../POSTDETAILpage/PostDetail.styled";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 
 const PROXY = process.env.REACT_APP_PROXY;
@@ -13,6 +13,7 @@ const PROXY = process.env.REACT_APP_PROXY;
 const PostInsert = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [content, setContent] = useState("");
+  const [inputValue, setInputValue] = useState();
 
   const user_info = useSelector((state) => state.mypage.data);
   console.log(user_info);
@@ -24,6 +25,7 @@ const PostInsert = () => {
     author: { id: "123" },
     tags: [],
   });
+
   // X버튼 눌렀을때 태그 삭제
   const deleteTag = (tag) => {
     setFormData({
@@ -64,8 +66,7 @@ const PostInsert = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setInputValue(e.target.value);
   };
 
   const handleImg = (e) => {
@@ -88,7 +89,7 @@ const PostInsert = () => {
     //   }),
     // };
     const createdPost = new FormData();
-    createdPost.append("content", formData.content);
+    createdPost.append("content", inputValue);
     createdPost.append("id", formData.id);
 
     console.log("createdPost :", createdPost);
@@ -101,11 +102,19 @@ const PostInsert = () => {
     // }
 
     try {
-      const response = await axios.post(`${PROXY}/post/post`, createdPost);
-
-      // if (response.data.succe) {
-
-      // }
+      console.log("hi :", fileInput);
+      const response = await axios.post(
+        `${PROXY}/post/addpost`,
+        {
+          user_id: user_info.user_id,
+          post_title: "test",
+          post_content: inputValue,
+          post_img: imageName,
+          callbyuser_id: user_info.id,
+          hash_tag: JSON.stringify(formData.tags),
+        },
+        { withCredentials: true }
+      );
     } catch (error) {
       console.error("Failed to toggle like", error);
     }
@@ -168,6 +177,62 @@ const PostInsert = () => {
     }
   };
 
+  const [Image, setImage] = useState("");
+  const [imageName, setImageName] = useState();
+  const dispatch = useDispatch();
+  const fileInput = useRef(null);
+  const [PhotoformData, setPhotoFormData] = useState(new FormData());
+
+  const onChange = (e) => {
+    if (e.target.files[0]) {
+      setImageName(e.target.value.split("\\")[2]);
+      console.log("asdasdasd", e.target.files[0]);
+      PhotoformData.append("profile_img", e.target.files[0]);
+      setPhotoFormData(PhotoformData);
+      // console.log("asdasd", PhotoformData);
+      //화면에 프로필 사진 표시
+      const reader = new FileReader();
+      reader.onload = () => {
+        console.log(reader);
+        if (reader.readyState === 2) {
+          setImage(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+      // dispatch(imgUpdate(formData));
+    } else {
+      //업로드 취소할 시
+      setImage(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      );
+    }
+  };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     console.log("hi :", formData.tags);
+  //     const response = await axios.post(
+  //       `${PROXY}/post/addpost`,
+  //       {
+  //         user_id: user_info.user_id,
+  //         post_title: "",
+  //         post_content: inputValue,
+  //         post_img: imageName,
+  //         callbyuser_id: user_info.id,
+  //         hash_tag: JSON.stringify(formData.tags),
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data; charset=utf-8",
+  //         },
+  //         withCredentials: true,
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <>
       <Nav />
@@ -181,17 +246,22 @@ const PostInsert = () => {
                 placeholder="내용을 입력하세요"
                 cols={"30"}
                 rows={10}
-                value={formData.content}
+                value={inputValue}
                 onChange={handleChange}
                 required //폼을 비운채로 submit 하면 알림메시지 뜸
               />
               <br />
               <label htmlFor="postImg">이미지 업로드</label> <br />
               <input
+                // type="file"
+                // id="postImg"
+                // onChange={handleImg}
+                // accept="image/*"
                 type="file"
-                id="postImg"
-                onChange={handleImg}
-                accept="image/*"
+                accept="image/jpg,impge/png,image/jpeg"
+                name="profile_img"
+                onChange={onChange}
+                ref={fileInput}
               />
               <label htmlFor="tags">tags</label>
               <div>
@@ -204,6 +274,7 @@ const PostInsert = () => {
                     className="input grow"
                     onChange={handleTag}
                   />
+                  <img src={Image} alt="" />
                   <button onClick={addTag} className="small-button w-16">
                     add
                   </button>
@@ -212,7 +283,7 @@ const PostInsert = () => {
                       autoCompletes.map((autoComplete) => (
                         <button
                           key={autoComplete}
-                          onClick={handleAutoCompletes(autoComplete)}
+                          onClick={() => handleAutoCompletes(autoComplete)}
                         >
                           #{autoComplete}
                         </button>
@@ -228,7 +299,7 @@ const PostInsert = () => {
                       <span>
                         <p>#{tag}</p>
                       </span>
-                      <button onClick={deleteTag(tag)} />
+                      <button onClick={() => deleteTag(tag)} />
                     </div>
                   ))}
                 </div>

@@ -65,3 +65,11 @@ export const More = styled.span`
 export const Comment_Box = styled.div`
   border: 1px solid;
 `;
+
+export const LikeIcon = styled.img`
+  width: ${(props) => props.width || "auto"};
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  transform: ${(props) => (props.liked ? "scale(1.1)" : "scale(1)")};
+`;

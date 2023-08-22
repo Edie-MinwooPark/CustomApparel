@@ -3,6 +3,7 @@ const db = require("../models");
 const POST = db.POST;
 const COMMENTS = db.COMMENTS;
 const RECOMMENTS = db.RECOMMENTS;
+const USER = db.USER;
 
 // 전체 post 목록 반환하는 함수
 exports.getAllPosts = async (req, res) => {
@@ -33,9 +34,12 @@ exports.getPostDetail = async (req, res) => {
   try {
     const post = await POST.findOne({
       where: { id },
-      include: [{ model: COMMENTS, include: [{ model: RECOMMENTS }] }],
+      include: [
+        { model: COMMENTS, include: [{ model: RECOMMENTS }] },
+        { model: USER },
+      ],
     });
-    // console.log("post :", post);
+    console.log("post :", post);
     res.json(post);
     // res.json();
   } catch (error) {
@@ -46,10 +50,25 @@ exports.getPostDetail = async (req, res) => {
 
 // post 등록하는 함수
 exports.createPost = async (req, res) => {
-  const { title, content, hash_tag } = req.body;
+  const {
+    user_id,
+    post_title,
+    post_content,
+    post_img,
+    callbyuser_id,
+    hash_tag,
+  } = req.body;
+  console.log(req.body);
   try {
-    const recomment = await POST.create({ title, content, hash_tag });
-    res.json(recomment);
+    const addpost = await POST.create({
+      user_id,
+      post_title,
+      post_content,
+      post_img: "/img/" + post_img,
+      callbyuser_id,
+      hash_tag,
+    });
+    res.json(addpost);
   } catch (error) {
     console.log(error);
     return res.json({ error });

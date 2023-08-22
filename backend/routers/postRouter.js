@@ -16,7 +16,7 @@ router.get("/hashtag/:hash_tag", getPostsByHashtag);
 router.get("/detail/:id", getPostDetail);
 
 // post 등록 라우트
-router.post("/post", createPost);
+router.post("/addpost", createPost);
 
 // 좋아요 라우트
 router.post("/postLikes", postLikes);
