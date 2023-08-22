@@ -86,7 +86,9 @@ exports.postLikes = async (req, res) => {
       return res.json({ success: false, message: "Post not found" });
     }
 
-    let likesArray = JSON.parse(post.likes) || []; // likes를 배열로 파싱
+    let likesArray = post?.likes.length != 0 ? JSON.parse(post.likes) : []; // likes를 배열로 파싱
+
+    console.log("likesArray : ", likesArray);
 
     if (action === "like") {
       // 중복 좋아요 방지

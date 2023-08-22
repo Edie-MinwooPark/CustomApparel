@@ -56,10 +56,11 @@ const PostDetail = () => {
     isLoading,
     refetch,
   } = useQuery(["postDetail", postId], () => fetchPost(postId), {
-    onSuccess: (e) => (
-      setCommentsList(e?.COMMENTs ? e.COMMENTs : ""),
-      setLikes(JSON.parse(e.likes).length)
-    ),
+    onSuccess: (e) => {
+      setCommentsList(e?.COMMENTs ? e.COMMENTs : "");
+
+      if (e?.likes) setLikes(JSON.parse(e?.likes).length);
+    },
   });
 
   useEffect(() => {
@@ -83,11 +84,13 @@ const PostDetail = () => {
         return;
       }
 
-      let likesData = JSON.parse(postdata.likes);
+      // let likesData = JSON.parse(postdata.likes);
+      let likesData = postdata.likes ? JSON.parse(postdata.likes) : [];
       let updatedLikesData;
       const likeUserIndex = likesData.findIndex(
         (value) => value === user_info.id
       );
+      console.log(likeUserIndex);
 
       if (likeUserIndex !== -1) {
         // 이미 좋아요한 경우, 좋아요 취소 처리
@@ -96,6 +99,8 @@ const PostDetail = () => {
         // 좋아요하지 않은 경우, 좋아요 추가 처리
         updatedLikesData = [...likesData, user_info.id];
       }
+
+      console.log(updatedLikesData);
 
       let url = `${PROXY}/post/postLikes/`;
       let action = likeUserIndex !== -1 ? "unlike" : "like";
@@ -108,6 +113,8 @@ const PostDetail = () => {
         post_content: postdata.post_content,
         likes: JSON.stringify(updatedLikesData),
       });
+
+      console.log(response);
 
       if (response.data.success) {
         console.log("여기까진 오니?");
