@@ -51,7 +51,7 @@ export const StyledUploadTime = styled.p`
   white-space: nowrap;
 `;
 
-export const FollowButton = styled.button`
+export const StyleButton = styled.button`
   /* 팔로우 버튼 스타일 */
   padding: 5px 10px;
   border: none;

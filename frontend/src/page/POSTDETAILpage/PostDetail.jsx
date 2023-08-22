@@ -27,8 +27,8 @@ const PostDetail = () => {
       params: { id: postId },
       withCredential: true,
     });
-    console.log("hi");
-    console.log("detaildata??", data);
+    // console.log("hi");
+    // console.log("detaildata??", data);
     return data;
   };
 
@@ -66,9 +66,9 @@ const PostDetail = () => {
   useEffect(() => {
     if (!user_info || !postdata || postdata.likes.length == 0) return;
     let likesData = JSON.parse(postdata.likes);
-    console.log("postdata.likes", likesData);
+    // console.log("postdata.likes", likesData);
 
-    console.log("user_info :", user_info);
+    // console.log("user_info :", user_info);
     const likeUser = likesData.find((value) => value == user_info.id);
 
     if (likeUser) {
@@ -89,7 +89,7 @@ const PostDetail = () => {
       const likeUserIndex = likesData.findIndex(
         (value) => value === user_info.id
       );
-      console.log(likeUserIndex);
+      // console.log(likeUserIndex);
 
       if (likeUserIndex !== -1) {
         // 이미 좋아요한 경우, 좋아요 취소 처리
@@ -99,7 +99,7 @@ const PostDetail = () => {
         updatedLikesData = [...likesData, user_info.id];
       }
 
-      console.log(updatedLikesData);
+      // console.log(updatedLikesData);
 
       let url = `${PROXY}/post/postLikes/`;
       let action = likeUserIndex !== -1 ? "unlike" : "like";
@@ -113,10 +113,10 @@ const PostDetail = () => {
         likes: JSON.stringify(updatedLikesData),
       });
 
-      console.log(response);
+      // console.log(response);
 
       if (response.data.success) {
-        console.log("여기까진 오니?");
+        // console.log("여기까진 오니?");
         setIsLiked(!isLiked); // 토글 상태 변경
         setLikes(updatedLikesData.length); // 좋아요 수 업데이트
         refetch();
@@ -136,8 +136,8 @@ const PostDetail = () => {
         postId,
       });
       if (response.data.success) {
-        console.log("succccesssss?", response);
-        console.log("여기까지옴?");
+        // console.log("succccesssss?", response);
+        // console.log("여기까지옴?");
         const updatedComments = await fetchComments(postId);
 
         // 기존댓글 + 대댓글 + 새댓글 합침

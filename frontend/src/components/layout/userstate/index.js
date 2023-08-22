@@ -6,7 +6,7 @@ import {
   ProfileInfo,
   StyledUserName,
   StyledUploadTime,
-  FollowButton,
+  StyleButton,
 } from "./styled";
 
 const PROXY = process.env.REACT_APP_PROXY;
@@ -31,7 +31,12 @@ const UserState = ({ user_info }) => {
           <StyledUploadTime>{postInfo.createdAt}</StyledUploadTime>
         </ProfileInfo>
       </ProfileImageBox>
-      <FollowButton>팔로우</FollowButton>
+      {postInfo.id == user_info.id ? (
+        <div>
+          <StyleButton>수정</StyleButton>
+          <StyleButton>삭제</StyleButton>
+        </div>
+      ) : null}
     </UserStateBox>
   );
 };
