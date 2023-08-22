@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Konva from 'konva';
 import { useSelector,useDispatch } from 'react-redux';
-import { decalName,decalNum } from '../features/decalslice';
+import { decalName,decalNum, decalText } from '../features/decalslice';
 
 const KonvaCanvas = (props) => {
 
@@ -13,8 +13,7 @@ const KonvaCanvas = (props) => {
   const [konvaTr, setKonvaTr] = useState();
   const decalName = useSelector(state=>state.decal.decalName);
   const decalNumber = useSelector(state=>state.decal.decalNum);
-  // const decalNum = useSelector(state=>state.decal.decalNum);
-
+  const decalText = useSelector(state=>state.decal.decalText);
   const selectionRectangleRef = useRef(null);
 
   useEffect(()=>{
@@ -220,8 +219,8 @@ const KonvaCanvas = (props) => {
         let image = new Image();
         image.src = decalName[decalName.length - 1];
         let imageObj = new Konva.Image({
-          x: 50,
-          y: 50,
+          x: 100,
+          y: 150,
           image: image,
           width: 100,
           height: 100,
@@ -258,6 +257,50 @@ const KonvaCanvas = (props) => {
       }
     }, [decalName, konvaLayer]);
 
+    useEffect(() => {
+      if(decalText !== 0){
+        var simpleText = new Konva.Text({
+          x: 100,
+          y: 15,
+          text: '텍스트',
+          fontSize: 50,
+          fontWeight : 1500,
+          fill: 'yellow',
+          draggable : true,
+        });
+    
+        // 더블클릭 이벤트 추가
+        simpleText.on('dblclick dbltap', function () {
+          // 인풋 요소를 생성
+          const input = document.createElement('input');
+          document.body.appendChild(input);
+      
+          // 현재 텍스트 위치에 인풋을 배치
+          const box = simpleText.getClientRect();
+          input.style.position = 'absolute';
+          input.style.top = 330 +box.y + 'px';
+          input.style.left = 435 + box.x + 'px';
+          input.value = simpleText.text();
+      
+          input.focus();
+      
+          // 엔터 키를 누르면 텍스트 업데이트 및 인풋 제거
+          input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              simpleText.text(input.value);
+              konvaLayer.batchDraw();
+              document.body.removeChild(input);
+            }
+          });
+        });
+
+
+      
+        konvaLayer.add(simpleText);
+        konvaLayer.batchDraw();
+      }
+    }, [decalText, konvaLayer]);
+    
     
   return (
     <div style={props.style}>

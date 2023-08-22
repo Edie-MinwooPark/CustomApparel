@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TwoDCanvas from "../../components/TwoDCanvas";
 import CanvasComponent from "../../Canvas";
 import { clothColor } from "../../features/clothslice";
-import { decalName, decalNum } from "../../features/decalslice";
+import { decalName, decalNum, decalText } from "../../features/decalslice";
 
 import html2canvas from "html2canvas";
 
@@ -146,6 +146,10 @@ const Custom = () => {
       />
     ));
   }
+  // 텍스트 추가하기
+  function handleText(){
+    dispatch(decalText());
+  }
   return (
     <div>
       {/* 팝업창이 나오는 부분  */}
@@ -179,11 +183,18 @@ const Custom = () => {
                   </div>
                   <span>PRODUCT</span>
                 </div>
+
                 <div className="imageWrap" onClick={handleDecals}>
                   <div className="addImageBtn">
                     <img src={`${PROXY}/img/smile.png`} />
                   </div>
                   <span>DECALS</span>
+                </div>
+                <div className="productWrap" onClick={handleText}>
+                  <div className="changeProductBtn">
+                    <img src={`${PROXY}/img/lettert.png`} />
+                  </div>
+                  <span>TEXT</span>
                 </div>
                 <div className="imageWrap">
                   {/*  */}

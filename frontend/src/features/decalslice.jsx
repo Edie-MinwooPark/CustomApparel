@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const decalSlice = createSlice({
     name : "decal",
     initialState : {
-        decalName : [""],
-        decalNum : 0
+        decalName : ["kga2.png"],
+        decalNum : 0,
+        decalText : 0,
     },
     reducers : {
         decalName : (state,action)=>{
@@ -18,8 +19,11 @@ export const decalSlice = createSlice({
             }else{
                 state.decalNum = 0;
             }
+        },
+        decalText : (state,action)=>{
+            state.decalText += 1;
         }
     }
 })
 
-export const { decalName, decalNum } = decalSlice.actions;
+export const { decalName, decalNum, decalText } = decalSlice.actions;
