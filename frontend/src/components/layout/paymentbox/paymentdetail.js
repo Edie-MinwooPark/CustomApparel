@@ -132,6 +132,12 @@ const Paymentdetail = () => {
     );
   };
 
+  const handlereturncall = () => {
+    alert("반품신청이 완료되었습니다.");
+  };
+  const handleaddcart = () => {
+    alert("선택하신 물품이 장바구니에 추가되었습니다.");
+  };
   return (
     <div>
       <Paymentdetailwrapper>
@@ -193,8 +199,11 @@ const Paymentdetail = () => {
                                       {paymentdataHIS[index]?.response.amount}원
                                     </div>
                                     <div className="shieldinnerbox2">
-                                      <button className="shieldinnerbox2button">
-                                        뭔가버튼
+                                      <button
+                                        className="shieldinnerbox2button"
+                                        onClick={() => handleaddcart()}
+                                      >
+                                        장바구니에 추가하기
                                       </button>
                                     </div>
                                   </div>
@@ -215,8 +224,11 @@ const Paymentdetail = () => {
                             >
                               주문취소
                             </button>
-                            <button className="threebuttonbutton1">
-                              뭔가버튼2
+                            <button
+                              className="threebuttonbutton1"
+                              onClick={() => handlereturncall()}
+                            >
+                              반품 신청
                             </button>
                           </div>
                         </td>

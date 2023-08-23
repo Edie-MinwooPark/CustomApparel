@@ -30,7 +30,7 @@ export const customSlice = createSlice({
         count: 1,
         sum: 100,
         decalNum: 0,
-        decaldata: [],
+        decaldata: "응애",
       },
       {
         id: 3,
@@ -43,7 +43,7 @@ export const customSlice = createSlice({
         count: 1,
         sum: 100,
         decalNum: 0,
-        decaldata: [],
+        decaldata: "응애",
       },
       {
         id: 4,
@@ -56,7 +56,7 @@ export const customSlice = createSlice({
         count: 1,
         sum: 100,
         decalNum: 0,
-        decaldata: [],
+        decaldata: "응애",
       },
     ],
   },
