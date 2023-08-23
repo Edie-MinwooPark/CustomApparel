@@ -41,16 +41,34 @@ const CustomDecalsPopup = ({ handlerDecal }) => {
             <img src='jordan_thumb.png' />
           </div>
           <div className="popupCard" onClick={ta}>
-            <img src={`${PROXY}/img/angry-emoji.png`} />
+            <img src='airjordan.png' />
           </div>
           <div className="popupCard" onClick={ta}>
-            <img src={`${PROXY}/img/angry-emoji.png`} />
+            <img src='adidas.png' />
           </div>
           <div className="popupCard" onClick={ta}>
-            <img src={`${PROXY}/img/angry-emoji.png`} />
+            <img src='twinbear.png' />
           </div>
           <div className="popupCard" onClick={ta}>
-            <img src={`${PROXY}/img/angry-emoji.png`} />
+            <img src='burberry.png' />
+          </div>
+          <div className="popupCard" onClick={ta}>
+            <img src='happycat.png' />
+          </div>
+          <div className="popupCard" onClick={ta}>
+            <img src='mickeymouse.png' />
+          </div>
+          <div className="popupCard" onClick={ta}>
+            <img src='mudo.png' />
+          </div>
+          <div className="popupCard" onClick={ta}>
+            <img src='squid.png' />
+          </div>
+          <div className="popupCard" onClick={ta}>
+            <img src='sunglass.png' />
+          </div>
+          <div className="popupCard" onClick={ta}>
+            <img src='bluelight.png' />
           </div>
         </div>
       </div>
