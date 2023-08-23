@@ -31,7 +31,7 @@ const CustomProductPopup = ({ handleProduct, num , product }) => {
         dispatch(clothType("onepiece"));
         break;
       case "4":
-        dispatch(clothType("tanktop"));
+        dispatch(clothType("hoodie"));
         break;
     }
     handleProduct();

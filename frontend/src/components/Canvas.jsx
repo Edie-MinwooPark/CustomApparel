@@ -78,21 +78,21 @@ function Shirt (props) {
     return (
       <group {...props} dispose={null}>
         <group rotation={[Math.PI / 2, 0, 0]} >
-          {/* <mesh
+          <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_4.geometry}
             material={materials.FABRIC_1_FRONT_4193}
             scale={0.3}
-          /> */}
-          {/* <mesh
+          />
+          <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_5.geometry}
             material={materials.FABRIC_1_FRONT_4193}
             scale={0.3}
 
-          /> */}
+          />
           <mesh
             castShadow
             receiveShadow
@@ -103,14 +103,14 @@ function Shirt (props) {
             <Decal map={texture}
             />
           </mesh>
-          {/* <mesh
+          <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_7.geometry}
             material={materials.FABRIC_1_FRONT_4193}
             scale={0.3}
 
-          /> */}
+          />
         </group>
       </group>
     );
@@ -227,7 +227,7 @@ function LongSleeveShirt(props){
 }
 
 function TankTop (props){
-  const { nodes, materials } = useGLTF("/tanktop.glb");
+  const { nodes, materials } = useGLTF("/hoodie2.glb");
   const colors = useSelector(state => state.cloth.clothColor);
 
   const newMaterial = new THREE.MeshStandardMaterial({
@@ -238,44 +238,10 @@ function TankTop (props){
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Body_Front_Cuffs_FRONT_1353547_0.geometry}
+        geometry={nodes.Object_2.geometry}
         material={newMaterial}
-        scale={3}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Body_Front_Body_FRONT_1353552_0.geometry}
-        material={newMaterial}
-        scale={3}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Body_Back_Body_FRONT_1353552_0.geometry}
-        material={newMaterial}
-        scale={3}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Body_Back_Body_FRONT_1353552_0_1.geometry}
-        material={newMaterial}
-        scale={3}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Pattern2D_1004255_FABRIC_1_FRONT_1353542_0.geometry}
-        material={materials.FABRIC_1_FRONT_1353542}
-        scale={3}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Pattern2D_1004256_FABRIC_1_FRONT_1353542_0.geometry}
-        material={materials.FABRIC_1_FRONT_1353542_0}
-        scale={3}
+        rotation={[-Math.PI / 2, 0, 0]}
+        scale={2.8}
       />
     </group>
   );
