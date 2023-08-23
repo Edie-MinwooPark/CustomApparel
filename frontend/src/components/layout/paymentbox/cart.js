@@ -5,10 +5,15 @@ import { Cartwrapper } from "./Cart.styled";
 
 const Cart = () => {
   const userdata = useSelector((state) => state.mypage.data);
+  const decaldata = useSelector((state) => state.decal.decalName);
+  const decalNum = useSelector((state) => state.decal.decalNum);
+  // const decalText = useSelector((state) => state.decal.decalText);
+  // const decalMyPic = useSelector((state) => state.decal.decalMyPic);
   const [paymentProgress, setPaymentProgress] = useState(0);
   const storedValue = JSON.parse(localStorage.getItem(userdata.user_id)) || [];
   const [selected, setSelected] = useState(storedValue);
   console.log("Cart", userdata);
+  console.log("decal데이터들", decaldata, decalNum);
   useEffect(() => {
     const backgroundPosition = -200 + paymentProgress;
     const cartTitle = document.querySelector(".carttitle");
@@ -97,6 +102,9 @@ const Cart = () => {
                   <div className="prodcutnamebox"> 제품 이름: {value.name}</div>
                   <div>
                     옵션: {value.color} {value.selectsize}
+                    <br />
+                    데칼 옵션 및 개수:
+                    {value.decaldata} {value.decalNum}개
                     <div className="optionpricepart">
                       {value.price}{" "}
                       <span>
@@ -116,7 +124,9 @@ const Cart = () => {
                   </div>
                 </td>
                 <td className="totalprice">
-                  <span className="price">{value.intprice * value.count}</span>
+                  <span className="price">
+                    {value.intprice * value.count + value.decalNum * 1500}
+                  </span>
                 </td>
                 <td className="totalprice">
                   {" "}

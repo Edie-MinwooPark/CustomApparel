@@ -4,6 +4,7 @@ import axios from "axios";
 export const customSlice = createSlice({
   name: "custom",
   initialState: {
+    nowselectproduct: 1,
     basic: [
       {
         id: 1,
@@ -15,6 +16,8 @@ export const customSlice = createSlice({
         intprice: 100,
         count: 1,
         sum: 100,
+        decalNum: 0,
+        decaldata: "응애",
       },
       {
         id: 2,
@@ -26,6 +29,8 @@ export const customSlice = createSlice({
         intprice: 10000,
         count: 1,
         sum: 100,
+        decalNum: 0,
+        decaldata: [],
       },
       {
         id: 3,
@@ -37,6 +42,8 @@ export const customSlice = createSlice({
         intprice: 11000,
         count: 1,
         sum: 100,
+        decalNum: 0,
+        decaldata: [],
       },
       {
         id: 4,
@@ -48,8 +55,26 @@ export const customSlice = createSlice({
         intprice: 12000,
         count: 1,
         sum: 100,
+        decalNum: 0,
+        decaldata: [],
       },
     ],
   },
-  reducers: {},
+  reducers: {
+    customName: (state, action) => {
+      console.log("customName", action.payload);
+      state.basic[state.nowselectproduct - 1].decaldata = action.payload;
+      console.log(state.basic[state.nowselectproduct - 1].decaldata);
+    },
+    customNum: (state, action) => {
+      console.log("customNum", action.payload);
+      state.basic[state.nowselectproduct - 1].decalNum = action.payload;
+    },
+    selectnumber: (state, action) => {
+      state.nowselectproduct = action.payload;
+      console.log("customSlice", state.nowselectproduct);
+    },
+  },
 });
+
+export const { customName, customNum, selectnumber } = customSlice.actions;

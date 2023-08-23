@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageContainer, ImagePreview } from "./styled";
+import { ImageContainer, ImagePreview } from "./styled";
 import img from "./1.jpeg";
 
 const ImageBox = ({ imageUrl }) => {
