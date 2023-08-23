@@ -5,6 +5,7 @@ const {
   getPostDetail,
   createPost,
   postLikes,
+  postImgUpload,
 } = require("../controller/postController");
 // 전체 post 목록 반환
 router.get("/posts", getAllPosts);
@@ -16,7 +17,7 @@ router.get("/hashtag/:hash_tag", getPostsByHashtag);
 router.get("/detail/:id", getPostDetail);
 
 // post 등록 라우트
-router.post("/addpost", createPost);
+router.post("/addpost", postImgUpload.single("post_img"), createPost);
 
 // 좋아요 라우트
 router.post("/postLikes", postLikes);

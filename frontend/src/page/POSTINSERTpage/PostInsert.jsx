@@ -14,7 +14,8 @@ const PostInsert = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [content, setContent] = useState("");
   const [inputValue, setInputValue] = useState();
-
+  const [post_img, setPost_img] = useState(null);
+  const [PhotoformData, setPhotoFormData] = useState(new FormData());
   const user_info = useSelector((state) => state.mypage.data);
   // console.log(user_info);
 
@@ -79,46 +80,65 @@ const PostInsert = () => {
   const onSubmit = async (e) => {
     // api 연결
     e.preventDefault(); // 기본동작 중단
-    // console.log(formData);
 
-    // const createdPost = {
-    //   ...formData,
-    //   like_users: [],
-    //   tags: formData.tags.map((tag, idx) => {
-    //     return { id: idx + 1, content: tag };
-    //   }),
-    // };
-    const createdPost = new FormData();
-    createdPost.append("content", inputValue);
-    createdPost.append("id", formData.id);
+    // const createdPost = new FormData();
+    // createdPost.append("content", inputValue);
+    // createdPost.append("id", formData.id);
+
+    PhotoformData.append("a", "a");
+    console.log("PhotoformData :", PhotoformData);
+    const dhbb = { content: inputValue, id: formData.id };
+    PhotoformData.append("data", JSON.stringify(dhbb));
+    PhotoformData.append("post_img", post_img);
+
+    setPhotoFormData(PhotoformData);
+
+    for (let [key, value] of PhotoformData.entries()) {
+      console.log("key :", key);
+      console.log("value :", value);
+    }
+
+    // PhotoformData.append("content", inputValue);
+    // PhotoformData.append("id", formData.id);
+
+    // formData.tags.forEach((tag, idx) => {
+    //   // createdPost.append("tags", JSON.stringify({ id: idx + 1, content: tag }));
+    //   PhotoformData.append(
+    //     "tags",
+    //     JSON.stringify({ id: idx + 1, content: tag })
+    //   );
+    // });
 
     // console.log("createdPost :", createdPost);
-    formData.tags.forEach((tag, idx) => {
-      createdPost.append("tags", JSON.stringify({ id: idx + 1, content: tag }));
-    });
+    // formData.tags.forEach((tag, idx) => {
+    //   createdPost.append("tags", JSON.stringify({ id: idx + 1, content: tag }));
+    // });
     // if (imageFile) {
     //   // 이미지 파일이 있다면 추가
     //   createdPost.append("image", formData.imageFile);
     // }
-
     try {
-      // console.log("hi :", fileInput);
+      console.log("hi :", fileInput);
       const response = await axios.post(
         `${PROXY}/post/addpost`,
+        PhotoformData,
         {
-          user_id: user_info.user_id,
-          post_title: "test",
-          post_content: inputValue,
-          post_img: imageName,
-          callbyuser_id: user_info.id,
-          hash_tag: JSON.stringify(formData.tags),
-        },
-        { withCredentials: true }
+          headers: {
+            "Content-Type": "multipart/form-data;charset=utf-8",
+          },
+          withCredentials: true,
+          // user_id: user_info.user_id,
+          // post_title: "test",
+          // post_content: inputValue,
+          // post_img: imageName,
+          // callbyuser_id: user_info.id,
+          // hash_tag: JSON.stringify(formData.tags),
+        }
       );
     } catch (error) {
       console.error("Failed to toggle like", error);
     }
-    setFormData(createdPost);
+    // setFormData(createdPost);
     setIsSubmitted(true);
   };
 
@@ -181,14 +201,18 @@ const PostInsert = () => {
   const [imageName, setImageName] = useState();
   const dispatch = useDispatch();
   const fileInput = useRef(null);
-  const [PhotoformData, setPhotoFormData] = useState(new FormData());
 
   const onChange = (e) => {
     if (e.target.files[0]) {
       setImageName(e.target.value.split("\\")[2]);
       // console.log("asdasdasd", e.target.files[0]);
-      PhotoformData.append("profile_img", e.target.files[0]);
-      setPhotoFormData(PhotoformData);
+      setPost_img(e.target.files[0]);
+      // PhotoformData.append("post_img", e.target.files[0]);
+
+      // setPhotoFormData(PhotoformData);
+
+      // console.log("PhotoformData :", PhotoformData);
+
       // console.log("asdasd", PhotoformData);
       //화면에 프로필 사진 표시
       const reader = new FileReader();
@@ -208,30 +232,10 @@ const PostInsert = () => {
     }
   };
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     console.log("hi :", formData.tags);
-  //     const response = await axios.post(
-  //       `${PROXY}/post/addpost`,
-  //       {
-  //         user_id: user_info.user_id,
-  //         post_title: "",
-  //         post_content: inputValue,
-  //         post_img: imageName,
-  //         callbyuser_id: user_info.id,
-  //         hash_tag: JSON.stringify(formData.tags),
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data; charset=utf-8",
-  //         },
-  //         withCredentials: true,
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handletest = () => {
+    PhotoformData.append("a", "a");
+    console.log("PhotoformData :", PhotoformData);
+  };
 
   return (
     <>
@@ -258,8 +262,8 @@ const PostInsert = () => {
                 // onChange={handleImg}
                 // accept="image/*"
                 type="file"
-                accept="image/jpg,impge/png,image/jpeg"
-                name="profile_img"
+                accept="image/*"
+                name="post_img"
                 onChange={onChange}
                 ref={fileInput}
               />
@@ -305,6 +309,7 @@ const PostInsert = () => {
                 </div>
               )}
             </form>
+            <button onClick={handletest}>test</button>
           </div>
         </ContentBox>
       </ContentWrapper>
