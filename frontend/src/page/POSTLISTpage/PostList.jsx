@@ -14,12 +14,19 @@ const fetchPost = async () => {
   const { data } = await axios.get(`${PROXY}/post/posts`);
   // const { userdata } = await axios.get("http://localhost:4000/user/viewUser");
   // console.log("받은데이터", userdata);
-  console.log(data);
+  console.log("data :", data);
   return data;
 };
 
 function PostList() {
-  const { data: posts, isError, isLoading } = useQuery("posts", fetchPost);
+  const {
+    data: posts,
+    isError,
+    isLoading,
+    error,
+  } = useQuery("posts", fetchPost);
+  console.log("posts :", posts);
+  console.log("err", error);
 
   const breakpointColumnsObj = {
     default: 4,

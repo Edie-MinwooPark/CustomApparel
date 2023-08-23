@@ -1,3 +1,5 @@
+const multer = require("multer");
+const path = require("path");
 const { where } = require("sequelize");
 const db = require("../models");
 const POST = db.POST;
@@ -54,17 +56,18 @@ exports.createPost = async (req, res) => {
     user_id,
     post_title,
     post_content,
-    post_img,
+    // post_img,
     callbyuser_id,
     hash_tag,
   } = req.body;
   console.log(req.body);
   try {
+    console.log("여기옴?");
     const addpost = await POST.create({
       user_id,
       post_title,
       post_content,
-      post_img: "/img/" + post_img,
+      post_img: "/img/addpost/" + req.file.filename,
       callbyuser_id,
       hash_tag,
     });
@@ -74,6 +77,26 @@ exports.createPost = async (req, res) => {
     return res.json({ error });
   }
 };
+// multer
+exports.postImgUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, fin) => {
+      console.log("여기 멀터");
+      fin(null, "img/addpost");
+    },
+
+    filename: (req, file, fin) => {
+      const ext = path.extname(file.originalname);
+
+      const filename =
+        path.basename(file.originalname, ext) + "_" + Date.now() + ext;
+
+      fin(null, filename);
+    },
+  }),
+
+  limits: { fieldSize: 5 * 1024 * 1024 },
+});
 
 exports.postLikes = async (req, res) => {
   try {
