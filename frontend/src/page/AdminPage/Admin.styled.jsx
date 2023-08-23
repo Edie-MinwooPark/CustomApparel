@@ -64,6 +64,7 @@ export const AdminWrap = styled.div`
     display: flex;
   }
   & .titleBox {
+    height: 50px;
     border: 1px solid;
     border-right: none;
     border-left: none;
