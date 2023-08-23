@@ -64,12 +64,12 @@ const PostDetail = () => {
   });
 
   useEffect(() => {
-    if (!user_info || !postdata || postdata.likes.length == 0) return;
+    if (!user_info || !postdata || postdata.likes?.length == 0) return;
     let likesData = JSON.parse(postdata.likes);
     // console.log("postdata.likes", likesData);
 
     // console.log("user_info :", user_info);
-    const likeUser = likesData.find((value) => value == user_info.id);
+    const likeUser = likesData?.find((value) => value == user_info.id);
 
     if (likeUser) {
       setIsLiked(true);
