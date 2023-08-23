@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   UserStateBox,
@@ -10,20 +10,19 @@ import {
   StyledUploadTime,
   StyleButton,
 } from "./styled";
+import axios from "axios";
 
 const PROXY = process.env.REACT_APP_PROXY;
 
 const UserState = ({ user_info }) => {
   const navigate = useNavigate();
-  // const userImg = proImg;
-  // console.log("userProfileImage :", user_info);
+  const getUrl = useLocation().pathname.split("/")[1];
+  // console.log("getUrl :", getUrl);
+
   const userInfo = user_info.USER;
   const postInfo = user_info;
-  // console.log("postInfo", postInfo);
-  // console.log("img", userInfo.profile_img);
 
   const user_id = useSelector((state) => state.mypage.data)?.id;
-  // console.log("user_id : ", user_id);
 
   // 게시글 수정
   const handleUpdate = () => {
@@ -35,8 +34,17 @@ const UserState = ({ user_info }) => {
   };
 
   // 게시글 삭제
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
+      if (window.confirm("정말로 삭제 하시겠습니까?")) {
+        const data = await axios.post(
+          `${PROXY}/post/deletepost`,
+          { id: postInfo.id },
+          { withCredetials: true }
+        );
+
+        await navigate("/");
+      } else return;
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +64,11 @@ const UserState = ({ user_info }) => {
           <StyledUploadTime>{postInfo.createdAt}</StyledUploadTime>
         </ProfileInfo>
       </ProfileImageBox>
-      {postInfo.callbyuser_id == user_id ? (
+      {getUrl == "update" ? (
+        <div>
+          <StyleButton onClick={handleDelete}>삭제</StyleButton>
+        </div>
+      ) : postInfo.callbyuser_id == user_id ? (
         <div>
           <StyleButton onClick={handleUpdate}>수정</StyleButton>
           <StyleButton onClick={handleDelete}>삭제</StyleButton>

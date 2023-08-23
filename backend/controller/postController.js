@@ -81,7 +81,7 @@ exports.createPost = async (req, res) => {
 exports.postImgUpload = multer({
   storage: multer.diskStorage({
     destination: (req, file, fin) => {
-      console.log("여기 멀터");
+      // console.log("여기 멀터");
       fin(null, "img/addpost");
     },
 
@@ -132,5 +132,36 @@ exports.postLikes = async (req, res) => {
   } catch (error) {
     console.log("에러럴", error);
     res.json({ success: false, error: error.message });
+  }
+};
+
+// 게시글 수정
+exports.updatePost = async (req, res) => {
+  try {
+    const { id, post_content } = JSON.parse(req.body.data);
+    const { path } = req.file;
+
+    console.log(id, post_content, path);
+
+    const data = await POST.update(
+      { post_content, post_img: `/` + path },
+      { where: { id } }
+    );
+
+    console.log(data);
+    res.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 게시글 삭제
+exports.deletePost = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const data = await POST.destroy({ where: { id } });
+    res.json(data);
+  } catch (error) {
+    console.error(error);
   }
 };

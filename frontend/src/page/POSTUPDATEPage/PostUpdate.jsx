@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import UserState from "../../components/layout/userstate";
 import ImageBox from "../../components/layout/imagebox";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const PROXY = process.env.REACT_APP_PROXY;
 
@@ -14,22 +15,19 @@ const PostUpdate = () => {
   const { user_info } = useLocation().state;
   const userInfo = user_info.USER;
   const postInfo = user_info;
-  const [PhotoformData, setPhotoFormData] = useState(new FormData());
   const [Image, setImage] = useState(postInfo.post_img);
-  const [imageName, setImageName] = useState();
   const [content, setContent] = useState();
   const [formData, setFormData] = useState(new FormData());
   const [imageFile, setImageFile] = useState();
 
-  // if (data === "다시 로그인해주세요") {
-  //   alert("로그인 해주세요.");
-  //   return navigate("/");
-  // }
+  if (data === "다시 로그인해주세요") {
+    alert("로그인 해주세요.");
+    return navigate("/");
+  }
 
   // 이미지 미리보기
   const handlePreview = (e) => {
     console.log("e.target.files[0] : ", e.target.files[0].name);
-    setImageName(e.target.files[0].name);
     setImageFile(e.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {
@@ -39,19 +37,29 @@ const PostUpdate = () => {
   };
 
   // 수정완료 버튼
-  const handleUpdate = () => {
-    console.log("imageName : ", imageName);
-    console.log("content : ", content);
+  const handleUpdate = async () => {
+    const form = {
+      id: postInfo.id,
+      post_content: content,
+    };
 
-    formData.append("image", imageFile);
+    formData.append("data", JSON.stringify(form));
+    formData.append("post_img", imageFile);
 
     setFormData(formData);
 
     // formdata는 console.log를 찍으면 비어있는것 처럼 보이기 떄문에
     // for문을 돌려 확인해야함
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
+    const response = await axios.post(`${PROXY}/post/updatepost`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data; charset=utf-8",
+      },
+      withCredentials: true,
+    });
   };
 
   return (
