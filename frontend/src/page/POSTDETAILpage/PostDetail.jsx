@@ -150,7 +150,7 @@ const PostDetail = () => {
         setAddComments(""); // 댓글 입력 창 비우기
       }
     } catch (error) {
-      console.log("댓글 추가 실패", error);
+      // console.log("댓글 추가 실패", error);
     }
   };
   // 댓글 목록을 저장하는 상태
@@ -179,7 +179,7 @@ const PostDetail = () => {
       });
 
       if (response.data.success) {
-        console.log("commentId :", commentId);
+        // console.log("commentId :", commentId);
         const updatedComments = await fetchReComments(commentId);
         setCommentsList((prevComments) =>
           prevComments.map((comment) =>
@@ -199,6 +199,8 @@ const PostDetail = () => {
     }
   };
 
+  // console.log("postdata : ", postdata);
+
   // postdata 의 callbyuser_id 가
   return (
     <>
@@ -207,7 +209,7 @@ const PostDetail = () => {
         {/* {isLoading ? <UserState user_info={user_info} /> : null} */}
         {/* 글쓴이 정보 전달해주기 */}
         <UserState user_info={postdata} />
-        <ImageBox />
+        <ImageBox img={postdata.post_img} />
         <ContentBox>
           <StyledLikeIconWrapper
             aria-label="좋아요"
@@ -274,7 +276,7 @@ const PostDetail = () => {
                     </>
                   )}
                   {/* 대댓글 목록 출력 */}
-                  {console.log("대댓글 데이터 comment", comment.RECOMMENTs)}
+                  {/* {console.log("대댓글 데이터 comment", comment.RECOMMENTs)} */}
                   {comment.RECOMMENTs &&
                     comment.RECOMMENTs.length > 0 &&
                     comment.RECOMMENTs.map((recomment) => (

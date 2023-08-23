@@ -6,7 +6,7 @@ import Masonry from "react-masonry-css";
 import { Link } from "react-router-dom";
 
 function PostListNoUsequery(value) {
-  console.log(value);
+  // console.log(value);
   const posts = value.value;
   const breakpointColumnsObj = {
     default: 4,

@@ -16,7 +16,7 @@ const PostInsert = () => {
   const [inputValue, setInputValue] = useState();
 
   const user_info = useSelector((state) => state.mypage.data);
-  console.log(user_info);
+  // console.log(user_info);
 
   // 화면 그리기
   const [formData, setFormData] = useState({
@@ -70,7 +70,7 @@ const PostInsert = () => {
   };
 
   const handleImg = (e) => {
-    console.log("hi", e);
+    // console.log("hi", e);
     setFormData({
       ...formData,
       image: e.target.files[0],
@@ -79,7 +79,7 @@ const PostInsert = () => {
   const onSubmit = async (e) => {
     // api 연결
     e.preventDefault(); // 기본동작 중단
-    console.log(formData);
+    // console.log(formData);
 
     // const createdPost = {
     //   ...formData,
@@ -92,7 +92,7 @@ const PostInsert = () => {
     createdPost.append("content", inputValue);
     createdPost.append("id", formData.id);
 
-    console.log("createdPost :", createdPost);
+    // console.log("createdPost :", createdPost);
     formData.tags.forEach((tag, idx) => {
       createdPost.append("tags", JSON.stringify({ id: idx + 1, content: tag }));
     });
@@ -102,7 +102,7 @@ const PostInsert = () => {
     // }
 
     try {
-      console.log("hi :", fileInput);
+      // console.log("hi :", fileInput);
       const response = await axios.post(
         `${PROXY}/post/addpost`,
         {
@@ -186,14 +186,14 @@ const PostInsert = () => {
   const onChange = (e) => {
     if (e.target.files[0]) {
       setImageName(e.target.value.split("\\")[2]);
-      console.log("asdasdasd", e.target.files[0]);
+      // console.log("asdasdasd", e.target.files[0]);
       PhotoformData.append("profile_img", e.target.files[0]);
       setPhotoFormData(PhotoformData);
       // console.log("asdasd", PhotoformData);
       //화면에 프로필 사진 표시
       const reader = new FileReader();
       reader.onload = () => {
-        console.log(reader);
+        // console.log(reader);
         if (reader.readyState === 2) {
           setImage(reader.result);
         }

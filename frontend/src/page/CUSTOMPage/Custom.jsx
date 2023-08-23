@@ -17,8 +17,7 @@ import { decalName, decalNum, decalText } from "../../features/decalslice";
 
 import html2canvas from "html2canvas";
 
-
-import axios from 'axios'
+import axios from "axios";
 const PROXY = process.env.REACT_APP_PROXY;
 // custom 테이블 정보 가져오기
 // async function getCustom() {
@@ -158,14 +157,13 @@ const Custom = () => {
     ));
   }
   // 텍스트 추가하기
-  function handleText(){
+  function handleText() {
     dispatch(decalText());
   }
 
-  function handleMypic(){
-    setMyPic(!myPic)
+  function handleMypic() {
+    setMyPic(!myPic);
   }
-
 
   return (
     <div>
@@ -178,7 +176,7 @@ const Custom = () => {
         />
       ) : null}
       {decals ? <CustomDecalsPopup handlerDecal={handleDecals} /> : null}
-      { myPic ? <CustomMyPicPopup handlerMyPic={handleMypic} /> : null}
+      {myPic ? <CustomMyPicPopup handlerMyPic={handleMypic} /> : null}
       <Nav />
       <CustomWrap>
         <div className="customMainWrap">

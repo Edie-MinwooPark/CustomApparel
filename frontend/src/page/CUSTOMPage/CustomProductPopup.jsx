@@ -1,25 +1,31 @@
 import React from "react";
 import { PopupWrap, Closebtn } from "./CustomProductPopup.styled";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { clothType } from "../../features/clothslice";
-import Canvas from "../../components/Canvas"
-import { OrbitControls, Center, useGLTF, Environment, AccumulativeShadows, RandomizedLight} from "@react-three/drei"
+import Canvas from "../../components/Canvas";
+import {
+  OrbitControls,
+  Center,
+  useGLTF,
+  Environment,
+  AccumulativeShadows,
+  RandomizedLight,
+} from "@react-three/drei";
 
-
-const CustomProductPopup = ({ handleProduct, num , product }) => {
+const CustomProductPopup = ({ handleProduct, num, product }) => {
   // customSlice의 초기값을 가져옴
   const shirtInfo = useSelector((state) => state.custom.basic);
   const { selectNum, setSelectNum } = num;
   // console.log(handleProduct);
-  console.log(product);
-  const position = [0,10,400];
-  const fov =40
+  // console.log(product);
+  const position = [0, 10, 400];
+  const fov = 40;
 
   const dispatch = useDispatch();
 
   function handleChangeProduct(e) {
     setSelectNum(e.currentTarget.id - 1);
-    console.log(e.currentTarget.id);
+    // console.log(e.currentTarget.id);
     switch (e.currentTarget.id) {
       case "1":
         dispatch(clothType("tshirt"));
@@ -61,7 +67,7 @@ const CustomProductPopup = ({ handleProduct, num , product }) => {
                     onClick={handleChangeProduct}
                   >
                     <div className="cardImg">
-                    <Canvas cloth2={e.cloth} product = {product}/>
+                      <Canvas cloth2={e.cloth} product={product} />
                     </div>
                     <div className="cardText">
                       <span>{e.name}</span>
