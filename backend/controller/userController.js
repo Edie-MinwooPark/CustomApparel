@@ -16,7 +16,9 @@ exports.signUp = async (req, res) => {
     const user = await User.findOne({ where: { user_id } });
     if (user != null) {
       // console.log("중복가입방지");
-      return res.send("중복된 유저가 있어 가입을 방지했습니다.");
+      return res
+        .status(500)
+        .json({ message: "중복된 유저가 있어 가입을 방지했습니다." });
     }
 
     const hash = bcrypt.hashSync(user_pw, 10);
@@ -32,10 +34,10 @@ exports.signUp = async (req, res) => {
     // console.log("User created successfully:", newUser);
 
     // Return a success response
-    res.status(200).json(newUser);
+    res.status(200).json({ data: newUser, message: "가입에 성공하셨습니다." });
   } catch (error) {
     // console.log(error);
-    res.status(500).send("Internal server error");
+    res.status(500).json({ message: error });
   }
 };
 
@@ -88,4 +90,9 @@ exports.viewUser = async (req, res) => {
 
   // json 형태로 데이터를 응답
   res.json(user);
+};
+
+exports.logout = async (req, res) => {
+  res.cookie("token", "", { expires: new Date(0), httpOnly: true });
+  res.send("Logged out");
 };

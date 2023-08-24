@@ -11,29 +11,40 @@ export const Mainwrapper = styled.div`
   }
   & .flexbox {
     display: flex;
-    border: 1px solid black;
+    border-bottom: 1px solid #ddd;
     box-sizing: border-box;
   }
 
   & .leftbluebox {
     width: 100px;
-    background-color: #eef1f8;
+    /* background-color: #eef1f8; */
     text-align: left;
     white-space: nowrap;
     padding: 14px 30px;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
   }
   & .leftbluebigbox {
     width: 100px;
-    background-color: #eef1f8;
+    /* background-color: #eef1f8; */
     white-space: nowrap;
     padding: 14px 30px;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
     text-align: center;
     padding-top: 133px;
   }
   & .rightbox {
     padding: 14px 30px;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
+  }
+  & .maintitle {
+    height: 100%;
+    padding-bottom: 6px;
+    padding-top: 15px;
+    font-weight: 700;
+    border-bottom: 2px solid #222;
+    color: #222;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
   }
 `;

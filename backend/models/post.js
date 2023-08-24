@@ -23,6 +23,7 @@ class POST extends Sequelize.Model {
         likes: {
           type: Sequelize.STRING,
           allowNull: true,
+          defaultValue: "[]",
         },
         // 이경우 작성자 명을 말한다. nickname이 존재하지만 거의 쓰이지않는다. 인스타와 비슷하다 생각하면 편하다.
         user_id: {

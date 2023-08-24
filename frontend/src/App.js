@@ -24,6 +24,7 @@ import {
   Cartp,
   PayMentDetail,
   Admin,
+  PostUpdate,
 } from "../src/page/index";
 import KonvaCanvas from "./components/KonvaCanvas";
 export const PROXY = process.env.REACT_APP_PROXY;
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/test" element={<TestComponent />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/update/:id" element={<PostUpdate />} />
         </Routes>
       </div>
     </QueryClientProvider>

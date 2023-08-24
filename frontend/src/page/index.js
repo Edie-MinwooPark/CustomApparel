@@ -12,6 +12,7 @@ import PayMentDetail from "./PAYMENTDETAILPage/PayMentDetail";
 import PostDetail from "./POSTDETAILpage/PostDetail";
 import TestComponent from "./POSTDETAILpage/test";
 import Admin from "./AdminPage/Admin";
+import PostUpdate from "./POSTUPDATEPage/PostUpdate";
 
 import { Sign } from "../components/index";
 
@@ -31,4 +32,5 @@ export {
   PostDetail,
   TestComponent,
   Admin,
+  PostUpdate,
 };

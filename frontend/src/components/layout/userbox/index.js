@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import UserState from "../userstate";
 import {
   UserBoxContainer,
   StyledLikeIconWrapper,
   StyledImage,
   StyledUsername,
 } from "./styled";
+const PROXY = process.env.REACT_APP_PROXY;
 
 export const LikeIcon = ({ liked, width = "20px" }) => {
   const style = {
@@ -27,11 +29,16 @@ export const LikeIcon = ({ liked, width = "20px" }) => {
 };
 
 function UserBox({ post, userImg, userID }) {
+  // 좋아요 get 가져와서 똑같이 연결해주기
+
   console.log("poooooo", post);
+  // console.log("userImg", userImg);
+  // console.log("userID", userID);
   const [likes, setLikes] = useState(parseInt(post.likes, 10) || 0);
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
+  const [profileImg, setProfileImg] = useState(post.USER.profile_img);
 
-  const handleLike = () => {
+  const handleLike = (e) => {
     setIsLiked(!isLiked); // 좋아요 상태 토글
     if (isLiked) {
       setLikes(likes - 1); // 좋아요 취소 시, 숫자 감소
@@ -40,9 +47,11 @@ function UserBox({ post, userImg, userID }) {
     }
   };
 
+  console.log("post : ", post);
+
   return (
     <UserBoxContainer>
-      <StyledImage src={userImg} roundedCircle />
+      <StyledImage src={`${PROXY}/` + profileImg} roundedCircle />
       <StyledUsername>{userID}</StyledUsername>
       <StyledLikeIconWrapper
         aria-label="좋아요"

@@ -1,12 +1,19 @@
 import React from "react";
 import { ImageContainer, ImagePreview } from "./styled";
-import img from "./1.jpeg";
+// import img from "./1.jpeg";
+const PROXY = process.env.REACT_APP_PROXY;
 
-const ImageBox = ({ imageUrl }) => {
+const ImageBox = ({ img }) => {
+  let lengthChk = img.length;
+
   return (
     <ImageContainer>
       <ImagePreview>
-        <img src={img} alt="Uploaded Image" />
+        {lengthChk > 10000 ? (
+          <img src={img} alt="Uploaded Image" />
+        ) : (
+          <img src={`${PROXY}` + img} alt="Uploaded Image" />
+        )}
       </ImagePreview>
     </ImageContainer>
   );

@@ -1,3 +1,5 @@
+const multer = require("multer");
+const path = require("path");
 const { where } = require("sequelize");
 const db = require("../models");
 const POST = db.POST;
@@ -8,7 +10,7 @@ const USER = db.USER;
 // 전체 post 목록 반환하는 함수
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await POST.findAll();
+    const posts = await POST.findAll({ include: [{ model: USER }] });
     res.json(posts);
   } catch (error) {
     console.error(error);
@@ -50,23 +52,27 @@ exports.getPostDetail = async (req, res) => {
 
 // post 등록하는 함수
 exports.createPost = async (req, res) => {
-  const {
-    user_id,
-    post_title,
-    post_content,
-    post_img,
-    callbyuser_id,
-    hash_tag,
-  } = req.body;
-  console.log(req.body);
+  // const {
+  //   id,
+  //   user_id,
+  //   post_title,
+  //   post_content,
+  //   // post_img,
+  //   hash_tag,
+  // } = req.body;
+
+  const parsedData = JSON.parse(req.body.data);
+  console.log("parsedData", parsedData);
+  // title, content 넣어주기 parse 해주기
   try {
+    console.log("여기옴?");
     const addpost = await POST.create({
-      user_id,
-      post_title,
-      post_content,
-      post_img: "/img/" + post_img,
-      callbyuser_id,
-      hash_tag,
+      user_id: parsedData.user_id,
+      post_title: "title",
+      post_content: parsedData.content,
+      post_img: "/img/addpost/" + req.file.filename,
+      callbyuser_id: parsedData.id,
+      hash_tag: JSON.stringify(parsedData.hash_tag),
     });
     res.json(addpost);
   } catch (error) {
@@ -74,6 +80,32 @@ exports.createPost = async (req, res) => {
     return res.json({ error });
   }
 };
+// multer
+exports.postImgUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, fin) => {
+      // console.log("여기 멀터");
+      fin(null, "img/addpost");
+    },
+
+    filename: (req, file, fin) => {
+      // const ext = path.extname(file.originalname);
+
+      // const filename =
+      //   path.basename(file.originalname, ext) + "_" + Date.now() + ext;
+
+      // fin(null, filename);
+      console.log(file.originalname);
+      const ext = path.extname(file.originalname);
+      const basename = path.basename(file.originalname, ext);
+      const filename = basename + "_" + Date.now() + ext;
+      console.log("filename", filename);
+      fin(null, filename);
+    },
+  }),
+
+  limits: { fieldSize: 5 * 1024 * 1024 },
+});
 
 exports.postLikes = async (req, res) => {
   try {
@@ -109,5 +141,36 @@ exports.postLikes = async (req, res) => {
   } catch (error) {
     console.log("에러럴", error);
     res.json({ success: false, error: error.message });
+  }
+};
+
+// 게시글 수정
+exports.updatePost = async (req, res) => {
+  try {
+    const { id, post_content } = JSON.parse(req.body.data);
+    const { path } = req.file;
+
+    console.log(id, post_content, path);
+
+    const data = await POST.update(
+      { post_content, post_img: `/` + path },
+      { where: { id } }
+    );
+
+    console.log(data);
+    res.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 게시글 삭제
+exports.deletePost = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const data = await POST.destroy({ where: { id } });
+    res.json(data);
+  } catch (error) {
+    console.error(error);
   }
 };

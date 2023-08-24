@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Navdiv, NavLink } from "./Nav.styled";
 import { useDispatch } from "react-redux";
 import { getmypageinfo } from "../..//features/mypageslice";
+import { userlogout } from "../../features/mainslice";
+import { userdataclear } from "../../features/mainslice";
 
 const Nav = () => {
   const dispatch = useDispatch();
   const [userloginstate, setuserloginstate] = useState(false);
+  const [userlogin, setuserlogin] = useState("");
   useEffect(() => {
     // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
     const fetchData = async () => {
@@ -14,12 +17,25 @@ const Nav = () => {
       console.log(
         data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
       );
-      setuserloginstate(
-        data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
+      if (data.payload == "다시 로그인해주세요") {
+        console.log("다시 로그인해주세요");
+      } else {
+        setuserloginstate(true);
+      }
+      setuserlogin(
+        data.payload.id ? `LOGOUT:${data.payload.Nick}` : "로그인하기"
       );
     };
     fetchData();
   }, [dispatch]);
+  const handlelogbutton = () => {
+    console.log("handlelogbutton");
+    dispatch(userlogout());
+    setuserlogin("로그인하기");
+    setuserloginstate(false);
+    dispatch(userdataclear());
+  };
+
   // useEffect(() => {
   //   dispatch(getmypageinfo());
   // }, []);
@@ -40,7 +56,12 @@ const Nav = () => {
               <NavLink to={"/photo"}> PHOTO</NavLink>
             </li>
             <li>
-              <NavLink to={"/login"}> {userloginstate}</NavLink>
+              {userloginstate ? (
+                <NavLink onClick={() => handlelogbutton()}>{userlogin}</NavLink>
+              ) : (
+                <NavLink to={"/login"}> {userlogin}</NavLink>
+              )}
+
               {/* <NavLink to={"/login"}> login</NavLink> */}
             </li>
             <li>

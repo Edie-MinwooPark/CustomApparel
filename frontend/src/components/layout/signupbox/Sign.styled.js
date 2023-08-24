@@ -6,7 +6,7 @@ export const SignboxWrapper = styled.div`
   height: 1000px;
   & .logo {
     width: 100px;
-    height: 100px;
+    height: 50px;
     margin: 0 auto;
     display: block;
   }
@@ -45,7 +45,7 @@ export const Content = styled.div`
     cursor: pointer;
   }
 `;
-export const Join_form = styled.form`
+export const Join_form = styled.div`
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
