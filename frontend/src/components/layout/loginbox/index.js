@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navdiv, NavLink } from "../../../page/NavPage/Nav.styled";
+
 import { trylogininfo } from "../../../features/mainslice";
 import {
   Body,
@@ -45,7 +47,14 @@ const Loginform = () => {
     <Body>
       <Wrap>
         <Header>
-          <div className="headerinner"></div>
+          <div className="headerinner">
+            {" "}
+            <Navdiv>
+              <NavLink className="logo2" to={"/"}>
+                CUSTOMAPPAREL
+              </NavLink>
+            </Navdiv>
+          </div>
         </Header>
         <Container>
           <div className="content">

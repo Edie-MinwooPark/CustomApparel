@@ -13,7 +13,7 @@ import {
   Formitem,
 } from "./Sign.styled";
 import { useNavigate } from "react-router-dom";
-import { DD } from "konva/lib/DragAndDrop";
+import { Navdiv, NavLink } from "../../../page/NavPage/Nav.styled";
 
 const PROXY = process.env.REACT_APP_PROXY;
 
@@ -94,6 +94,11 @@ const Sign = () => {
       <Container>
         <Inner>
           <Content>
+            <Navdiv>
+              <NavLink className="logo2" to={"/"}>
+                CUSTOMAPPAREL
+              </NavLink>
+            </Navdiv>
             <Join_form>
               <Form_content>
                 <Form_section>

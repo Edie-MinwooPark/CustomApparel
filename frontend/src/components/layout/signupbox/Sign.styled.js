@@ -6,7 +6,7 @@ export const SignboxWrapper = styled.div`
   height: 1000px;
   & .logo {
     width: 100px;
-    height: 100px;
+    height: 50px;
     margin: 0 auto;
     display: block;
   }
