@@ -86,7 +86,9 @@ export const Mypage = () => {
       <h1>회원정보수정</h1>
       <Mainwrapper>
         <div className="flexbox">
-          <div className="leftbluebigbox">프로필</div>
+          <div className="leftbluebigbox">
+            <span className="maintitle">프로필</span>
+          </div>
           <div className="rightbigbox">
             {" "}
             <img
@@ -108,11 +110,17 @@ export const Mypage = () => {
           </div>
         </div>
         <div className="flexbox">
-          <div className="leftbluebox">아이디</div>
+          <div className="leftbluebox">
+            {" "}
+            <span className="maintitle">아이디</span>
+          </div>
           <div className="rightbox">{user_id}</div>
         </div>
         <div className="flexbox">
-          <div className="leftbluebox">닉네임</div>
+          <div className="leftbluebox">
+            {" "}
+            <span className="maintitle">닉네임</span>
+          </div>
           <div className="rightbox">
             {Nick}
             <input onChange={handleNickInput} placeholder="닉네임 변경"></input>
@@ -126,11 +134,17 @@ export const Mypage = () => {
           </div>
         </div>
         <div className="flexbox">
-          <div className="leftbluebox">유저등급</div>
+          <div className="leftbluebox">
+            {" "}
+            <span className="maintitle">유저등급</span>
+          </div>
           <div className="rightbox">{user_accept}</div>
         </div>
         <div className="flexbox">
-          <div className="leftbluebox">비밀번호</div>
+          <div className="leftbluebox">
+            {" "}
+            <span className="maintitle">비밀번호</span>
+          </div>
           <div className="rightbox">
             <input onChange={handlePwInput} placeholder="비밀번호 변경"></input>
             <button
@@ -144,7 +158,7 @@ export const Mypage = () => {
         </div>
       </Mainwrapper>
       <PostWrittenbyme />
-      <PostIliked />
+      {/* <PostIliked /> */}
     </div>
     // <div>
     //   <span>아이디:{user_id}</span>

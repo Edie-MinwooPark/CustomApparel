@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postWrittenbyme } from "../../../features/mypageslice";
 import PostListNoUsequery from "../../../page/POSTLISTpage/PostListNoUsequery";
+import { Mainwrapper } from "./PostWrittenbyme.styled";
+
 const PostWrittenbyme = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
@@ -23,7 +25,9 @@ const PostWrittenbyme = () => {
   }, [dispatch]);
   return (
     <div>
-      PostWrittenbyme
+      <Mainwrapper>
+        <div className="maintitle">내가쓴글</div>
+      </Mainwrapper>
       {data ? <PostListNoUsequery value={data} /> : null}
     </div>
   );
