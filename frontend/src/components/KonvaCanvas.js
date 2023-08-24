@@ -32,10 +32,10 @@ const KonvaCanvas = (props) => {
     stage.add(layer);
 
     let image = new Image();
-    image.src = "kga.png";
+    image.src = "ikedesign.png";
     let imageObj = new Konva.Image({
-      x: 50,
-      y: 50,
+      x: 43,
+      y: 30,
       image: image,
       width: 220,
       height: 100,
@@ -277,13 +277,13 @@ const KonvaCanvas = (props) => {
         // 현재 텍스트 위치에 인풋을 배치
         const box = simpleText.getClientRect();
         input.style.position = "absolute";
-        input.style.top = 330 + box.y + "px";
-        input.style.left = 435 + box.x + "px";
+        input.style.top = 350 + "px";
+        input.style.left = 1035 + "px";
         input.value = simpleText.text();
 
         colorPicker.style.position = "absolute";
-        colorPicker.style.top = 330 + box.y + "px";
-        colorPicker.style.left = 435 + box.x + 100 + "px"; // input 옆에 배치
+        colorPicker.style.top = 390 + "px";
+        colorPicker.style.left = 1035 + "px"; // input 옆에 배치
 
         input.focus();
 
@@ -358,9 +358,14 @@ const KonvaCanvas = (props) => {
         style={containerStyle}
         onMouseDown={handleMouseDown}
       ></div>
-      <button onClick={() => destroySelected()}>삭제</button>
-      <button onClick={destroyAll}>전체삭제</button>
-      <div>{decalNumber}</div>
+      <div className="delbtn">
+        <button className="obutton" onClick={() => destroySelected()}>
+          선택 삭제
+        </button>
+        <button className="obutton" onClick={destroyAll}>
+          전체삭제
+        </button>
+      </div>
     </div>
   );
 };

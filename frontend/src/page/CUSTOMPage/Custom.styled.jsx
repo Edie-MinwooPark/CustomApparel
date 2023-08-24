@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const CustomWrap = styled.div`
   box-sizing: border-box;
-  border: 1px solid;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -13,15 +12,15 @@ export const CustomWrap = styled.div`
   padding: 20px;
   & .customMainWrap {
     box-sizing: border-box;
-    width: 1400px;
+    width: 1000px;
     height: 900px;
     padding: 100px 0 0;
+    margin-left: 190px;
   }
 
   & .customMainWrap .customMain {
     width: 1200px;
     height: 100%;
-    border: 1px solid;
   }
 `;
 
@@ -29,9 +28,10 @@ export const CustomSideWrap = styled.div`
   box-sizing: border-box;
   width: 480px;
   height: 100%;
-  padding: 100px 0 0;
+  padding: 170px 15px 0;
   & .customSide {
-    border: 1px solid;
+    border: 1px solid #ff6b00;
+    border-radius: 30px;
     padding: 20px 20px 20px 40px;
   }
   & .sideTitle {
@@ -192,3 +192,4 @@ export const SideSizeLi = styled.li`
     content: "${(props) => props.sizes}";
   }
 `;
+

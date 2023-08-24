@@ -18,6 +18,8 @@ export const DecalsPopupWrap = styled.div`
     background-color: white;
     border-radius: 20px;
     padding: 20px;
+    /* overflow-y: auto; */
+
   }
   & .popupClose {
     width: 100%;

@@ -40,7 +40,7 @@ export const customSlice = createSlice({
       },
       {
         id: 4,
-        name: "탱크탑",
+        name: "후드티셔츠",
         color: ["white", "red", "yellow", "green", "blue", "orange", "navy"],
         size: ["FREE", "M", "L", "XL", "2XL", "3XL"],
         price: "12,000",
