@@ -5,6 +5,7 @@ import {
   StyledImage,
   StyledUsername,
 } from "./styled";
+const PROXY = process.env.REACT_APP_PROXY;
 
 export const LikeIcon = ({ liked, width = "20px" }) => {
   const style = {
@@ -30,6 +31,7 @@ function UserBox({ post, userImg, userID }) {
   console.log("poooooo", post);
   const [likes, setLikes] = useState(parseInt(post.likes, 10) || 0);
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
+  const [profileImg, setProfileImg] = useState(post.USER.profile_img);
 
   const handleLike = () => {
     setIsLiked(!isLiked); // 좋아요 상태 토글
@@ -40,9 +42,11 @@ function UserBox({ post, userImg, userID }) {
     }
   };
 
+  console.log("post : ", post);
+
   return (
     <UserBoxContainer>
-      <StyledImage src={userImg} roundedCircle />
+      <StyledImage src={`${PROXY}/` + profileImg} roundedCircle />
       <StyledUsername>{userID}</StyledUsername>
       <StyledLikeIconWrapper
         aria-label="좋아요"

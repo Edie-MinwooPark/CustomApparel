@@ -10,7 +10,7 @@ const USER = db.USER;
 // 전체 post 목록 반환하는 함수
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await POST.findAll();
+    const posts = await POST.findAll({ include: [{ model: USER }] });
     res.json(posts);
   } catch (error) {
     console.error(error);

@@ -177,6 +177,7 @@ exports.postWrittenbyme = async (req, res) => {
     const user_id = acc_decoded.id;
     const posts = await POST.findAll({
       where: { callbyuser_id: user_id },
+      include: [{ model: USER }],
       // include: [{ model: COMMENTS, include: [{ model: RECOMMENTS }] }],
     });
 
