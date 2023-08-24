@@ -11,7 +11,7 @@ export const Mainwrapper = styled.div`
   }
   & .flexbox {
     display: flex;
-    border: 1px black;
+    border-bottom: 1px solid #ddd;
     box-sizing: border-box;
   }
 
