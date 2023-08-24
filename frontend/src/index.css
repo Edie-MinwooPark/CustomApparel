@@ -200,3 +200,7 @@ header p {
     box-shadow: inset -250px 0 0 0 black;
   }
   
+  @font-face {
+    font-family: "BlackHanSans";
+    src: url(./font/BlackHanSans-Regular.ttf);
+  }

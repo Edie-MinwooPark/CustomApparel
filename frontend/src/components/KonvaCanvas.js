@@ -36,10 +36,10 @@ const KonvaCanvas = (props) => {
 
 
       let image = new Image();
-      image.src = "kga.png";
+      image.src = "ikedesign.png";
       let imageObj = new Konva.Image({
-        x: 50,
-        y: 50,
+        x: 43,
+        y: 30,
         image: image,
         width: 220,
         height: 100,
