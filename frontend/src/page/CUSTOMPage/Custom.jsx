@@ -13,7 +13,7 @@ import CustomMyPicPopup from "./CustomMyPicPopup";
 import { useSelector, useDispatch } from "react-redux";
 import TwoDCanvas from "../../components/TwoDCanvas";
 import CanvasComponent from "../../Canvas";
-import { clothColor } from "../../features/clothslice";
+import { clothColor,clothCapture } from "../../features/clothslice";
 import { decalName, decalNum, decalText } from "../../features/decalslice";
 
 import html2canvas from "html2canvas";
@@ -52,8 +52,9 @@ const Custom = () => {
 
   const captureRef = useRef();
 
-  const handleCapture = () => {
+  const handleCapture = async () => {
     const canvasElement = document.querySelector(".customMain");
+    await dispatch(clothCapture());
 
     html2canvas(canvasElement).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
@@ -62,6 +63,8 @@ const Custom = () => {
       link.download = "screenshot.png";
       link.click();
     });
+
+    await dispatch(clothCapture());
   };
 
   // 팝업창 크고 켜기

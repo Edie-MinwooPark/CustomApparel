@@ -19,6 +19,7 @@ const KonvaCanvas = (props) => {
   const selectionRectangleRef = useRef(null);
   const decalMyPic = useSelector(state=>state.decal.decalMyPic);
   const PROXY = process.env.REACT_APP_PROXY;
+  const clothCapture = useSelector(state=>state.cloth.clothCapture);
 
 
   useEffect(()=>{
@@ -273,8 +274,9 @@ const KonvaCanvas = (props) => {
           y: 15,
           text: '텍스트',
           fontSize: 50,
-          fontWeight : 1500,
-          fill: 'yellow',
+          fontFamily : "BlackHanSans",
+          fontWeight : 1000,
+          fill: 'black',
           draggable : true,
         });
     
@@ -293,6 +295,7 @@ const KonvaCanvas = (props) => {
           input.style.top = 350 +'px';
           input.style.left = 1035 +'px';
           input.value = simpleText.text();
+          input.classList.add('inputobtn')
 
           colorPicker.style.position = 'absolute';
           colorPicker.style.top = 390 +  'px';
@@ -374,10 +377,11 @@ const KonvaCanvas = (props) => {
   return (
     <div style={props.style}>
     <div id="container" style={containerStyle} onMouseDown={handleMouseDown}   ></div>
-    <div className='delbtn'>
+    {clothCapture ? null :     <div className='delbtn'>
       <button className='obutton' onClick={()=>destroySelected()}>선택 삭제</button>
       <button className='obutton' onClick={destroyAll}>전체삭제</button>
-    </div>
+    </div>}
+
    </div>
   );
 }
