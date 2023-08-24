@@ -12,8 +12,10 @@ export const MainWrap = styled.div`
     height: auto;
   }
   & .mainText .text {
-    font-size: 120px;
+    font-size: 110px;
     font-family: 'BlackHanSans' ;
+    margin-top: 30px;
+    margin-left: 70px;
   }
   
   & .mainText .text span {
