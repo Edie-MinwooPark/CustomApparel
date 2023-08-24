@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Konva from 'konva';
 import { useSelector,useDispatch } from 'react-redux';
 import { decalName,decalNum, decalText } from '../features/decalslice';
+import { styled } from 'styled-components';
 
 const KonvaCanvas = (props) => {
 
@@ -373,9 +374,10 @@ const KonvaCanvas = (props) => {
   return (
     <div style={props.style}>
     <div id="container" style={containerStyle} onMouseDown={handleMouseDown}   ></div>
-    <button onClick={()=>destroySelected()}>삭제</button>
-    <button onClick={destroyAll}>전체삭제</button>
-    <div>{decalNumber}</div>
+    <div className='delbtn'>
+      <button className='obutton' onClick={()=>destroySelected()}>선택 삭제</button>
+      <button className='obutton' onClick={destroyAll}>전체삭제</button>
+    </div>
    </div>
   );
 }

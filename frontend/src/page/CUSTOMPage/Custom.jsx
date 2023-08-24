@@ -5,6 +5,7 @@ import {
   CustomSideWrap,
   ColorPallet,
   SideSizeLi,
+  KonvaCanvas
 } from "./Custom.styled";
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
@@ -221,7 +222,7 @@ const Custom = () => {
                 </div>
                 <div className="imageWrap">
                   {/*  */}
-                  <button onClick={handleCapture}>Capture</button>
+                  <button className="obutton obuttoncap"  onClick={handleCapture}>캡쳐하기</button>
                 </div>
               </div>
             </div>
