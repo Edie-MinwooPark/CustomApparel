@@ -10,23 +10,35 @@ export const getUserinfo = createAsyncThunk(
     return data; // The resolved data will be the payload of the success action
   }
 );
-export const setUserinfo = createAsyncThunk("user/setinfo", async (form) => {
+export const userlogout = createAsyncThunk("user/logout", async (user) => {
+  try {
+    console.log("userlogout");
+    const response = await axios.get(`${PROXY}/user/logout`, {
+      withCredentials: true,
+    });
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+export const setUserinfo = createAsyncThunk("user/signup", async (form) => {
   try {
     console.log(form);
     const response = await axios.post(`${PROXY}/user/signup`, form, {
       headers: {
-        "Content-Type": "multipart/form-data; charset=utf-8",
+        // "Content-Type": "multipart/form-data; charset=utf-8",
+        "Content-Type": "multipart/form-data; ",
       },
       withCredentials: true,
     });
 
     // console.log("Delivered successfully.");
-    // console.log(response.data);
-    return response.data; // 성공 액션의 페이로드로 응답 데이터를 반환합니다
+    console.log(response.data);
+    return response; // 성공 액션의 페이로드로 응답 데이터를 반환합니다
   } catch (err) {
     console.log(err);
     // 여기서 오류를 throw하여 거부된 액션에서 잡을 수 있습니다
-    throw err;
+    // throw err;
   }
 });
 export const trylogininfo = createAsyncThunk("user/login", async (data) => {
@@ -47,7 +59,11 @@ export const userSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    userdataclear: (state, action) => {
+      state.data = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(trylogininfo.pending, (state) => {
@@ -64,3 +80,5 @@ export const userSlice = createSlice({
       });
   },
 });
+
+export const { userdataclear } = userSlice.actions;

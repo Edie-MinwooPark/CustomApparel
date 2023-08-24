@@ -32,7 +32,7 @@ const payments = async () => {
 
 exports.payment = async (req, res, next) => {
   console.log("여기 접근함");
-  if (count == 0) {
+  if (count % 5 == 0) {
     specificValue = await payments();
     count++;
   }

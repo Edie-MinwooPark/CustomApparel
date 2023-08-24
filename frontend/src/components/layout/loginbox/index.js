@@ -9,7 +9,10 @@ import {
   Footer,
   Menutext,
 } from "./Login.styled";
+import { useNavigate } from "react-router-dom";
+
 const Loginform = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [user_id, setUser_id] = useState("");
@@ -32,6 +35,11 @@ const Loginform = () => {
   };
   useEffect(() => {
     console.log("userdata", userdata);
+    if (userdata == null) {
+      console.log("userdata");
+    } else if (userdata.message == "로그인성공") {
+      navigate("/"); // Navigate to the 'Details' screen
+    }
   }, [handleSubmit]);
   return (
     <Body>
@@ -80,7 +88,8 @@ const Loginform = () => {
                     <div className="btnloginwrap">
                       <button
                         className="btnlogin"
-                        onClick={() => handleSubmit()}
+                        // onClick={() => handleSubmit()}
+                        onClick={handleSubmit}
                         id="uploadBtn"
                       >
                         <span className="btntext">로그인</span>

@@ -45,7 +45,7 @@ export const Content = styled.div`
     cursor: pointer;
   }
 `;
-export const Join_form = styled.form`
+export const Join_form = styled.div`
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
