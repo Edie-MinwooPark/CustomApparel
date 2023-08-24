@@ -6,7 +6,6 @@ import Masonry from "react-masonry-css";
 import Nav from "../NavPage/Nav";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
 
 const PROXY = process.env.REACT_APP_PROXY;
 
@@ -48,13 +47,7 @@ function PostList() {
           columnClassName="my-masonry-grid_column"
         >
           {posts.map((post) => (
-            <Link
-              to={`/posts/${post.id}`}
-              // state={{ post: post }}
-              key={post.user_id}
-            >
-              <CardComponent post={post}></CardComponent>
-            </Link>
+            <CardComponent post={post}></CardComponent>
           ))}
         </Masonry>
       </Container>

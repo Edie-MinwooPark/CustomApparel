@@ -60,13 +60,16 @@ exports.createPost = async (req, res) => {
     callbyuser_id,
     hash_tag,
   } = req.body;
-  console.log(req.body);
+
+  const parsedData = JSON.parse(req.body.data);
+  console.log("dd?S??S?S", parsedData.content);
+  // title, content 넣어주기 parse 해주기
   try {
     console.log("여기옴?");
     const addpost = await POST.create({
-      user_id,
-      post_title,
-      post_content,
+      user_id: parsedData.id,
+      post_title: "title",
+      post_content: parsedData.content,
       post_img: "/img/addpost/" + req.file.filename,
       callbyuser_id,
       hash_tag,
@@ -86,11 +89,17 @@ exports.postImgUpload = multer({
     },
 
     filename: (req, file, fin) => {
+      // const ext = path.extname(file.originalname);
+
+      // const filename =
+      //   path.basename(file.originalname, ext) + "_" + Date.now() + ext;
+
+      // fin(null, filename);
+      console.log(file.originalname);
       const ext = path.extname(file.originalname);
-
-      const filename =
-        path.basename(file.originalname, ext) + "_" + Date.now() + ext;
-
+      const basename = path.basename(file.originalname, ext);
+      const filename = basename + "_" + Date.now() + ext;
+      console.log("filename", filename);
       fin(null, filename);
     },
   }),

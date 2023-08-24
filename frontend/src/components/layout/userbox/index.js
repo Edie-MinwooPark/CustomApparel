@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import UserState from "../userstate";
 import {
   UserBoxContainer,
   StyledLikeIconWrapper,
@@ -27,11 +28,15 @@ export const LikeIcon = ({ liked, width = "20px" }) => {
 };
 
 function UserBox({ post, userImg, userID }) {
+  // 좋아요 get 가져와서 똑같이 연결해주기
+
   console.log("poooooo", post);
+  // console.log("userImg", userImg);
+  // console.log("userID", userID);
   const [likes, setLikes] = useState(parseInt(post.likes, 10) || 0);
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
 
-  const handleLike = () => {
+  const handleLike = (e) => {
     setIsLiked(!isLiked); // 좋아요 상태 토글
     if (isLiked) {
       setLikes(likes - 1); // 좋아요 취소 시, 숫자 감소
