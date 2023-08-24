@@ -47,6 +47,16 @@ export const Navdiv = styled.div`
     font-size: 16px;
     font-weight: 700;
   }
+  & .logo2 {
+    padding-top: 107px;
+    font-weight: 600;
+    font-size: 32px;
+  }
+  & .logo3 {
+    padding-top: 107px;
+    font-weight: 600;
+    font-size: 32px;
+  }
 `;
 
 export const NavLink = styled(Link)`

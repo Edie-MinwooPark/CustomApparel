@@ -5,7 +5,7 @@ import {
   CustomSideWrap,
   ColorPallet,
   SideSizeLi,
-  KonvaCanvas
+  KonvaCanvas,
 } from "./Custom.styled";
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
@@ -15,6 +15,7 @@ import TwoDCanvas from "../../components/TwoDCanvas";
 import CanvasComponent from "../../Canvas";
 import { clothColor } from "../../features/clothslice";
 import { decalName, decalNum, decalText } from "../../features/decalslice";
+import { customName, customNum } from "../../features/customslice";
 
 import html2canvas from "html2canvas";
 
@@ -49,6 +50,8 @@ const Custom = () => {
   // 로그인된 아이디를 가져옴
   const getUserId = useSelector((state) => state.mypage.data);
 
+  const decaldata = useSelector((state) => state.decal.decalName);
+  const decaldata2 = useSelector((state) => state.decal.decalNum);
   const captureRef = useRef();
 
   const handleCapture = () => {
@@ -66,7 +69,7 @@ const Custom = () => {
   // 팝업창 크고 켜기
   function handleProduct() {
     setProduct(!product);
-    // console.log(product);
+    console.log(product);
   }
   // 팝업창 크고 켜기
   function handleDecals() {
@@ -114,18 +117,40 @@ const Custom = () => {
     const intprice = shirtInfo[selectNum].intprice;
     const count = shirtInfo[selectNum].count;
     const sum = shirtInfo[selectNum].sum;
+    const decalNum = shirtInfo[selectNum].decalNum;
+    const decaldata = shirtInfo[selectNum].decaldata;
 
     let cartInfo = localStorage.getItem(getUserId?.user_id);
     if (!cartInfo) {
       localStorage.setItem(
         getUserId?.user_id,
         JSON.stringify([
-          { name, price, color, selectsize, intprice, count, sum },
+          {
+            name,
+            price,
+            color,
+            selectsize,
+            intprice,
+            count,
+            sum,
+            decalNum,
+            decaldata,
+          },
         ])
       );
     }
     if (cartInfo) {
-      let newArr = { name, price, color, selectsize, intprice, count, sum };
+      let newArr = {
+        name,
+        price,
+        color,
+        selectsize,
+        intprice,
+        count,
+        sum,
+        decalNum,
+        decaldata,
+      };
 
       let cartArr = JSON.parse(localStorage.getItem(getUserId?.user_id)) || [];
 
@@ -165,6 +190,11 @@ const Custom = () => {
   function handleMypic() {
     setMyPic(!myPic);
   }
+  useEffect(() => {
+    console.log("handlerDecal작동한거 관찰함");
+    dispatch(customName(decaldata));
+    dispatch(customNum(decaldata2));
+  }, [handleDecals]);
 
   return (
     <div>
@@ -220,7 +250,12 @@ const Custom = () => {
                 </div>
                 <div className="imageWrap">
                   {/*  */}
-                  <button className="obutton obuttoncap"  onClick={handleCapture}>캡쳐하기</button>
+                  <button
+                    className="obutton obuttoncap"
+                    onClick={handleCapture}
+                  >
+                    캡쳐하기
+                  </button>
                 </div>
               </div>
             </div>

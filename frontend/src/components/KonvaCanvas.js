@@ -16,8 +16,15 @@ const KonvaCanvas = (props) => {
   const decalText = useSelector((state) => state.decal.decalText);
   const selectionRectangleRef = useRef(null);
   const decalMyPic = useSelector((state) => state.decal.decalMyPic);
+  const userseletedprodcut = useSelector(
+    (state) => state.custom.nowselectproduct
+  );
   const PROXY = process.env.REACT_APP_PROXY;
 
+  useEffect(() => {
+    console.log("유저가 선택한값이 바뀜", userseletedprodcut);
+    destroyAll();
+  }, [userseletedprodcut]);
   useEffect(() => {
     var width = 300;
     var height = 400;
@@ -181,17 +188,21 @@ const KonvaCanvas = (props) => {
   }
 
   function destroyAll() {
-    allDecals.forEach((node) => {
-      node.destroy();
-    });
-    setAllDecals([]);
-    allTexts.forEach((node) => {
-      node.destroy();
-    });
-    setAllTexts([]);
+    try {
+      allDecals.forEach((node) => {
+        node.destroy();
+      });
+      setAllDecals([]);
+      allTexts.forEach((node) => {
+        node.destroy();
+      });
+      setAllTexts([]);
 
-    dispatch(decalNum(""));
-    konvaLayer.batchDraw();
+      dispatch(decalNum(""));
+      konvaLayer.batchDraw();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const [isClicked, setIsClicked] = useState(false);

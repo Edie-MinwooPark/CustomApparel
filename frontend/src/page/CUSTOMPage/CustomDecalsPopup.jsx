@@ -8,16 +8,16 @@ import { useSelector } from "react-redux";
 const PROXY = process.env.REACT_APP_PROXY;
 
 const CustomDecalsPopup = ({ handlerDecal }) => {
-
   const dispatch = useDispatch();
 
-
-  const ta = (e)=>{
-    const decal = e.target.src.split('/')[3];
+  const ta = (e) => {
+    const decal = e.target.src.split("/")[3];
+    let temp = null;
     dispatch(decalName(decal));
     dispatch(decalNum("plus"));
     handlerDecal();
-  }
+    console.log("handlerDecal작동함");
+  };
 
   return (
     <DecalsPopupWrap>
@@ -38,7 +38,7 @@ const CustomDecalsPopup = ({ handlerDecal }) => {
             <img src="instagram.png" />
           </div>
           <div className="popupCard" onClick={ta}>
-            <img src='jordan_thumb.png' />
+            <img src="jordan_thumb.png" />
           </div>
           <div className="popupCard" onClick={ta}>
             <img src='airjordan.png' />

@@ -29,7 +29,7 @@ const Payment = (props) => {
     let totalCount = 0;
     let proName = "";
     for (const value of props.productinfo.selected) {
-      totalPrice += value.sum;
+      totalPrice = totalPrice + value.sum + value.decalNum * 1500;
       totalCount += value.count;
       console.log(value.sum);
       console.log(value.count);

@@ -3,6 +3,8 @@ import { PopupWrap, Closebtn } from "./CustomProductPopup.styled";
 import { useSelector, useDispatch } from "react-redux";
 import { clothType } from "../../features/clothslice";
 import Canvas from "../../components/Canvas";
+import { selectnumber } from "../../features/customslice";
+import { decalClear } from "../../features//decalslice";
 import {
   OrbitControls,
   Center,
@@ -25,7 +27,9 @@ const CustomProductPopup = ({ handleProduct, num, product }) => {
 
   function handleChangeProduct(e) {
     setSelectNum(e.currentTarget.id - 1);
-    // console.log(e.currentTarget.id);
+    console.log(e.currentTarget.id);
+    dispatch(selectnumber(e.currentTarget.id));
+    dispatch(decalClear());
     switch (e.currentTarget.id) {
       case "1":
         dispatch(clothType("tshirt"));
