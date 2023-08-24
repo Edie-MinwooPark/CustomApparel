@@ -21,9 +21,9 @@ const PostInsert = () => {
 
   // 화면 그리기
   const [formData, setFormData] = useState({
-    id: "123",
+    id: "",
     content: "",
-    author: { id: "123" },
+    // author: { id: "123" },
     tags: [],
   });
 
@@ -89,8 +89,9 @@ const PostInsert = () => {
     console.log("formData :", formData);
     const dhbb = {
       content: inputValue,
-      id: formData.id, // 아이디 넣어줘야됨
+      id: user_info.id, // 아이디 넣어줘야됨
       hash_tag: formData.tags, // 태그넣어줘야됌
+      user_id: user_info.user_id,
     };
     PhotoformData.append("data", JSON.stringify(dhbb));
     PhotoformData.append("post_img", post_img);

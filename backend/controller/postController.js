@@ -52,27 +52,27 @@ exports.getPostDetail = async (req, res) => {
 
 // post 등록하는 함수
 exports.createPost = async (req, res) => {
-  const {
-    user_id,
-    post_title,
-    post_content,
-    // post_img,
-    callbyuser_id,
-    hash_tag,
-  } = req.body;
+  // const {
+  //   id,
+  //   user_id,
+  //   post_title,
+  //   post_content,
+  //   // post_img,
+  //   hash_tag,
+  // } = req.body;
 
   const parsedData = JSON.parse(req.body.data);
-  console.log("dd?S??S?S", parsedData.content);
+  console.log("parsedData", parsedData);
   // title, content 넣어주기 parse 해주기
   try {
     console.log("여기옴?");
     const addpost = await POST.create({
-      user_id: parsedData.id,
+      user_id: parsedData.user_id,
       post_title: "title",
       post_content: parsedData.content,
       post_img: "/img/addpost/" + req.file.filename,
-      callbyuser_id,
-      hash_tag,
+      callbyuser_id: parsedData.id,
+      hash_tag: JSON.stringify(parsedData.hash_tag),
     });
     res.json(addpost);
   } catch (error) {
