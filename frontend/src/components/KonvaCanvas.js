@@ -290,13 +290,13 @@ const KonvaCanvas = (props) => {
           // 현재 텍스트 위치에 인풋을 배치
           const box = simpleText.getClientRect();
           input.style.position = 'absolute';
-          input.style.top = 330 +box.y + 'px';
-          input.style.left = 435 + box.x + 'px';
+          input.style.top = 350 +'px';
+          input.style.left = 1035 +'px';
           input.value = simpleText.text();
 
           colorPicker.style.position = 'absolute';
-          colorPicker.style.top = 330 + box.y + 'px';
-          colorPicker.style.left = 435 + box.x + 100 + 'px'; // input 옆에 배치
+          colorPicker.style.top = 390 +  'px';
+          colorPicker.style.left = 1035 +  'px'; // input 옆에 배치
       
           input.focus();
       

@@ -216,6 +216,6 @@ header p {
 
   .delbtn {
     position: absolute;
-    top: -130px;
-    left: -400px;
+    top: -120px;
+    right: -220px;
   }
