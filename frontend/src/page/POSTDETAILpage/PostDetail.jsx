@@ -44,10 +44,10 @@ const PostDetail = () => {
   };
 
   const [likes, setLikes] = useState(0);
+  const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
   const [addComments, setAddComments] = useState(""); // 댓글
   const [recommentInput, setRecommentInput] = useState({}); // 대댓글
 
-  const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
   const [expanded, setExpanded] = useState(false);
   const user_info = useSelector((state) => state.mypage.data);
   const { postId } = useParams(); // URL로부터 postId 가져오기

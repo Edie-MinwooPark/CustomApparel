@@ -84,10 +84,14 @@ const PostInsert = () => {
     // const createdPost = new FormData();
     // createdPost.append("content", inputValue);
     // createdPost.append("id", formData.id);
-
-    PhotoformData.append("a", "a");
-    console.log("PhotoformData :", PhotoformData);
-    const dhbb = { content: inputValue, id: formData.id };
+    // PhotoformData.append("a", "a");
+    // console.log("PhotoformData :", PhotoformData);
+    console.log("formData :", formData);
+    const dhbb = {
+      content: inputValue,
+      id: formData.id, // 아이디 넣어줘야됨
+      hash_tag: formData.tags, // 태그넣어줘야됌
+    };
     PhotoformData.append("data", JSON.stringify(dhbb));
     PhotoformData.append("post_img", post_img);
 
