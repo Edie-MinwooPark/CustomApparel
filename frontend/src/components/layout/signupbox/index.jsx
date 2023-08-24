@@ -78,7 +78,9 @@ const Sign = () => {
       ) {
         alert("중복된 유저가 있어 가입을 방지했습니다.");
       } else if (tmp.payload.data.Nick) {
-        alert(`가입에 성공하셨습니다. ${tmp.payload.data.Nick}님`);
+        alert(
+          `가입신청이 완료되었습니다 ${tmp.payload.data.Nick}님 승인을 기다려주십시오.`
+        );
         navigate("/");
       }
     } catch (error) {
