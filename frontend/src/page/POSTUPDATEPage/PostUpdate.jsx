@@ -60,6 +60,11 @@ const PostUpdate = () => {
       },
       withCredentials: true,
     });
+
+    if (response.status === 200) {
+      window.alert("수정 완료");
+      await navigate("/photo");
+    }
   };
 
   return (
