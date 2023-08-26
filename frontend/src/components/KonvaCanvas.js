@@ -370,7 +370,7 @@ const KonvaCanvas = (props) => {
     <div id="container" style={containerStyle} onMouseDown={handleMouseDown}   ></div>
     {clothCapture ? null :     <div className='delbtn'>
       <button className='obutton' onClick={()=>destroySelected()}>선택 삭제</button>
-      <button className='obutton' onClick={destroyAll}>전체삭제</button>
+      <button className='obutton' onClick={destroyAll}>전체 삭제</button>
     </div>}
 
    </div>

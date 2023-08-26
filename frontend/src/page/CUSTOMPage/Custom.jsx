@@ -257,7 +257,7 @@ const Custom = () => {
                     className="obutton obuttoncap"
                     onClick={handleCapture}
                   >
-                    캡쳐하기
+                    캡쳐 하기
                   </button>
                 </div>
               </div>

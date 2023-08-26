@@ -49,10 +49,11 @@ const CustomMyPicPopup = ({ handlerMyPic }) => {
                 <span>MyPicture</span>
             </div>
             </div>
+            <img src="polaroid.png" width={500} height ={500}/>
             <div className="popupBody">
                 <form onSubmit={handleSubmit}>
                     <input type="file" onChange={handleFileChange} />
-                    <button type="submit">Upload</button>
+                    <button type="submit" className="obutton uploadbtn">업로드</button>
                 </form>
             </div>
         </div>

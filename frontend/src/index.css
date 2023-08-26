@@ -118,7 +118,7 @@ header p {
       display: flex;
       align-items: center;
       gap: 15px;
-      padding: 15px 30px;
+      padding: 15px 25px;
       font-size: 10px;
     }
     
@@ -137,6 +137,10 @@ header p {
 .obutton:hover {
   box-shadow: inset 250px 0 0 0 black;
   transform: scale(1.1);
+}
+
+.uploadbtn {
+  margin-top: 20px;
 }
 
 /* CUSTOMIZER */
