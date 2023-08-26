@@ -44,13 +44,13 @@ app.use(
   })
 );
 app.use(express.json());
-app.use("/mypage", mypageRouter);
-app.use("/user", userRouter);
-app.use("/post", postRouter);
-app.use("/comment", commentRouter);
-app.use("/payment", paymentRouter);
-app.use("/admin", adminRouter);
-app.use("/custom", decalRouter);
+app.use("/api/mypage", mypageRouter);
+app.use("/api/user", userRouter);
+app.use("/api/post", postRouter);
+app.use("/api/comment", commentRouter);
+app.use("/api/payment", paymentRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/custom", decalRouter);
 
 const server = app.listen(PORT, () => {
   console.log("서버온");
