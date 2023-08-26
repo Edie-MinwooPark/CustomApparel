@@ -37,7 +37,6 @@ export const PopupWrap = styled.div`
   & .popupCard {
     width: 280px;
     height: 450px;
-    border: 1px solid;
     margin: 0 10px;
     box-sizing: border-box;
     cursor: pointer;
@@ -49,6 +48,10 @@ export const PopupWrap = styled.div`
     border: 1px solid;
     border-radius: 20px;
   }
+  & .popupCard .cardImg:hover {
+    border: 2px solid orange;
+  }
+
   & .popupCard .cardText {
     padding: 10px;
   }

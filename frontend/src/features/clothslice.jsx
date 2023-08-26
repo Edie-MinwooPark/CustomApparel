@@ -4,7 +4,8 @@ export const clothSlice = createSlice({
     name : "cloth",
     initialState : {
         clothColor : "white",
-        clothType : "tshirt"
+        clothType : "tshirt",
+        clothCapture : false,
     },
     reducers : {
         clothColor : (state,action)=>{
@@ -13,8 +14,11 @@ export const clothSlice = createSlice({
         },
         clothType : (state,action)=>{
             state.clothType = action.payload;
+        },
+        clothCapture : (state,action)=>{
+            state.clothCapture = !state.clothCapture
         }
     }
 })
 
-export const { clothColor, clothType } = clothSlice.actions
+export const { clothColor, clothType, clothCapture } = clothSlice.actions

@@ -20,6 +20,7 @@ const KonvaCanvas = (props) => {
     (state) => state.custom.nowselectproduct
   );
   const PROXY = process.env.REACT_APP_PROXY;
+  const clothCapture = useSelector(state=>state.cloth.clothCapture);
 
   useEffect(() => {
     console.log("유저가 선택한값이 바뀜", userseletedprodcut);
@@ -264,33 +265,35 @@ const KonvaCanvas = (props) => {
     }
   }, [decalName, konvaLayer]);
 
-  useEffect(() => {
-    if (decalText !== 0) {
-      var simpleText = new Konva.Text({
-        x: 100,
-        y: 15,
-        text: "텍스트",
-        fontSize: 50,
-        fontWeight: 1500,
-        fill: "yellow",
-        draggable: true,
-      });
-
-      // 더블클릭 이벤트 추가
-      simpleText.on("dblclick dbltap", function () {
-        // 인풋 요소를 생성
-        const input = document.createElement("input");
-        const colorPicker = document.createElement("input");
-        colorPicker.type = "color";
-        document.body.appendChild(input);
-        document.body.appendChild(colorPicker);
-
-        // 현재 텍스트 위치에 인풋을 배치
-        const box = simpleText.getClientRect();
-        input.style.position = "absolute";
-        input.style.top = 350 + "px";
-        input.style.left = 1035 + "px";
-        input.value = simpleText.text();
+    useEffect(() => {
+      if(decalText !== 0){
+        var simpleText = new Konva.Text({
+          x: 100,
+          y: 15,
+          text: '텍스트',
+          fontSize: 50,
+          fontFamily : "BlackHanSans",
+          fontWeight : 1000,
+          fill: 'black',
+          draggable : true,
+        });
+    
+        // 더블클릭 이벤트 추가
+        simpleText.on('dblclick dbltap', function () {
+          // 인풋 요소를 생성
+          const input = document.createElement('input');
+          const colorPicker = document.createElement('input');
+          colorPicker.type = 'color';
+          document.body.appendChild(input);
+          document.body.appendChild(colorPicker);
+      
+          // 현재 텍스트 위치에 인풋을 배치
+          const box = simpleText.getClientRect();
+          input.style.position = 'absolute';
+          input.style.top = 350 +'px';
+          input.style.left = 1035 +'px';
+          input.value = simpleText.text();
+          input.classList.add('inputobtn')
 
         colorPicker.style.position = "absolute";
         colorPicker.style.top = 390 + "px";
@@ -364,20 +367,13 @@ const KonvaCanvas = (props) => {
 
   return (
     <div style={props.style}>
-      <div
-        id="container"
-        style={containerStyle}
-        onMouseDown={handleMouseDown}
-      ></div>
-      <div className="delbtn">
-        <button className="obutton" onClick={() => destroySelected()}>
-          선택 삭제
-        </button>
-        <button className="obutton" onClick={destroyAll}>
-          전체삭제
-        </button>
-      </div>
-    </div>
+    <div id="container" style={containerStyle} onMouseDown={handleMouseDown}   ></div>
+    {clothCapture ? null :     <div className='delbtn'>
+      <button className='obutton' onClick={()=>destroySelected()}>선택 삭제</button>
+      <button className='obutton' onClick={destroyAll}>전체 삭제</button>
+    </div>}
+
+   </div>
   );
 };
 
