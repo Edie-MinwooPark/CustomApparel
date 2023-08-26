@@ -49,7 +49,22 @@ const CustomMyPicPopup = ({ handlerMyPic }) => {
                 <span>MyPicture</span>
             </div>
             </div>
-            <img src="polaroid.png" width={500} height ={500}/>
+            <div style={{ position: 'relative', width: 500, height: 500 }}>
+              <img src="polaroid.png" alt="Polaroid" style={{ width: '100%', height: '100%', marginLeft: "180px" }} />
+                <div style={{
+                    position: 'absolute',
+                    top: '40%',
+                    left: '86%',
+                    transform: 'translate(-50%, -50%)',
+                    color: 'black',
+                    fontSize: '15px',
+                    fontWeight: 'bold',
+                    zIndex : "3",
+                    width : "160px"
+                    }}>
+                        "사진은 추억의 미래, 추억은 사진의 과거다 <br/>-Team IKE"
+                </div>
+            </div>
             <div className="popupBody">
                 <form onSubmit={handleSubmit}>
                     <input type="file" onChange={handleFileChange} />
