@@ -35,7 +35,7 @@ sequelize
     console.log(err);
   });
 
-app.use("/img", express.static(path.join(__dirname, "img")));
+app.use("/api/img", express.static(path.join(__dirname, "img")));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
