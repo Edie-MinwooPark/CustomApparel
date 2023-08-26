@@ -64,7 +64,7 @@ const Main = ({ position = [0, 0, 1000], fov = 25 }) => {
       easing.damp3(state.camera.position, [0, 0, 2], 0.5, delta)
       easing.dampE(
         group.current.rotation,
-        [state.pointer.y / 10, -state.pointer.x / 20, 0],
+        [-state.pointer.y / 5, state.pointer.x / 2, 0],
         0.5,
         delta
       )
