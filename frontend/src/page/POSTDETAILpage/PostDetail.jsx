@@ -15,20 +15,33 @@ import {
 } from "./PostDetail.styled";
 import axios from "axios";
 import { LikeIcon } from "../../components/layout/userbox";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
+import { StyledImage } from "../../components/layout/userbox/styled";
+import {
+  CommentContent,
+  CommentInput,
+  CommentInputContainer,
+  CommentSubmitButton,
+  InputContainer,
+  PostDetailCommentInput,
+  Recommentbutton,
+  SubmitButton,
+} from "../../components/layout/imagebox/styled";
 
 const PROXY = process.env.REACT_APP_PROXY;
 
 const PostDetail = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const fetchPost = async (postId) => {
     const { data } = await axios.get(`${PROXY}/post/detail/${postId}`, {
       params: { id: postId },
       withCredential: true,
     });
-    // console.log("hi");
-    // console.log("detaildata??", data);
+    // console.log("data??", data);
     return data;
   };
 
@@ -50,6 +63,7 @@ const PostDetail = () => {
 
   const [expanded, setExpanded] = useState(false);
   const user_info = useSelector((state) => state.mypage.data);
+  console.log("user_info", user_info);
   const { postId } = useParams(); // URL로부터 postId 가져오기
   const {
     data: postdata,
@@ -68,7 +82,7 @@ const PostDetail = () => {
     let likesData = JSON.parse(postdata.likes);
     // console.log("postdata.likes", likesData);
 
-    // console.log("user_info :", user_info);
+    console.log("user_info :", user_info);
     const likeUser = likesData?.find((value) => value == user_info.id);
 
     if (likeUser) {
@@ -112,9 +126,10 @@ const PostDetail = () => {
         post_content: postdata.post_content,
         likes: JSON.stringify(updatedLikesData),
       });
-
-      // console.log(response);
-
+      if (response.data == "다시 로그인해주세요") {
+        alert("로그인해야 좋아요 누를수있음");
+        return navigate("/login");
+      }
       if (response.data.success) {
         // console.log("여기까진 오니?");
         setIsLiked(!isLiked); // 토글 상태 변경
@@ -128,33 +143,45 @@ const PostDetail = () => {
 
   // 댓글추가
   const handleCommentSubmit = async () => {
-    try {
-      const response = await axios.post(`${PROXY}/comment/comments/`, {
-        user_id: user_info.user_id,
-        profile_img: user_info.profile_img,
-        addComments,
-        postId,
-      });
-      if (response.data.success) {
-        // console.log("succccesssss?", response);
-        // console.log("여기까지옴?");
-        const updatedComments = await fetchComments(postId);
+    if (user_info == "다시 로그인해주세요") {
+      console.log("gg");
+      alert("로그인 해주세요");
+      return navigate("/login");
+    } else {
+      try {
+        const response = await axios.post(`${PROXY}/comment/comments/`, {
+          user_id: user_info.user_id,
+          profile_img: user_info.profile_img,
+          addComments,
+          postId,
+        });
+        if (response.data.success) {
+          const updatedComments = await fetchComments(postId);
 
-        // 기존댓글 + 대댓글 + 새댓글 합침
-        const commetsWithRecomments = updatedComments.map((comment) => ({
-          ...comment,
-          RECOMMENTs:
-            commentsList.find((c) => c.id === comment.id)?.RECOMMENTs || [],
-        }));
-        setCommentsList(commetsWithRecomments);
-        setAddComments(""); // 댓글 입력 창 비우기
+          // 기존댓글 + 대댓글 + 새댓글 합침
+          const commetsWithRecomments = updatedComments.map((comment) => ({
+            ...comment,
+            RECOMMENTs:
+              commentsList.find((c) => c.id === comment.id)?.RECOMMENTs || [],
+          }));
+          setCommentsList(commetsWithRecomments);
+          setAddComments(""); // 댓글 입력 창 비우기
+        }
+      } catch (error) {
+        console.log("댓글 추가 실패", error);
       }
-    } catch (error) {
-      // console.log("댓글 추가 실패", error);
     }
   };
   // 댓글 목록을 저장하는 상태
   const [commentsList, setCommentsList] = useState([]);
+  console.log("user_id :", commentsList.user_id);
+  console.log("profile_img :", commentsList);
+
+  // 총 댓글 count
+  const totalComments = commentsList.reduce((acc, comment) => {
+    return acc + 1 + (comment.RECOMMENTs ? comment.RECOMMENTs.length : 0);
+  }, 0);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -169,37 +196,46 @@ const PostDetail = () => {
 
   // 대댓글 추가 함수
   const handleRecommentSubmit = async (commentId) => {
-    try {
-      const response = await axios.post(`${PROXY}/comment/recomments/`, {
-        user_id: user_info.user_id,
-        profile_img: user_info.profile_img,
-        recomments: recommentInput[commentId],
-        recomment_id: commentId, // 댓글id 넣기
-        // postId,
-      });
-
-      if (response.data.success) {
-        // console.log("commentId :", commentId);
-        const updatedComments = await fetchReComments(commentId);
-        setCommentsList((prevComments) =>
-          prevComments.map((comment) =>
-            comment.id === commentId
-              ? { ...comment, RECOMMENTs: updatedComments }
-              : comment
-          )
-        );
-        setRecommentInput((prevInput) => ({
-          ...prevInput,
-          [commentId]: "",
-        }));
-        toggleRecommentInput(commentId); // 대댓글 입력창 닫기
+    if (user_info == "다시 로그인해주세요") {
+      alert("로그인 해주세요");
+      return navigate("/login");
+    } else {
+      try {
+        const response = await axios.post(`${PROXY}/comment/recomments/`, {
+          user_id: user_info.user_id,
+          profile_img: user_info.profile_img,
+          recomments: recommentInput[commentId],
+          recomment_id: commentId, // 댓글id 넣기
+          // postId,
+        });
+        if (response.data == "다시 로그인해주세요") {
+          alert("로그인해야 대댓글 달 수 있음");
+          navigate("/login", { state: { from: location.pathname } });
+          // navigate 훅에 state 내장기능이 있고 여기에 from 이라는 props 값을 전달해준다
+          // pathname : 웹브라우저의 window.location 객체의 속성중 하나임 / 현재 창의 URL 에 대한 정보를 포함함
+          return;
+        }
+        if (response.data.success) {
+          // console.log("commentId :", commentId);
+          const updatedComments = await fetchReComments(commentId);
+          setCommentsList((prevComments) =>
+            prevComments.map((comment) =>
+              comment.id === commentId
+                ? { ...comment, RECOMMENTs: updatedComments }
+                : comment
+            )
+          );
+          setRecommentInput((prevInput) => ({
+            ...prevInput,
+            [commentId]: "",
+          }));
+          toggleRecommentInput(commentId); // 대댓글 입력창 닫기
+        }
+      } catch (error) {
+        console.log("대댓글 추가 실패", error);
       }
-    } catch (error) {
-      console.log("대댓글 추가 실패", error);
     }
   };
-
-  // console.log("postdata : ", postdata);
 
   // postdata 의 callbyuser_id 가
   return (
@@ -222,9 +258,6 @@ const PostDetail = () => {
             <div className="like_count">
               좋아요 <strong>{likes}</strong>개
             </div>
-            <Viewdiv className="comment_count">
-              댓글 <strong>{commentsList.length}</strong>개
-            </Viewdiv>
           </CountContainer>
           <Text
             expanded={expanded}
@@ -245,24 +278,30 @@ const PostDetail = () => {
             )}
           </Text>
           <Comment_Box>
-            {/* {commentsList.map((value, index) => (
-              <li key={index} className="comment_content">
-                {value.comments_content}
-              </li>
-            ))} */}
+            <Viewdiv className="comment_count">
+              댓글 <strong>{totalComments}</strong>개
+            </Viewdiv>
 
             {commentsList && commentsList.length > 0 ? (
               commentsList.map((comment) => (
                 <div key={comment.id}>
                   <div className="comment_content">
-                    {comment.comments_content}
+                    <StyledImage
+                      src={`${PROXY}` + comment.profile_img}
+                      alt="user profile"
+                    />{" "}
+                    <span>{comment.user_id}</span> {/* 유저 ID */}
+                    <CommentContent>{comment.comments_content}</CommentContent>
                   </div>
-                  <button onClick={() => toggleRecommentInput(comment.id)}>
-                    대댓글 달기
-                  </button>
+                  <Recommentbutton
+                    onClick={() => toggleRecommentInput(comment.id)}
+                  >
+                    답글 달기
+                  </Recommentbutton>
+                  {/* test */}
                   {recommentInput[comment.id] && (
-                    <>
-                      <input
+                    <InputContainer>
+                      <PostDetailCommentInput
                         onChange={(e) =>
                           setRecommentInput({
                             ...recommentInput,
@@ -270,18 +309,28 @@ const PostDetail = () => {
                           })
                         }
                       />
-                      <button onClick={() => handleRecommentSubmit(comment.id)}>
+                      <SubmitButton
+                        onClick={() => handleRecommentSubmit(comment.id)}
+                      >
                         등록
-                      </button>
-                    </>
+                      </SubmitButton>
+                    </InputContainer>
                   )}
-                  {/* 대댓글 목록 출력 */}
-                  {/* {console.log("대댓글 데이터 comment", comment.RECOMMENTs)} */}
+
                   {comment.RECOMMENTs &&
                     comment.RECOMMENTs.length > 0 &&
                     comment.RECOMMENTs.map((recomment) => (
-                      <div key={recomment.id} className="recomment_content">
-                        {recomment.recomments}
+                      <div
+                        key={recomment.id}
+                        className="recomment_content"
+                        style={{ marginLeft: "20px" }}
+                      >
+                        <StyledImage
+                          src={`${PROXY}` + recomment.profile_img}
+                          alt="User profile img from recomment"
+                        />
+                        <span>{recomment.user_id}</span>
+                        <CommentContent>{recomment.recomments}</CommentContent>
                       </div>
                     ))}
                 </div>
@@ -289,8 +338,15 @@ const PostDetail = () => {
             ) : (
               <div>댓글이 없습니다.</div>
             )}
-            <input onChange={(e) => setAddComments(e.target.value)} />
-            <button onClick={handleCommentSubmit}>입력</button>
+            {/* 댓글 입력 영역 test */}
+            <CommentInputContainer>
+              <CommentInput onChange={(e) => setAddComments(e.target.value)} />
+              <CommentSubmitButton onClick={handleCommentSubmit}>
+                입력
+              </CommentSubmitButton>
+            </CommentInputContainer>
+            {/* <input onChange={(e) => setAddComments(e.target.value)} />
+            <button onClick={handleCommentSubmit}>입력</button> */}
           </Comment_Box>
         </ContentBox>
       </ContentWrapper>

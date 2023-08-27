@@ -34,15 +34,11 @@ function UserBox({ post, userImg, userID }) {
 
   const user_info = useSelector((state) => state.mypage.data);
 
-  console.log("poooooo", post);
-  // console.log("userImg", userImg);
-  console.log("userID", userID);
   const [likes, setLikes] = useState(JSON.parse(post.likes).length || 0);
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
   const [profileImg, setProfileImg] = useState(post.USER.profile_img);
 
   const likesData = post.likes ? JSON.parse(post.likes) : [];
-  console.log("likesData :", likesData);
 
   let updatedLikesData;
 
@@ -55,9 +51,7 @@ function UserBox({ post, userImg, userID }) {
     }
     console.log("likeUserIndex :", likeUserIndex);
   }, [user_info]);
-  // console.log("updatedLikesData", updatedLikesData);
 
-  // const like
   const handleLike = async (e) => {
     setIsLiked(!isLiked); // 좋아요 상태 토글
     if (isLiked) {

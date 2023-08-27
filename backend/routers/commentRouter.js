@@ -5,15 +5,13 @@ const {
   getComments,
   getRecomments,
 } = require("../controller/commnetsController");
+const { islogin } = require("../middleware/islogin");
 
-// 댓글 보여주기
 router.get("/comments/:postId", getComments);
 router.get("/recomments/:commentId", getRecomments);
-
-// // 대댓글
+// router.post("/recomments", islogin, reComment);
 router.post("/recomments", reComment);
-// // 댓글 추가 라우트
-// :id 이거 있으면 무조건 아래에 두기(중간에 가로채서 밑에거 실행안됨)
+// router.post("/comments", islogin, comment);
 router.post("/comments", comment);
 
 module.exports = router;
