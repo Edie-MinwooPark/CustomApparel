@@ -4,24 +4,29 @@ import { useDispatch } from "react-redux";
 import { getmypageinfo } from "../..//features/mypageslice";
 import { userlogout } from "../../features/mainslice";
 import { userdataclear } from "../../features/mainslice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const dispatch = useDispatch();
   const [userloginstate, setuserloginstate] = useState(false);
   const [userlogin, setuserlogin] = useState("");
+  const location = useLocation();
+  const navigator = useNavigate();
   useEffect(() => {
     // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
     const fetchData = async () => {
       const data = await dispatch(getmypageinfo());
-      // console.log(data);
-      // console.log(
-      //   data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
-      // );
+      if (location.pathname === "/admin" && data.payload.user_id !== "admin") {
+        alert("접근할 수 없습니다.");
+        navigator("/");
+      }
+
       if (data.payload == "다시 로그인해주세요") {
         console.log("다시 로그인해주세요");
       } else {
         setuserloginstate(true);
       }
+
       setuserlogin(
         data.payload.id ? `LOGOUT:${data.payload.Nick}` : "로그인하기"
       );

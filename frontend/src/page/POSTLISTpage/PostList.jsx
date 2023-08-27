@@ -119,7 +119,7 @@ function PostList() {
           <AllPostButton>
             <div className="AllPostWrap" onClick={handleAllPost}>
               <div className="AllPostImg">
-                <img src="add.png" alt="" />
+                <img src="apparel.jpg" alt="" />
               </div>
               <div className="AllPostBox">
                 <div className="AllPostTxt">
@@ -128,13 +128,15 @@ function PostList() {
               </div>
             </div>
           </AllPostButton>
-          {sortHashag.map((e, index) => (
+          {sortHashag.slice(0, 8).map((e, index) => (
             <div className="hashtagCard" key={index}>
               <div
                 className="hashtagWrap"
                 onClick={() => handleHashtag(Object.keys(e)[0])}
               >
-                <div className="hashtagImg"></div>
+                <div className="hashtagImg">
+                  <img src={"/hashtag/" + Object.keys(e)[0] + ".jpg"} alt="" />
+                </div>
                 <div className="hashtagBox">
                   <div className="hashtagTxt">
                     <span>{`#` + Object.keys(e)[0]}</span>

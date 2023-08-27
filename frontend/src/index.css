@@ -21,6 +21,15 @@ body {
 canvas {
   touch-action: none;
 }
+/* 
+.container{
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+} */
 
 header {
   display: flex;
@@ -92,7 +101,8 @@ section {
   z-index: -100;
 }
 
-.obutton {
+.obutton,
+.inputobtn {
   background-color: #dd5c18;
   border: none;
   border-radius: 5px;
@@ -109,17 +119,31 @@ section {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 15px 30px;
+  padding: 15px 25px;
   font-size: 10px;
+}
+
+.inputobtn {
+  width: 150px;
+  height: 30px;
+  font-size: 15px;
 }
 
 .obuttoncap {
   margin-bottom: 20px;
 }
 
+header p.hidden {
+  opacity: 0;
+}
+
 .obutton:hover {
   box-shadow: inset 250px 0 0 0 black;
   transform: scale(1.1);
+}
+
+.uploadbtn {
+  margin-top: 20px;
 }
 
 /* CUSTOMIZER */

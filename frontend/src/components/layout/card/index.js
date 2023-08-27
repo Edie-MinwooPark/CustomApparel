@@ -8,9 +8,13 @@ const PROXY = process.env.REACT_APP_PROXY;
 
 function CardComponent({ post }) {
   return (
-    <Card className="mb-4">
+    <Card className="mb-4 border_none">
       <Link to={`/posts/${post.id}`} state={{ post: post }} key={post.user_id}>
-        <Card.Img variant="top" src={`${PROXY}` + post.post_img} />
+        <Card.Img
+          className="img_radius"
+          variant="top"
+          src={`${PROXY}` + post.post_img}
+        />
       </Link>
       <Card.Body>
         <UserBox post={post} userID={post.user_id} />

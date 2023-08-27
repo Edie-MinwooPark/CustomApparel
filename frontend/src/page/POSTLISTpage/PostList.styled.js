@@ -43,13 +43,14 @@ export const HashTagDiv = styled.div`
     cursor: pointer;
   }
   & .hashtagImg {
-    border: 1px solid;
     height: 80px;
     border-radius: 50%;
     margin-bottom: 5px;
   }
   & .hashtagImg img {
-    width: 100%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
   }
   & .hashtagBox {
     display: flex;
@@ -79,7 +80,9 @@ export const AllPostButton = styled.div`
     margin-bottom: 5px;
   }
   & .AllPostImg img {
-    width: 100%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
   }
   & .AllPostBox {
     display: flex;

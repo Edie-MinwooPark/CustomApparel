@@ -3,10 +3,13 @@ import { AdminWrap, UserListWrap } from "./Admin.styled";
 import { Nav } from "../../page";
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const PROXY = process.env.REACT_APP_PROXY;
 
 const Admin = () => {
+  const userInfo = useSelector((state) => state.mypage.data);
+
   const [menu, setMenu] = useState("admin");
 
   const { data, isLoading, refetch } = useQuery(
@@ -53,7 +56,12 @@ const Admin = () => {
   };
 
   if (isLoading) return <div>Loading ...</div>;
-  // console.log(data.data);
+  if (
+    (isLoading && userInfo != null) ||
+    (userInfo?.user_id != undefined && userInfo?.user_id == "admin")
+  )
+    console.log(userInfo);
+
   return (
     <div>
       <Nav />

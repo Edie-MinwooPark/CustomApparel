@@ -48,7 +48,7 @@ function UserBox({ post, userImg, userID }) {
     if (likeUserIndex == 0) {
       setIsLiked(true);
     }
-    console.log("likeUserIndex :", likeUserIndex);
+    // console.log("likeUserIndex :", likeUserIndex);
   }, [user_info]);
 
   const handleLike = async (e) => {
@@ -57,13 +57,13 @@ function UserBox({ post, userImg, userID }) {
       setLikes(likes - 1); // 좋아요 취소 시, 숫자 감소
       // 좋아요 취소하면 배열에서 내 아이디 filter 처리
       updatedLikesData = likesData.filter((value) => value !== user_info.id);
-      console.log("updatedLikesData: 좋아요 취소", updatedLikesData);
+      // console.log("updatedLikesData: 좋아요 취소", updatedLikesData);
 
       // 유저 고유 아이디, 포스트 아이디, like 배열 보내기
     } else {
       setLikes(likes + 1); // 좋아요 시, 숫자 증가
       updatedLikesData = [...likesData, user_info.id];
-      console.log("updatedLikesData: 좋아요", updatedLikesData);
+      // console.log("updatedLikesData: 좋아요", updatedLikesData);
     }
 
     let url = `${PROXY}/post/postLikes/`;

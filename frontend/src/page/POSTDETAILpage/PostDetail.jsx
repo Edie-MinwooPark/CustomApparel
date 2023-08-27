@@ -63,7 +63,7 @@ const PostDetail = () => {
 
   const [expanded, setExpanded] = useState(false);
   const user_info = useSelector((state) => state.mypage.data);
-  console.log("user_info", user_info);
+  // console.log("user_info", user_info);
   const { postId } = useParams(); // URL로부터 postId 가져오기
   const {
     data: postdata,
@@ -82,7 +82,7 @@ const PostDetail = () => {
     let likesData = JSON.parse(postdata.likes);
     // console.log("postdata.likes", likesData);
 
-    console.log("user_info :", user_info);
+    // console.log("user_info :", user_info);
     const likeUser = likesData?.find((value) => value == user_info.id);
 
     if (likeUser) {
@@ -174,8 +174,8 @@ const PostDetail = () => {
   };
   // 댓글 목록을 저장하는 상태
   const [commentsList, setCommentsList] = useState([]);
-  console.log("user_id :", commentsList.user_id);
-  console.log("profile_img :", commentsList);
+  // console.log("user_id :", commentsList.user_id);
+  // console.log("profile_img :", commentsList);
 
   // 총 댓글 count
   const totalComments = commentsList.reduce((acc, comment) => {
