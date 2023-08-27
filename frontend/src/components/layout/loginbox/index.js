@@ -88,6 +88,7 @@ const Loginform = () => {
                         <div className="iconcell">
                           <div className="iconpw"></div>
                           <input
+                            type="password"
                             className="inputtext"
                             onChange={handlePwInput}
                           ></input>

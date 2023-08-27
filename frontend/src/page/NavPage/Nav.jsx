@@ -61,15 +61,18 @@ const Nav = () => {
               ) : (
                 <NavLink to={"/login"}> {userlogin}</NavLink>
               )}
-
-              {/* <NavLink to={"/login"}> login</NavLink> */}
             </li>
-            <li>
-              <NavLink to={"/signup"}> SIGNUP</NavLink>
-            </li>
-            <li>
-              <NavLink to={"/mypage"}> MYPAGE</NavLink>
-            </li>
+            {/* <NavLink to={"/login"}> login</NavLink> */}
+            {userloginstate ? null : (
+              <li>
+                <NavLink to={"/signup"}> SIGNUP</NavLink>
+              </li>
+            )}
+            {userloginstate ? (
+              <li>
+                <NavLink to={"/mypage"}> MYPAGE</NavLink>
+              </li>
+            ) : null}
 
             <li>
               <NavLink to={"/cartp"}> CART</NavLink>
