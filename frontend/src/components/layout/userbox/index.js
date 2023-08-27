@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import UserState from "../userstate";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   UserBoxContainer,
   StyledLikeIconWrapper,
@@ -30,28 +31,58 @@ export const LikeIcon = ({ liked, width = "20px" }) => {
 
 function UserBox({ post, userImg, userID }) {
   // 좋아요 get 가져와서 똑같이 연결해주기
+  const user_info = useSelector((state) => state.mypage.data);
 
-  // console.log("poooooo", post);
-  // console.log("userImg", userImg);
-  // console.log("userID", userID);
-  const [likes, setLikes] = useState(parseInt(post.likes, 10) || 0);
+  const [likes, setLikes] = useState(JSON.parse(post.likes).length || 0);
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태를 추적하기 위한 state
   const [profileImg, setProfileImg] = useState(post.USER.profile_img);
 
-  const handleLike = (e) => {
+  const likesData = post.likes ? JSON.parse(post.likes) : [];
+
+  let updatedLikesData;
+
+  // findIndex : true 면 (0) false 면 (-1)
+  let likeUserIndex;
+  useEffect(() => {
+    likeUserIndex = likesData.findIndex((value) => value === user_info?.id);
+    if (likeUserIndex == 0) {
+      setIsLiked(true);
+    }
+    console.log("likeUserIndex :", likeUserIndex);
+  }, [user_info]);
+
+  const handleLike = async (e) => {
     setIsLiked(!isLiked); // 좋아요 상태 토글
     if (isLiked) {
       setLikes(likes - 1); // 좋아요 취소 시, 숫자 감소
+      // 좋아요 취소하면 배열에서 내 아이디 filter 처리
+      updatedLikesData = likesData.filter((value) => value !== user_info.id);
+      console.log("updatedLikesData: 좋아요 취소", updatedLikesData);
+
+      // 유저 고유 아이디, 포스트 아이디, like 배열 보내기
     } else {
       setLikes(likes + 1); // 좋아요 시, 숫자 증가
+      updatedLikesData = [...likesData, user_info.id];
+      console.log("updatedLikesData: 좋아요", updatedLikesData);
     }
+
+    let url = `${PROXY}/post/postLikes/`;
+    let action = likeUserIndex !== -1 ? "unlike" : "like";
+    const response = await axios.post(url, {
+      action,
+      user_id: user_info.id,
+      post_id: post.id,
+      post_title: "title",
+      post_content: post.post_content,
+      likes: JSON.stringify(updatedLikesData),
+    });
   };
 
   // console.log("post : ", post);
 
   return (
     <UserBoxContainer>
-      <StyledImage src={`${PROXY}/` + profileImg} roundedCircle />
+      <StyledImage src={`${PROXY}` + profileImg} roundedCircle />
       <StyledUsername>{userID}</StyledUsername>
       <StyledLikeIconWrapper
         aria-label="좋아요"

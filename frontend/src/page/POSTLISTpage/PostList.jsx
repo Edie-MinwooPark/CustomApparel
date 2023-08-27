@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "./PostList.styled";
 import CardComponent from "../../components/layout/card";
 // import Button from "react-bootstrap/Button";
 import Masonry from "react-masonry-css";
 import Nav from "../NavPage/Nav";
 import axios from "axios";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import { useLocation } from "react-router-dom";
 
 // hashtag start
 import { HashTagDiv, AllPostButton, InsertButton } from "./PostList.styled";
@@ -22,6 +23,9 @@ const fetchPost = async () => {
 };
 
 function PostList() {
+  const location = useLocation();
+  const queryClient = useQueryClient();
+
   // hashtag start
   const user_info = useSelector((state) => state.mypage.data);
   const navigator = useNavigate();
@@ -74,6 +78,11 @@ function PostList() {
     500: 1,
   };
 
+  useEffect(() => {
+    // 특정 쿼리를 무효화하고 다시 가져오도록 함 "invalidateQueries"
+    queryClient.invalidateQueries("posts");
+  }, [location, queryClient]);
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error</p>;
 
@@ -119,8 +128,8 @@ function PostList() {
               </div>
             </div>
           </AllPostButton>
-          {sortHashag.map((e) => (
-            <div className="hashtagCard">
+          {sortHashag.map((e, index) => (
+            <div className="hashtagCard" key={index}>
               <div
                 className="hashtagWrap"
                 onClick={() => handleHashtag(Object.keys(e)[0])}

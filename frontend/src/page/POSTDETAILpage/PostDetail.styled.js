@@ -15,8 +15,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const ContentBox = styled.div`
-  /* border: 1px solid; */
-  padding: 12px 16px 0;
+  padding: 12px 0 0 0;
 `;
 
 export const StyledLikeIconWrapper = styled.div`
@@ -63,7 +62,9 @@ export const More = styled.span`
 `;
 
 export const Comment_Box = styled.div`
-  border: 1px solid;
+  padding-top: 30px;
+  /* background-color: yellow; */
+  /* border: 1px solid; */
 `;
 
 export const LikeIcon = styled.img`

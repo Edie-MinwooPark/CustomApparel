@@ -11,11 +11,13 @@ import {
   Footer,
   Menutext,
 } from "./Login.styled";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Loginform = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [user_id, setUser_id] = useState("");
   const [user_pw, setUser_pw] = useState("");
@@ -35,6 +37,22 @@ const Loginform = () => {
     // console.log("로그인버튼");
     dispatch(trylogininfo({ user_id, user_pw }));
   };
+
+  console.log("Location State:", location.state);
+
+  // 동희 : 수정중
+  // useEffect(() => {
+  //   try {
+  //     if (userdata && userdata.message == "로그인 성공" && location.state) {
+  //       console.log("hi2");
+  //       const redirectTo = location.state?.from || "/";
+  //       navigate(redirectTo);
+  //     }
+  //   } catch (error) {
+  //     console.error("post 관련 로그인 오류", error);
+  //   }
+  // }, [userdata]);
+
   useEffect(() => {
     // console.log("userdata", userdata);
     if (userdata == null) {
@@ -43,6 +61,7 @@ const Loginform = () => {
       navigate("/"); // Navigate to the 'Details' screen
     }
   }, [handleSubmit]);
+
   return (
     <Body>
       <Wrap>
