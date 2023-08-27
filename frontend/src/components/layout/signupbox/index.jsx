@@ -117,7 +117,7 @@ const Sign = () => {
                     <Formitem>
                       <div className="userpw"></div>
                       {/* <label htmlFor="user_pw">비밀번호</label> */}
-                      <input onChange={handlePwInput} placeholder="비밀번호" />
+                      <input type="password" onChange={handlePwInput} placeholder="비밀번호" />
                     </Formitem>
                     <Formitem>
                       <div className="profileimg"></div>
