@@ -13,10 +13,10 @@ const Nav = () => {
     // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
     const fetchData = async () => {
       const data = await dispatch(getmypageinfo());
-      console.log(data);
-      console.log(
-        data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
-      );
+      // console.log(data);
+      // console.log(
+      //   data.payload.id ? `LOGIN:${data.payload.Nick}` : "로그인하기"
+      // );
       if (data.payload == "다시 로그인해주세요") {
         console.log("다시 로그인해주세요");
       } else {
@@ -29,7 +29,7 @@ const Nav = () => {
     fetchData();
   }, [dispatch]);
   const handlelogbutton = () => {
-    console.log("handlelogbutton");
+    // console.log("handlelogbutton");
     dispatch(userlogout());
     setuserlogin("로그인하기");
     setuserloginstate(false);

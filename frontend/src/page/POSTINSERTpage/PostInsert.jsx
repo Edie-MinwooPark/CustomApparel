@@ -86,7 +86,7 @@ const PostInsert = () => {
     // createdPost.append("id", formData.id);
     // PhotoformData.append("a", "a");
     // console.log("PhotoformData :", PhotoformData);
-    console.log("formData :", formData);
+    // console.log("formData :", formData);
     const dhbb = {
       content: inputValue,
       id: user_info.id, // 아이디 넣어줘야됨
@@ -98,10 +98,10 @@ const PostInsert = () => {
 
     setPhotoFormData(PhotoformData);
 
-    for (let [key, value] of PhotoformData.entries()) {
-      console.log("key :", key);
-      console.log("value :", value);
-    }
+    // for (let [key, value] of PhotoformData.entries()) {
+    //   console.log("key :", key);
+    //   console.log("value :", value);
+    // }
 
     // PhotoformData.append("content", inputValue);
     // PhotoformData.append("id", formData.id);
@@ -123,7 +123,7 @@ const PostInsert = () => {
     //   createdPost.append("image", formData.imageFile);
     // }
     try {
-      console.log("hi :", fileInput);
+      // console.log("hi :", fileInput);
       const response = await axios.post(
         `${PROXY}/post/addpost`,
         PhotoformData,
@@ -239,7 +239,7 @@ const PostInsert = () => {
 
   const handletest = () => {
     PhotoformData.append("a", "a");
-    console.log("PhotoformData :", PhotoformData);
+    // console.log("PhotoformData :", PhotoformData);
   };
 
   return (

@@ -8,8 +8,8 @@ const form = {
 };
 formData.append("data", JSON.stringify(form));
 
-console.log(formData);
-console.log(formData.values());
-for (let value of formData.values()) {
-  console.log(value);
-}
+// console.log(formData);
+// console.log(formData.values());
+// for (let value of formData.values()) {
+//   console.log(value);
+// }

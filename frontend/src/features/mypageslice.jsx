@@ -25,10 +25,10 @@ export const updateuserpw = createAsyncThunk("mypage/", async (data) => {
       }
     );
     // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
-    console.log("updateuserpw", response.data);
+    // console.log("updateuserpw", response.data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 });
 
@@ -42,7 +42,7 @@ export const updateusernick = createAsyncThunk("mypage/", async (data) => {
       }
     );
     // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
-    console.log("updateusernick", response.data);
+    // console.log("updateusernick", response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -51,7 +51,7 @@ export const updateusernick = createAsyncThunk("mypage/", async (data) => {
 
 export const imgUpdate = createAsyncThunk("mypage/imgUpdate", async (form) => {
   try {
-    console.log("imgUpdate", form);
+    // console.log("imgUpdate", form);
     const response = await axios.post(`${PROXY}/mypage/imgUpdate`, form, {
       headers: {
         "Content-Type": "multipart/form-data; charset=utf-8",
@@ -59,7 +59,7 @@ export const imgUpdate = createAsyncThunk("mypage/imgUpdate", async (form) => {
       withCredentials: true,
     });
     // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
-    console.log("imgUpdate", response.data);
+    // console.log("imgUpdate", response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -68,12 +68,12 @@ export const imgUpdate = createAsyncThunk("mypage/imgUpdate", async (form) => {
 
 export const postWrittenbyme = createAsyncThunk("", async () => {
   try {
-    console.log("postWrittenbyme");
+    // console.log("postWrittenbyme");
     const response = await axios.get(`${PROXY}/mypage/postWrittenbyme`, {
       withCredentials: true,
     });
     // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
-    console.log("postWrittenbyme", response.data);
+    // console.log("postWrittenbyme", response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -85,7 +85,7 @@ export const getmypostsIliked = createAsyncThunk("", async () => {
       withCredentials: true,
     });
     // 그냥  response 하면 작렬화되지않은 데이터라고 쿠사리먹인다.
-    console.log("getmypostsIliked", response.data);
+    // console.log("getmypostsIliked", response.data);
     return response.data;
   } catch (error) {}
 });

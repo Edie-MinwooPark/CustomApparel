@@ -34,7 +34,7 @@ const PostUpdate = () => {
 
   // 이미지 미리보기
   const handlePreview = (e) => {
-    console.log("e.target.files[0] : ", e.target.files[0].name);
+    // console.log("e.target.files[0] : ", e.target.files[0].name);
     setImageFile(e.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {

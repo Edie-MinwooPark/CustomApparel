@@ -27,7 +27,7 @@ const CustomProductPopup = ({ handleProduct, num, product }) => {
 
   function handleChangeProduct(e) {
     setSelectNum(e.currentTarget.id - 1);
-    console.log(e.currentTarget.id);
+    // console.log(e.currentTarget.id);
     dispatch(selectnumber(e.currentTarget.id));
     dispatch(decalClear());
     switch (e.currentTarget.id) {

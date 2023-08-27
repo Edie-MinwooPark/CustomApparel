@@ -12,8 +12,8 @@ const Cart = () => {
   const [paymentProgress, setPaymentProgress] = useState(0);
   const storedValue = JSON.parse(localStorage.getItem(userdata.user_id)) || [];
   const [selected, setSelected] = useState(storedValue);
-  console.log("Cart", userdata);
-  console.log("decal데이터들", decaldata, decalNum);
+  // console.log("Cart", userdata);
+  // console.log("decal데이터들", decaldata, decalNum);
   useEffect(() => {
     const backgroundPosition = -200 + paymentProgress;
     const cartTitle = document.querySelector(".carttitle");
@@ -39,9 +39,9 @@ const Cart = () => {
     setPaymentProgress(0);
   };
   const handleSelectChange = (event, index) => {
-    console.log("상호작용이 작동함");
+    // console.log("상호작용이 작동함");
     const selectedValue = event.target.value;
-    console.log(`Selected value for row ${index}:`, selectedValue);
+    // console.log(`Selected value for row ${index}:`, selectedValue);
     // Now you can use the selected value as needed
     let updatecountItem = JSON.parse(localStorage.getItem(userdata.user_id));
     updatecountItem[index].count = parseInt(selectedValue);
@@ -51,7 +51,7 @@ const Cart = () => {
     setSelected(updatecountItem);
   };
   // useEffect(() => {
-  //   console.log("원래 이벤트 자동 발동 ");
+  // console.log("원래 이벤트 자동 발동 ");
   //   selected.forEach((value, index) => {
   //     const selectElement = document.getElementById(`quantitySelect_${index}`);
   //     if (selectElement) {

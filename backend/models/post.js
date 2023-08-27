@@ -33,6 +33,7 @@ class POST extends Sequelize.Model {
         hash_tag: {
           type: Sequelize.STRING,
           allowNull: true,
+          defaultValue: "[]",
         },
         callbyuser: {
           type: Sequelize.INTEGER,

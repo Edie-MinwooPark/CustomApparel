@@ -27,3 +27,68 @@ export const Grid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 20px;
 `;
+
+// hashtag start
+export const HashTagDiv = styled.div`
+  width: 100%;
+  height: 150px;
+  margin-bottom: 20px;
+  padding: 15px 0;
+  display: flex;
+  & .hashtagCard {
+    width: 10%;
+  }
+  & .hashtagWrap {
+    width: 80px;
+    cursor: pointer;
+  }
+  & .hashtagImg {
+    border: 1px solid;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+  }
+  & .hashtagImg img {
+    width: 100%;
+  }
+  & .hashtagBox {
+    display: flex;
+    justify-content: center;
+  }
+  & .hashtagTxt {
+  }
+  & .hashtagTxt span {
+    font-size: 16px;
+    color: #333333;
+  }
+`;
+
+// insert button
+export const InsertButton = styled.div`
+  & .InsertCard {
+    width: 10%;
+    border: 1px solid;
+  }
+  & .InsertWrap {
+    width: 80px;
+    cursor: pointer;
+  }
+  & .InsertImg {
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+  }
+  & .InsertImg img {
+    width: 100%;
+  }
+  & .InsertBox {
+    display: flex;
+    justify-content: center;
+  }
+  & .InsertTxt {
+  }
+  & .InsertTxt span {
+    font-size: 16px;
+    color: #333333;
+  }
+`;

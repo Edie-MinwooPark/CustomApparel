@@ -25,19 +25,19 @@ export const Mypage = () => {
   const [updateNick, setNick] = useState("");
   const [user_pw, setUser_pw] = useState("");
   const handleNickInput = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setNick(e.target.value);
   };
   const handlePwInput = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setUser_pw(e.target.value);
   };
   const handlepwsubmit = () => {
-    console.log(user_pw);
+    // console.log(user_pw);
     dispatch(updateuserpw(user_pw));
   };
   const handleNicksubmit = () => {
-    console.log(updateNick);
+    // console.log(updateNick);
     dispatch(updateusernick(updateNick));
   };
 
@@ -45,7 +45,7 @@ export const Mypage = () => {
     // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
     const fetchData = async () => {
       const data = await dispatch(getmypageinfo());
-      console.log(data);
+      // console.log(data);
 
       setImage(`${PROXY}/${data.payload.profile_img}`);
       setuser_id(data.payload.user_id);
@@ -60,10 +60,10 @@ export const Mypage = () => {
   const fileInput = useRef(null);
   const onChange = (e) => {
     if (e.target.files[0]) {
-      console.log("asdasdasd", e.target.files[0]);
+      // console.log("asdasdasd", e.target.files[0]);
       formData.append("profile_img", e.target.files[0]);
       setFormData(formData);
-      console.log("asdasd", formData);
+      // console.log("asdasd", formData);
       //화면에 프로필 사진 표시
       const reader = new FileReader();
       reader.onload = () => {

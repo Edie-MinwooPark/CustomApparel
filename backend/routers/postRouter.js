@@ -8,6 +8,7 @@ const {
   deletePost,
   postLikes,
   postImgUpload,
+  getHashtag,
 } = require("../controller/postController");
 // 전체 post 목록 반환
 router.get("/posts", getAllPosts);
@@ -29,5 +30,8 @@ router.post("/deletepost", deletePost);
 
 // 좋아요 라우트
 router.post("/postLikes", postLikes);
+
+// 특정 hashtag만 가져오기
+router.post("/hashtag", getHashtag);
 
 module.exports = router;

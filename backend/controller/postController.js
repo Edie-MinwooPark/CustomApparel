@@ -1,6 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const db = require("../models");
 const POST = db.POST;
 const COMMENTS = db.COMMENTS;
@@ -169,6 +169,20 @@ exports.deletePost = async (req, res) => {
   try {
     const { id } = req.body;
     const data = await POST.destroy({ where: { id } });
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 특정 hashtag를 포함한 게시글만 반환하는 함수
+exports.getHashtag = async (req, res) => {
+  try {
+    const { hash_tag } = req.body;
+    const data = await POST.findAll({
+      where: { hash_tag: { [Op.like]: `%${hash_tag}%` } },
+    });
+
     res.json(data);
   } catch (error) {
     console.error(error);

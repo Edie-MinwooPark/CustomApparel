@@ -13,7 +13,7 @@ import CustomMyPicPopup from "./CustomMyPicPopup";
 import { useSelector, useDispatch } from "react-redux";
 import TwoDCanvas from "../../components/TwoDCanvas";
 import CanvasComponent from "../../Canvas";
-import { clothColor,clothCapture } from "../../features/clothslice";
+import { clothColor, clothCapture } from "../../features/clothslice";
 import { decalName, decalNum, decalText } from "../../features/decalslice";
 import { customName, customNum } from "../../features/customslice";
 
@@ -72,7 +72,7 @@ const Custom = () => {
   // 팝업창 크고 켜기
   function handleProduct() {
     setProduct(!product);
-    console.log(product);
+    // console.log(product);
   }
   // 팝업창 크고 켜기
   function handleDecals() {
@@ -194,7 +194,7 @@ const Custom = () => {
     setMyPic(!myPic);
   }
   useEffect(() => {
-    console.log("handlerDecal작동한거 관찰함");
+    // console.log("handlerDecal작동한거 관찰함");
     dispatch(customName(decaldata));
     dispatch(customNum(decaldata2));
   }, [handleDecals]);

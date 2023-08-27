@@ -68,7 +68,7 @@ const Sign = () => {
     // console.log("handleSubmit 작동함");
     const tmp = await dispatch(setUserinfo(formData));
 
-    console.log(tmp);
+    // console.log(tmp);
     setFormData(new FormData());
     try {
       if (tmp.payload == undefined) {

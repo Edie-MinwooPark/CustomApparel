@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Payment = (props) => {
   const navigate = useNavigate();
 
-  console.log("Payment 컴포넌트", props.productinfo.selected);
+  // console.log("Payment 컴포넌트", props.productinfo.selected);
   const dispatch = useDispatch();
   const userinformation = useSelector((state) => state.mypage.data);
 
@@ -24,25 +24,25 @@ const Payment = (props) => {
     navigate("/Custom"); // Navigate to the 'Details' screen
   };
   useEffect(() => {
-    console.log("userinformation", userinformation);
+    // console.log("userinformation", userinformation);
     let totalPrice = 0;
     let totalCount = 0;
     let proName = "";
     for (const value of props.productinfo.selected) {
       totalPrice = totalPrice + value.sum + value.decalNum * 1500;
       totalCount += value.count;
-      console.log(value.sum);
-      console.log(value.count);
+      // console.log(value.sum);
+      // console.log(value.count);
       setPrice(totalPrice);
       setCount(totalCount);
 
       if (count > 1) {
         proName = `${props.productinfo.selected[0].name} 외 ${totalCount} 개`;
-        console.log("Payment 주문명.", proName);
+        // console.log("Payment 주문명.", proName);
       } else {
         try {
           proName = `${props.productinfo.selected[0].name} 1 개`;
-          console.log("Payment 주문명.", proName);
+          // console.log("Payment 주문명.", proName);
         } catch (error) {
           console.log(error);
         }
@@ -54,7 +54,7 @@ const Payment = (props) => {
   }, [props.productinfo.selected]);
 
   useEffect(() => {
-    console.log("Payment 주문명 가격 개수", productname, price, count);
+    // console.log("Payment 주문명 가격 개수", productname, price, count);
   }, [productname, price, count]);
 
   const data = {
@@ -71,12 +71,12 @@ const Payment = (props) => {
   };
 
   function onClickPayment() {
-    console.log("Payment 주문명 가격 개수2", productname, price, count);
+    // console.log("Payment 주문명 가격 개수2", productname, price, count);
 
     props.productinfo.handlepaymentinput();
     const { IMP } = window;
     IMP.init("imp84308847"); //발급받은 가맹점 식별코드를 사용합니다.
-    console.log("onClickPayment", paymentSucceededTime, data);
+    // console.log("onClickPayment", paymentSucceededTime, data);
     IMP.request_pay(data, callback);
   }
   function callback(response) {

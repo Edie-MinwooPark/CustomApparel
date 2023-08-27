@@ -12,7 +12,7 @@ const PostWrittenbyme = () => {
     // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
     const fetchData = async () => {
       const data = await dispatch(postWrittenbyme());
-      console.log(data.payload);
+      // console.log(data.payload);
       setData(data.payload);
 
       // setImage(`${PROXY}/${data.payload.profile_img}`);
