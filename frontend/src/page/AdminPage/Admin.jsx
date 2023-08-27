@@ -110,7 +110,7 @@ const Admin = () => {
                     </div>
                     <div className="listName">
                       <div className="profile_img">
-                        <img src={`${PROXY}/` + e.profile_img} alt="" />
+                        <img src={`${PROXY}` + e.profile_img} alt="" />
                         <span>{e.user_id}</span>
                         <span>{`(${e.Nick})`}</span>
                       </div>

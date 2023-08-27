@@ -47,7 +47,7 @@ export const Mypage = () => {
       const data = await dispatch(getmypageinfo());
       // console.log(data);
 
-      setImage(`${PROXY}/${data.payload.profile_img}`);
+      setImage(`${PROXY}${data.payload.profile_img}`);
       setuser_id(data.payload.user_id);
       setuser_accept(data.payload.Accept);
       setNickname(data.payload.Nick);
