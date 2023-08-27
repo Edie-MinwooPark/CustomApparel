@@ -63,6 +63,35 @@ export const HashTagDiv = styled.div`
   }
 `;
 
+// Allpost start
+export const AllPostButton = styled.div`
+  width: 10%;
+  & .AllPostCard {
+    border: 1px solid;
+  }
+  & .AllPostWrap {
+    width: 80px;
+    cursor: pointer;
+  }
+  & .AllPostImg {
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+  }
+  & .AllPostImg img {
+    width: 100%;
+  }
+  & .AllPostBox {
+    display: flex;
+    justify-content: center;
+  }
+  & .AllPostTxt {
+  }
+  & .AllPostTxt span {
+    font-size: 16px;
+    color: #333333;
+  }
+`;
 // insert button
 export const InsertButton = styled.div`
   & .InsertCard {

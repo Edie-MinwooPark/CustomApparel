@@ -174,17 +174,3 @@ exports.deletePost = async (req, res) => {
     console.error(error);
   }
 };
-
-// 특정 hashtag를 포함한 게시글만 반환하는 함수
-exports.getHashtag = async (req, res) => {
-  try {
-    const { hash_tag } = req.body;
-    const data = await POST.findAll({
-      where: { hash_tag: { [Op.like]: `%${hash_tag}%` } },
-    });
-
-    res.json(data);
-  } catch (error) {
-    console.error(error);
-  }
-};

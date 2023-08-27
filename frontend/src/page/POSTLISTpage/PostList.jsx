@@ -8,20 +8,15 @@ import axios from "axios";
 import { useQuery, useMutation } from "react-query";
 
 // hashtag start
-import { HashTagDiv, InsertButton } from "./PostList.styled";
+import { HashTagDiv, AllPostButton, InsertButton } from "./PostList.styled";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // hashtag end
 
 const PROXY = process.env.REACT_APP_PROXY;
 
-const fetchPost = async (hashTag) => {
-  let url = `${PROXY}/post/posts`;
-
-  if (hashTag) {
-    url += `?hash_tag=${hashTag}`;
-  }
-  const { data } = await axios.get(url);
+const fetchPost = async () => {
+  const { data } = await axios.get(`${PROXY}/post/posts`);
 
   return data;
 };
@@ -31,7 +26,7 @@ function PostList() {
   const user_info = useSelector((state) => state.mypage.data);
   const navigator = useNavigate();
   const [hashtag, setHashtag] = useState([]);
-  const [selectedHashTag, setSelectedHashTag] = useState(null);
+  const [selectTag, setSelectTag] = useState(null);
   // hashtag end
 
   const {
@@ -40,7 +35,7 @@ function PostList() {
     isLoading,
     error,
     refetch,
-  } = useQuery(["posts", selectedHashTag], fetchPost, {
+  } = useQuery("posts", fetchPost, {
     onSuccess: (post) => {
       const allTags = post.reduce((acc, postValue) => {
         if (postValue.hash_tag !== "[]") {
@@ -68,22 +63,8 @@ function PostList() {
   });
 
   // 해시태그를 누르면 해당 해시태그를 포함한 글만 가져옴
-  const handleHashtag = useMutation(
-    (hash_tag) => {
-      return axios.post(`${PROXY}/post/hashtag`, {
-        hash_tag,
-      });
-    },
-    {
-      onSuccess: () => {
-        refetch();
-      },
-    }
-  );
-
-  const handleHashtagClick = (hashTag) => {
-    setSelectedHashTag(hashTag);
-    refetch();
+  const handleHashtag = (tag) => {
+    setSelectTag(tag);
   };
 
   const breakpointColumnsObj = {
@@ -103,10 +84,20 @@ function PostList() {
     return bValue - aValue;
   });
 
+  // 게시글 전체 보기
+  const handleAllPost = () => {
+    setSelectTag(null);
+  };
+
   // 글쓰기
   const handleInsert = () => {
     navigator("/postinsert");
   };
+
+  // 해당 해시태그가 포함된 게시글을 찾음
+  const postFilter = selectTag
+    ? posts.filter((post) => JSON.parse(post.hash_tag).includes(selectTag))
+    : posts;
 
   // console.log("hashtag : ", hashtag);
 
@@ -116,14 +107,23 @@ function PostList() {
         <Nav />
         {/* hashtag start */}
         <HashTagDiv>
+          <AllPostButton>
+            <div className="AllPostWrap" onClick={handleAllPost}>
+              <div className="AllPostImg">
+                <img src="add.png" alt="" />
+              </div>
+              <div className="AllPostBox">
+                <div className="AllPostTxt">
+                  <span>전체보기</span>
+                </div>
+              </div>
+            </div>
+          </AllPostButton>
           {sortHashag.map((e) => (
             <div className="hashtagCard">
               <div
                 className="hashtagWrap"
-                onClick={() => {
-                  handleHashtag.mutate(Object.keys(e)[0]);
-                  handleHashtagClick(Object.keys(e)[0]);
-                }}
+                onClick={() => handleHashtag(Object.keys(e)[0])}
               >
                 <div className="hashtagImg"></div>
                 <div className="hashtagBox">
@@ -157,8 +157,8 @@ function PostList() {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {posts.map((post) => (
-            <CardComponent post={post}></CardComponent>
+          {postFilter.map((post) => (
+            <CardComponent post={post} key={post.id} />
           ))}
         </Masonry>
       </Container>
