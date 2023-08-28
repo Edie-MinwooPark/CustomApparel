@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   UserBoxContainer,
   StyledLikeIconWrapper,
@@ -30,6 +31,7 @@ export const LikeIcon = ({ liked, width = "20px" }) => {
 };
 
 function UserBox({ post, userImg, userID }) {
+  const navigate = useNavigate();
   // 좋아요 get 가져와서 똑같이 연결해주기
   const user_info = useSelector((state) => state.mypage.data);
 
@@ -52,6 +54,11 @@ function UserBox({ post, userImg, userID }) {
   }, [user_info]);
 
   const handleLike = async (e) => {
+    if (user_info == "다시 로그인해주세요") {
+      alert("로그인해야 좋아요 누를수있음");
+      return navigate("/login");
+    }
+
     setIsLiked(!isLiked); // 좋아요 상태 토글
     if (isLiked) {
       setLikes(likes - 1); // 좋아요 취소 시, 숫자 감소

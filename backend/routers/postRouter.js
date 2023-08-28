@@ -30,6 +30,6 @@ router.post("/updatepost", postImgUpload.single("post_img"), updatePost);
 router.post("/deletepost", deletePost);
 
 // 좋아요 라우트
-router.post("/postLikes", islogin, postLikes);
+router.post("/postLikes", postLikes);
 
 module.exports = router;

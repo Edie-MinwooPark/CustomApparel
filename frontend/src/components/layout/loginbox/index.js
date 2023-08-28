@@ -54,7 +54,7 @@ const Loginform = () => {
   // }, [userdata]);
 
   useEffect(() => {
-    console.log("userdata", userdata);
+    // console.log("userdata", userdata);
     if (userdata == null) {
       // console.log("userdata");
     } else if (userdata.message == "로그인성공") {

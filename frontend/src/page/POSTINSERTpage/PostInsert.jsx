@@ -9,13 +9,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 import {
   AutoCompleteButton,
+  Deletebutton,
+  Div,
+  DivBox,
   ImageInput,
+  PreImg,
   SubmitButton,
   Tag,
+  TagButton,
   TagInput,
   TagList,
   Textarea,
 } from "./PostInsert.styled";
+import { InputContainer } from "../../components/layout/imagebox/styled";
 
 const PROXY = process.env.REACT_APP_PROXY;
 
@@ -256,41 +262,45 @@ const PostInsert = () => {
       <ContentWrapper>
         <ContentBox>
           <form onSubmit={onSubmit}>
-            <label htmlFor="postContent">내용</label> <br />
+            <label htmlFor="postContent"></label> <br />
             <div>
-              <img
-                src={Image}
-                alt=""
-                style={{ width: "300px", height: "300px" }}
-              />
-              <Textarea
-                id="content"
-                placeholder="내용을 입력하세요"
-                cols={"30"}
-                rows={10}
-                value={inputValue}
-                onChange={handleChange}
-                required //폼을 비운채로 submit 하면 알림메시지 뜸
-              />
+              <div>
+                <DivBox>
+                  <PreImg src={Image} alt="" />
+                </DivBox>
+                <div>
+                  <ImageInput
+                    type="file"
+                    accept="image/*"
+                    name="post_img"
+                    onChange={onChange}
+                    ref={fileInput}
+                  />
+                  <Textarea
+                    id="content"
+                    placeholder="내용을 입력하세요"
+                    cols={"30"}
+                    rows={10}
+                    value={inputValue}
+                    onChange={handleChange}
+                    required //폼을 비운채로 submit 하면 알림메시지 뜸
+                  />
+                </div>
+              </div>
             </div>
-            <ImageInput
-              type="file"
-              accept="image/*"
-              name="post_img"
-              onChange={onChange}
-              ref={fileInput}
-            />
             <label htmlFor="tags">tags</label>
-            <TagInput
-              type="text"
-              placeholder="#태그를 #입력해주세요"
-              id="tags"
-              value={tagInputValue}
-              onChange={handleTag}
-            />
-            <button onClick={addTag} className="small-button w-16">
-              add
-            </button>
+            <InputContainer>
+              <TagInput
+                type="text"
+                placeholder="#태그를 #입력해주세요"
+                id="tags"
+                value={tagInputValue}
+                onChange={handleTag}
+              />
+              <TagButton onClick={addTag} className="small-button w-16">
+                add
+              </TagButton>
+            </InputContainer>
             <div>
               {autoCompletes &&
                 autoCompletes.map((autoComplete) => (
@@ -302,102 +312,26 @@ const PostInsert = () => {
                   </AutoCompleteButton>
                 ))}
             </div>
-            <SubmitButton type="submit">Submit</SubmitButton>
             {formData.tags && (
               <TagList>
                 {formData.tags.map((tag) => (
                   <Tag key={tag}>
                     <span>#{tag}</span>
-                    <button onClick={() => deleteTag(tag)} />
+                    <Deletebutton onClick={() => deleteTag(tag)}>
+                      X
+                    </Deletebutton>
                   </Tag>
                 ))}
               </TagList>
             )}
+            <Div>
+              <SubmitButton type="submit">Submit</SubmitButton>
+            </Div>
           </form>
-          {/* <button onClick={handletest}>test</button> */}
         </ContentBox>
       </ContentWrapper>
     </>
   );
-
-  // return (
-  //   <>
-  //     <Nav />
-  //     <ContentWrapper>
-  //       <ContentBox>
-  //         <div>
-  //           <form onSubmit={onSubmit}>
-  //             <label htmlFor="postContent">내용</label> <br />
-  //             <textarea
-  //               id="content"
-  //               placeholder="내용을 입력하세요"
-  //               cols={"30"}
-  //               rows={10}
-  //               value={inputValue}
-  //               onChange={handleChange}
-  //               required //폼을 비운채로 submit 하면 알림메시지 뜸
-  //             />
-  //             <br />
-  //             <label htmlFor="postImg">이미지 업로드</label> <br />
-  //             <input
-  //               // type="file"
-  //               // id="postImg"
-  //               // onChange={handleImg}
-  //               // accept="image/*"
-  //               type="file"
-  //               accept="image/*"
-  //               name="post_img"
-  //               onChange={onChange}
-  //               ref={fileInput}
-  //             />
-  //             <label htmlFor="tags">tags</label>
-  //             <div>
-  //               <div>
-  //                 <input
-  //                   type="text"
-  //                   placeholder="#태그를 #입력해주세요"
-  //                   id="tags"
-  //                   value={tagInputValue}
-  //                   className="input grow"
-  //                   onChange={handleTag}
-  //                 />
-  //                 <img src={Image} alt="" />
-  //                 <button onClick={addTag} className="small-button w-16">
-  //                   add
-  //                 </button>
-  //                 <div>
-  //                   {autoCompletes &&
-  //                     autoCompletes.map((autoComplete) => (
-  //                       <button
-  //                         key={autoComplete}
-  //                         onClick={() => handleAutoCompletes(autoComplete)}
-  //                       >
-  //                         #{autoComplete}
-  //                       </button>
-  //                     ))}
-  //                 </div>
-  //                 <button type="submit">Submit</button>
-  //               </div>
-  //             </div>
-  //             {formData.tags && (
-  //               <div>
-  //                 {formData.tags.map((tag) => (
-  //                   <div key={tag}>
-  //                     <span>
-  //                       <p>#{tag}</p>
-  //                     </span>
-  //                     <button onClick={() => deleteTag(tag)} />
-  //                   </div>
-  //                 ))}
-  //               </div>
-  //             )}
-  //           </form>
-  //           <button onClick={handletest}>test</button>
-  //         </div>
-  //       </ContentBox>
-  //     </ContentWrapper>
-  //   </>
-  // );
 };
 
 export default PostInsert;

@@ -14,7 +14,7 @@ exports.postImg = multer({
       const ext = path.extname(file.originalname);
 
       const filename =
-        path.basename(file.originalname, ext) + "_" + Date.now() + ext;
+        path.basename("/" + file.originalname, ext) + "_" + Date.now() + ext;
 
       fin(null, filename);
     },
