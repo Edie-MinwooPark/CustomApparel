@@ -1,15 +1,6 @@
 import React, { useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  OrbitControls,
-  Center,
-  useGLTF,
-  Environment,
-  AccumulativeShadows,
-  RandomizedLight,
-} from "@react-three/drei";
-import { useRef } from "react";
-import { easing } from "maath";
+import { Canvas, useThree } from "@react-three/fiber";
+import { Center, useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { useSelector } from "react-redux";
 

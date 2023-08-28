@@ -5,16 +5,14 @@ import {
   CustomSideWrap,
   ColorPallet,
   SideSizeLi,
-  KonvaCanvas,
 } from "./Custom.styled";
 import CustomProductPopup from "./CustomProductPopup";
 import CustomDecalsPopup from "./CustomDecalsPopup";
 import CustomMyPicPopup from "./CustomMyPicPopup";
 import { useSelector, useDispatch } from "react-redux";
 import TwoDCanvas from "../../components/TwoDCanvas";
-import CanvasComponent from "../../Canvas";
 import { clothColor, clothCapture } from "../../features/clothslice";
-import { decalName, decalNum, decalText } from "../../features/decalslice";
+import { decalText } from "../../features/decalslice";
 import { customName, customNum } from "../../features/customslice";
 
 import html2canvas from "html2canvas";
@@ -33,15 +31,10 @@ const PROXY = process.env.REACT_APP_PROXY;
 const Custom = () => {
   const [product, setProduct] = useState(false);
   const [decals, setDecals] = useState(false);
-  const [design, setDesign] = useState(false);
   const [color, setColor] = useState("white");
-  const [size, setSize] = useState("M");
   const [selectsize, setSelectsize] = useState("FREE");
   const [selectNum, setSelectNum] = useState(0);
-  const [shouldCapture, setShouldCapture] = useState(false);
-  const [gl, setGl] = useState(null);
   const dispatch = useDispatch();
-  const colors = useSelector((state) => state.cloth.clothColor);
   const [myPic, setMyPic] = useState(false);
 
   // customSlice의 초기값을 가져옴
@@ -175,7 +168,7 @@ const Custom = () => {
     }
   }
 
-  function ColorInfo(shirtInfo, selectNum, selectsize) {
+  function ColorInfo(shirtInfo, selectNum) {
     return shirtInfo[selectNum].color.map((bgcolor, index) => (
       <ColorPallet
         key={index}

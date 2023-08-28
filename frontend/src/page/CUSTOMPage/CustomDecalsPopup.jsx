@@ -2,8 +2,6 @@ import React from "react";
 import { DecalsPopupWrap, DecalsClosebtn } from "./CustomDecalsPopup.styled";
 import { useDispatch } from "react-redux";
 import { decalName, decalNum } from "../../features/decalslice";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
 const PROXY = process.env.REACT_APP_PROXY;
 

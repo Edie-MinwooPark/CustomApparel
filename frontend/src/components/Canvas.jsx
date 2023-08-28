@@ -1,21 +1,16 @@
 import React from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
-  OrbitControls,
   Center,
   useGLTF,
   Environment,
-  AccumulativeShadows,
-  RandomizedLight,
   Decal,
   useTexture,
-  Text,
 } from "@react-three/drei";
 import { useRef } from "react";
 import { easing } from "maath";
 import * as THREE from "three";
 import { useSelector } from "react-redux";
-import TwoDCanvas from "./TwoDCanvas";
 
 const CanvasApp = ({ position = [0, 10, 400], fov = 40, cloth2, product }) => {
   // console.log(cloth2)
@@ -142,7 +137,7 @@ function OnePiece(props) {
 }
 
 function LongSleeveShirt(props) {
-  const { nodes, materials } = useGLTF("longsleeveshirt.glb");
+  const { nodes } = useGLTF("longsleeveshirt.glb");
   const colors = useSelector((state) => state.cloth.clothColor);
 
   const newMaterial = new THREE.MeshStandardMaterial({
@@ -220,7 +215,7 @@ function LongSleeveShirt(props) {
 }
 
 function TankTop(props) {
-  const { nodes, materials } = useGLTF("/hoodie2.glb");
+  const { nodes } = useGLTF("/hoodie2.glb");
   const colors = useSelector((state) => state.cloth.clothColor);
 
   const newMaterial = new THREE.MeshStandardMaterial({

@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { postWrittenbyme } from "../../../features/mypageslice";
 import PostListNoUsequery from "../../../page/POSTLISTpage/PostListNoUsequery";
 import { Mainwrapper } from "./PostWrittenbyme.styled";

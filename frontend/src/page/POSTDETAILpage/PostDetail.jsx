@@ -34,7 +34,6 @@ const PROXY = process.env.REACT_APP_PROXY;
 
 const PostDetail = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const fetchPost = async (postId) => {
     const { data } = await axios.get(`${PROXY}/post/detail/${postId}`, {
