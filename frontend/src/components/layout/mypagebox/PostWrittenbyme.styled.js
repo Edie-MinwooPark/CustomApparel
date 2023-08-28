@@ -13,5 +13,6 @@ export const Mainwrapper = styled.div`
     position: relative;
     text-decoration: none;
     margin-left: 30px;
+    margin-bottom: 30px;
   }
 `;
