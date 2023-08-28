@@ -126,7 +126,7 @@ const PostDetail = () => {
         post_content: postdata.post_content,
         likes: JSON.stringify(updatedLikesData),
       });
-      if (response.data == "다시 로그인해주세요") {
+      if (user_info == "다시 로그인해주세요") {
         alert("로그인해야 좋아요 누를수있음");
         return navigate("/login");
       }
@@ -208,12 +208,11 @@ const PostDetail = () => {
           recomment_id: commentId, // 댓글id 넣기
           // postId,
         });
-        if (response.data == "다시 로그인해주세요") {
+        if (user_info == "다시 로그인해주세요") {
           alert("로그인해야 대댓글 달 수 있음");
-          navigate("/login", { state: { from: location.pathname } });
+          return navigate("/login");
           // navigate 훅에 state 내장기능이 있고 여기에 from 이라는 props 값을 전달해준다
           // pathname : 웹브라우저의 window.location 객체의 속성중 하나임 / 현재 창의 URL 에 대한 정보를 포함함
-          return;
         }
         if (response.data.success) {
           // console.log("commentId :", commentId);

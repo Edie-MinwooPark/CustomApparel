@@ -1,9 +1,9 @@
 import React from "react";
 import { MainWrap } from "../MainPage/Main.styled";
 import Nav from "../NavPage/Nav";
-import { useRef,useEffect,useState } from 'react'
-import { Canvas, useFrame,useLoader } from '@react-three/fiber'
-import { easing } from 'maath'
+import { useRef, useEffect, useState } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { easing } from "maath";
 
 import {
   useGLTF,
@@ -13,20 +13,16 @@ import {
   RandomizedLight,
   useTexture,
   Decal,
-} from '@react-three/drei'
+} from "@react-three/drei";
 
 const Main = ({ position = [0, 0, 1000], fov = 25 }) => {
-
   function Shirt(props) {
+    const texture = useTexture("ikedesign2.png");
 
-    const texture = useTexture('ikedesign2.png')
-  
-    const { nodes, materials } = useGLTF('/ttshirt.glb')
-   
-    materials.lambert1.color.set('black');  
-  
-  
-  
+    const { nodes, materials } = useGLTF("/ttshirt.glb");
+
+    materials.lambert1.color.set("black");
+
     return (
       <mesh
         castShadow
@@ -34,7 +30,8 @@ const Main = ({ position = [0, 0, 1000], fov = 25 }) => {
         material={materials.lambert1}
         material-roughness={1}
         {...props}
-        dispose={null}>
+        dispose={null}
+      >
         {/* <Decal
           position={[0, -0.12, 0.15]}
           rotation={[0, 0, 0]}
@@ -50,26 +47,23 @@ const Main = ({ position = [0, 0, 1000], fov = 25 }) => {
           map={texture}
           // map-anisotropy={16}
         />
-  
-  
       </mesh>
-    )
+    );
   }
-  
-  
+
   function CameraRig({ children }) {
-    const group = useRef()
-  
+    const group = useRef();
+
     useFrame((state, delta) => {
-      easing.damp3(state.camera.position, [0, 0, 2], 0.5, delta)
+      easing.damp3(state.camera.position, [0, 0, 2], 0.5, delta);
       easing.dampE(
         group.current.rotation,
         [-state.pointer.y / 5, state.pointer.x / 2, 0],
         0.5,
         delta
-      )
-    })
-    return <group ref={group}>{children}</group>
+      );
+    });
+    return <group ref={group}>{children}</group>;
   }
 
   const [letters, setLetters] = useState([]);
@@ -79,53 +73,53 @@ const Main = ({ position = [0, 0, 1000], fov = 25 }) => {
     setLetters(Array.from(text));
   }, []);
 
-  const handleMouseOver = (letter,index) => {
-    const spanElement = document.querySelectorAll('.text span')[index];
-    if (['I', 'K', 'E'].includes(letter)) {
+  const handleMouseOver = (letter, index) => {
+    const spanElement = document.querySelectorAll(".text span")[index];
+    if (["I", "K", "E"].includes(letter)) {
       // 'i', 'k', 'e'에만 "skip" 클래스 추가
-      spanElement.classList.add('skip');
+      spanElement.classList.add("skip");
     } else {
       // 나머지에는 "active" 클래스 추가
-      spanElement.classList.add('active');
+      spanElement.classList.add("active");
     }
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#f0f0f0" }}>
       <Nav />
       <MainWrap>
-          <div className="mainText">
+        <div className="mainText">
           <p className="text">
-          {letters.map((letter, index) =>(
-            [13,22,30].includes(index) ? 
-            <>
-              <span
-                key={index}
-                onMouseOver={() => handleMouseOver(letter,index)}
-              >
-                {letter}
-              </span>
-              <br />  
-            </> :
-          <span
-            key={index}
-            onMouseOver={() => handleMouseOver(letter,index)}
-          >
-            {letter}
-          </span>
-          ))}
-      </p>
-          </div>
+            {letters.map((letter, index) =>
+              [13, 22, 30].includes(index) ? (
+                <>
+                  <span
+                    key={index}
+                    onMouseOver={() => handleMouseOver(letter, index)}
+                  >
+                    {letter}
+                  </span>
+                  <br />
+                </>
+              ) : (
+                <span
+                  key={index}
+                  onMouseOver={() => handleMouseOver(letter, index)}
+                >
+                  {letter}
+                </span>
+              )
+            )}
+          </p>
+        </div>
         <div className="mainContainer">
-          <Canvas
-            shadows
-            camera={{ position, fov }}>
+          <Canvas shadows camera={{ position, fov }}>
             <ambientLight intensity={0.5} />
             <Environment files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/potsdamer_platz_1k.hdr" />
             <CameraRig>
-            <Center>
-              <Shirt />
-            </Center>
+              <Center>
+                <Shirt />
+              </Center>
             </CameraRig>
           </Canvas>
         </div>
@@ -133,7 +127,5 @@ const Main = ({ position = [0, 0, 1000], fov = 25 }) => {
     </div>
   );
 };
-
-
 
 export default Main;
