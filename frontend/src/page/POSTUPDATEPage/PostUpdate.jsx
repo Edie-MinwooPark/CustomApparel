@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PostUpdateWrap, ProfileImage, Text } from "./PostUpdate.styled";
 import Nav from "../NavPage/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -11,15 +11,22 @@ const PROXY = process.env.REACT_APP_PROXY;
 
 const PostUpdate = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (!location.state || !location.state.user_info) {
+    alert("잘못된 접근입니다");
+    setTimeout(navigate, 100, "/");
+  }
+
   const { data } = useSelector((state) => state.mypage);
-  const { user_info } = useLocation().state;
-  const userInfo = user_info.USER;
-  const postInfo = user_info;
+  const { user_info } = location.state || {};
+  const postInfo = user_info || {};
   const [Image, setImage] = useState(postInfo.post_img);
   const [content, setContent] = useState();
   const [formData, setFormData] = useState(new FormData());
   const [imageFile, setImageFile] = useState();
 
+  if (useLocation().state == null) return navigate("/");
   if (data === "다시 로그인해주세요") {
     alert("로그인 해주세요.");
     return navigate("/");
@@ -27,7 +34,7 @@ const PostUpdate = () => {
 
   // 이미지 미리보기
   const handlePreview = (e) => {
-    console.log("e.target.files[0] : ", e.target.files[0].name);
+    // console.log("e.target.files[0] : ", e.target.files[0].name);
     setImageFile(e.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 
 function Content({ post }) {
-  console.log("connnn,post", post);
+  // console.log("connnn,post", post);
   // const hashTag = post.hash_tag;
   // const extractHashTags = (post) => {
   //   if (typeof text !== "string") return [];

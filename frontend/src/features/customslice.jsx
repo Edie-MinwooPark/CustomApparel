@@ -62,17 +62,17 @@ export const customSlice = createSlice({
   },
   reducers: {
     customName: (state, action) => {
-      console.log("customName", action.payload);
+      // console.log("customName", action.payload);
       state.basic[state.nowselectproduct - 1].decaldata = action.payload;
-      console.log(state.basic[state.nowselectproduct - 1].decaldata);
+      // console.log(state.basic[state.nowselectproduct - 1].decaldata);
     },
     customNum: (state, action) => {
-      console.log("customNum", action.payload);
+      // console.log("customNum", action.payload);
       state.basic[state.nowselectproduct - 1].decalNum = action.payload;
     },
     selectnumber: (state, action) => {
       state.nowselectproduct = action.payload;
-      console.log("customSlice", state.nowselectproduct);
+      // console.log("customSlice", state.nowselectproduct);
     },
   },
 });

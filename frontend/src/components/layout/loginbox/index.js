@@ -24,17 +24,17 @@ const Loginform = () => {
   const userdata = useSelector((state) => state.user.data);
 
   const handleIdInput = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     setUser_id(e.target.value);
   };
   const handlePwInput = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setUser_pw(e.target.value);
   };
 
   const handleSubmit = async () => {
-    console.log("로그인버튼");
+    // console.log("로그인버튼");
     dispatch(trylogininfo({ user_id, user_pw }));
   };
 
@@ -54,9 +54,9 @@ const Loginform = () => {
   // }, [userdata]);
 
   useEffect(() => {
-    console.log("userdata", userdata);
+    // console.log("userdata", userdata);
     if (userdata == null) {
-      console.log("userdata");
+      // console.log("userdata");
     } else if (userdata.message == "로그인성공") {
       navigate("/"); // Navigate to the 'Details' screen
     }
@@ -107,6 +107,7 @@ const Loginform = () => {
                         <div className="iconcell">
                           <div className="iconpw"></div>
                           <input
+                            type="password"
                             className="inputtext"
                             onChange={handlePwInput}
                           ></input>

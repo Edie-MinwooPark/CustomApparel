@@ -31,7 +31,6 @@ export const LikeIcon = ({ liked, width = "20px" }) => {
 
 function UserBox({ post, userImg, userID }) {
   // 좋아요 get 가져와서 똑같이 연결해주기
-
   const user_info = useSelector((state) => state.mypage.data);
 
   const [likes, setLikes] = useState(JSON.parse(post.likes).length || 0);
@@ -79,7 +78,7 @@ function UserBox({ post, userImg, userID }) {
     });
   };
 
-  console.log("post : ", post);
+  // console.log("post : ", post);
 
   return (
     <UserBoxContainer>

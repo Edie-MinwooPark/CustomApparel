@@ -15,7 +15,7 @@ class USER extends Sequelize.Model {
         profile_img: {
           type: Sequelize.STRING,
           allowNull: true,
-          defaultValue: "img/default_img.png",
+          defaultValue: "/img/default_img.png",
         },
         Nick: {
           type: Sequelize.STRING,

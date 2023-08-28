@@ -8,7 +8,7 @@ const PostIliked = () => {
     // getmypageinfo 액션을 디스패치하고, 반환 함수를 사용하여 data 변수를 업데이트
     const fetchData = async () => {
       const data = await dispatch(getmypostsIliked());
-      console.log(data);
+      // console.log(data);
 
       // setImage(`${PROXY}/${data.payload.profile_img}`);
       // setuser_id(data.payload.user_id);

@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 const PROXY = process.env.REACT_APP_PROXY;
 
 function CardComponent({ post }) {
-  console.log("post : ", post);
-  // 좋아요
   return (
     <Card className="mb-4">
       <Link to={`/posts/${post.id}`} state={{ post: post }} key={post.user_id}>

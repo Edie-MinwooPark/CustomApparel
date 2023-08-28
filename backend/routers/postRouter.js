@@ -8,6 +8,7 @@ const {
   deletePost,
   postLikes,
   postImgUpload,
+  getHashtag,
 } = require("../controller/postController");
 const { islogin } = require("../middleware/islogin");
 // 전체 post 목록 반환

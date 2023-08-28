@@ -20,9 +20,10 @@ const KonvaCanvas = (props) => {
     (state) => state.custom.nowselectproduct
   );
   const PROXY = process.env.REACT_APP_PROXY;
+  const clothCapture = useSelector((state) => state.cloth.clothCapture);
 
   useEffect(() => {
-    console.log("유저가 선택한값이 바뀜", userseletedprodcut);
+    // console.log("유저가 선택한값이 바뀜", userseletedprodcut);
     destroyAll();
   }, [userseletedprodcut]);
   useEffect(() => {
@@ -271,8 +272,9 @@ const KonvaCanvas = (props) => {
         y: 15,
         text: "텍스트",
         fontSize: 50,
-        fontWeight: 1500,
-        fill: "yellow",
+        fontFamily: "BlackHanSans",
+        fontWeight: 1000,
+        fill: "black",
         draggable: true,
       });
 
@@ -289,12 +291,13 @@ const KonvaCanvas = (props) => {
         const box = simpleText.getClientRect();
         input.style.position = "absolute";
         input.style.top = 350 + "px";
-        input.style.left = 1035 + "px";
+        input.style.left = 950 + "px";
         input.value = simpleText.text();
+        input.classList.add("inputobtn");
 
         colorPicker.style.position = "absolute";
         colorPicker.style.top = 390 + "px";
-        colorPicker.style.left = 1035 + "px"; // input 옆에 배치
+        colorPicker.style.left = 950 + "px"; // input 옆에 배치
 
         input.focus();
 
@@ -369,14 +372,16 @@ const KonvaCanvas = (props) => {
         style={containerStyle}
         onMouseDown={handleMouseDown}
       ></div>
-      <div className="delbtn">
-        <button className="obutton" onClick={() => destroySelected()}>
-          선택 삭제
-        </button>
-        <button className="obutton" onClick={destroyAll}>
-          전체삭제
-        </button>
-      </div>
+      {clothCapture ? null : (
+        <div className="delbtn">
+          <button className="obutton" onClick={() => destroySelected()}>
+            선택 삭제
+          </button>
+          <button className="obutton" onClick={destroyAll}>
+            전체 삭제
+          </button>
+        </div>
+      )}
     </div>
   );
 };

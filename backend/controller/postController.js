@@ -1,6 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const db = require("../models");
 const POST = db.POST;
 const COMMENTS = db.COMMENTS;

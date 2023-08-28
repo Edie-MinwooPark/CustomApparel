@@ -12,18 +12,18 @@ export const getUserinfo = createAsyncThunk(
 );
 export const userlogout = createAsyncThunk("user/logout", async (user) => {
   try {
-    console.log("userlogout");
+    // console.log("userlogout");
     const response = await axios.get(`${PROXY}/user/logout`, {
       withCredentials: true,
     });
-    console.log(response);
+    // console.log(response);
   } catch (error) {
     console.log(error);
   }
 });
 export const setUserinfo = createAsyncThunk("user/signup", async (form) => {
   try {
-    console.log(form);
+    // console.log(form);
     const response = await axios.post(`${PROXY}/user/signup`, form, {
       headers: {
         // "Content-Type": "multipart/form-data; charset=utf-8",
@@ -33,7 +33,7 @@ export const setUserinfo = createAsyncThunk("user/signup", async (form) => {
     });
 
     // console.log("Delivered successfully.");
-    console.log(response.data);
+    // console.log(response.data);
     return response; // 성공 액션의 페이로드로 응답 데이터를 반환합니다
   } catch (err) {
     console.log(err);
