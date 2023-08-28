@@ -8,7 +8,7 @@ import {
   postWrittenbyme,
   getmypostsIliked,
 } from "../../../features/mypageslice";
-import { Mainwrapper } from "./Mypage.styled";
+import { MypageMainWrap, Mainwrapper } from "./Mypage.styled";
 import PostIliked from "./PostIliked";
 import PostWrittenbyme from "./PostWrittenbyme";
 const PROXY = process.env.REACT_APP_PROXY;
@@ -82,7 +82,7 @@ export const Mypage = () => {
   };
 
   return (
-    <div>
+    <MypageMainWrap>
       <h1>회원정보수정</h1>
       <Mainwrapper>
         <div className="flexbox">
@@ -159,7 +159,7 @@ export const Mypage = () => {
       </Mainwrapper>
       <PostWrittenbyme />
       {/* <PostIliked /> */}
-    </div>
+    </MypageMainWrap>
     // <div>
     //   <span>아이디:{user_id}</span>
     //   <img

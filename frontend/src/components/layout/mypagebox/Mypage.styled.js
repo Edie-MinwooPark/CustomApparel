@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+export const MypageMainWrap = styled.div`
+  max-width: 1240px;
+  margin: 0 auto;
+  & h1 {
+    margin-left: 30px;
+  }
+`;
+
 export const Mainwrapper = styled.div`
   button {
     padding-left: 11px;
