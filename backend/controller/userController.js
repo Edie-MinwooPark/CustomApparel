@@ -28,7 +28,7 @@ exports.signUp = async (req, res) => {
       Nick,
       user_id,
       user_pw: hash,
-      profile_img: req.file.path,
+      profile_img: "/" + req.file.path,
     });
 
     // console.log("User created successfully:", newUser);
