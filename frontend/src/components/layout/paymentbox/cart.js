@@ -125,7 +125,9 @@ const Cart = () => {
                 </td>
                 <td className="totalprice">
                   <span className="price">
-                    {value.intprice * value.count + value.decalNum * 1500}
+                    {parseInt(value.price) * 1000 +
+                      value.intprice * value.count +
+                      value.decalNum * 1500}
                   </span>
                 </td>
                 <td className="totalprice">
