@@ -11,7 +11,7 @@ import {
   Footer,
   Menutext,
 } from "./Login.styled";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const Loginform = () => {
@@ -38,7 +38,7 @@ const Loginform = () => {
     dispatch(trylogininfo({ user_id, user_pw }));
   };
 
-  console.log("Location State:", location.state);
+  // console.log("Location State:", location.state);
 
   // 동희 : 수정중
   // useEffect(() => {
@@ -54,11 +54,14 @@ const Loginform = () => {
   // }, [userdata]);
 
   useEffect(() => {
-    // console.log("userdata", userdata);
+    console.log("userdata", userdata);
     if (userdata == null) {
       // console.log("userdata");
     } else if (userdata.message == "로그인성공") {
       navigate("/"); // Navigate to the 'Details' screen
+    } else if (userdata == "이재영") {
+      alert("가입 대기중 입니다.");
+      window.location.reload(false);
     }
   }, [handleSubmit]);
 

@@ -224,7 +224,7 @@ export const Container = styled.div`
 
 export const Menutext = styled.span`
   position: relative;
-  padding-left: 24px;
+  /* padding-left: 24px; */
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;

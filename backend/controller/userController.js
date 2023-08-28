@@ -50,6 +50,7 @@ exports.login = async (req, res) => {
     if (user == null) {
       return res.send("가입 안한 아이디임~");
     }
+    if (user.Accept == 0) return res.send("이재영");
     const same = bcrypt.compareSync(user_pw, user.user_pw);
     if (same) {
       let token = jwt.sign(
