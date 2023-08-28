@@ -1,12 +1,10 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Payment from "../../layout/paymentbox";
 import { Cartwrapper } from "./Cart.styled";
 
 const Cart = () => {
   const userdata = useSelector((state) => state.mypage.data);
-  const decaldata = useSelector((state) => state.decal.decalName);
-  const decalNum = useSelector((state) => state.decal.decalNum);
   // const decalText = useSelector((state) => state.decal.decalText);
   // const decalMyPic = useSelector((state) => state.decal.decalMyPic);
   const [paymentProgress, setPaymentProgress] = useState(0);

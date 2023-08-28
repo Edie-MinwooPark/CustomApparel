@@ -6,7 +6,6 @@ import {
 } from "../POSTDETAILpage/PostDetail.styled";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useQuery } from "react-query";
 import {
   AutoCompleteButton,
   Deletebutton,
@@ -27,7 +26,6 @@ const PROXY = process.env.REACT_APP_PROXY;
 
 const PostInsert = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [content, setContent] = useState("");
   const [inputValue, setInputValue] = useState();
   const [post_img, setPost_img] = useState(null);
   const [PhotoformData, setPhotoFormData] = useState(new FormData());

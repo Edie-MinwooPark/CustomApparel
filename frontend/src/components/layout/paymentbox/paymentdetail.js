@@ -79,7 +79,6 @@ const PROXY = process.env.REACT_APP_PROXY;
 const Paymentdetail = () => {
   const dispatch = useDispatch();
   const [selectedDetailIndex, setSelectedDetailIndex] = useState(null);
-  const [formData, setFormData] = useState(new FormData());
 
   const { data: paymentdata } = useQuery("paymentDetail", async () => {
     const response = await axios.get(`${PROXY}/payment/paymentdetail`, {

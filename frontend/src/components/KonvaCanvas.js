@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Konva from "konva";
 import { useSelector, useDispatch } from "react-redux";
-import { decalName, decalNum, decalText } from "../features/decalslice";
+import { decalNum } from "../features/decalslice";
 
 const KonvaCanvas = (props) => {
   const dispatch = useDispatch();
@@ -12,7 +12,6 @@ const KonvaCanvas = (props) => {
   const [konvaLayer, setKonvaLayer] = useState(null);
   const [konvaTr, setKonvaTr] = useState();
   const decalName = useSelector((state) => state.decal.decalName);
-  const decalNumber = useSelector((state) => state.decal.decalNum);
   const decalText = useSelector((state) => state.decal.decalText);
   const selectionRectangleRef = useRef(null);
   const decalMyPic = useSelector((state) => state.decal.decalMyPic);
@@ -67,7 +66,6 @@ const KonvaCanvas = (props) => {
     layer.add(selectionRectangle);
     selectionRectangleRef.current = selectionRectangle;
 
-    var x1, y1, x2, y2;
     // stage.on('mousedown touchstart', (e) => {
     //   // do nothing if we mousedown on any shape
     //   if (e.target !== stage) {

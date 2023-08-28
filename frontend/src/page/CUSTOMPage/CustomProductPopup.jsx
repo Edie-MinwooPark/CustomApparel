@@ -5,14 +5,6 @@ import { clothType } from "../../features/clothslice";
 import Canvas from "../../components/Canvas";
 import { selectnumber } from "../../features/customslice";
 import { decalClear } from "../../features//decalslice";
-import {
-  OrbitControls,
-  Center,
-  useGLTF,
-  Environment,
-  AccumulativeShadows,
-  RandomizedLight,
-} from "@react-three/drei";
 
 const CustomProductPopup = ({ handleProduct, num, product }) => {
   // customSlice의 초기값을 가져옴
@@ -20,8 +12,6 @@ const CustomProductPopup = ({ handleProduct, num, product }) => {
   const { selectNum, setSelectNum } = num;
   // console.log(handleProduct);
   // console.log(product);
-  const position = [0, 10, 400];
-  const fov = 40;
 
   const dispatch = useDispatch();
 

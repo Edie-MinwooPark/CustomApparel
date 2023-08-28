@@ -1,17 +1,11 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Main from "./page/MainPage/Main";
-import {
-  Route,
-  Routes,
-  BrowserRouter as Router,
-  Outlet,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query"; //axios react query 쓸때 사용
 import Canvas from "./Canvas";
 import {
   Custom,
-  Photo,
   Signup,
   Login,
   Nav,
