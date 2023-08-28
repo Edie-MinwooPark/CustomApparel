@@ -55,7 +55,7 @@ const UserState = ({ user_info }) => {
       <ProfileImageBox>
         {/* <ProfileImageBox href={`/social/users/@${userInfo.user_id}`}> */}
         <StyledProfileImage
-          src={`${PROXY}/` + userInfo.profile_img}
+          src={`${PROXY}` + userInfo.profile_img}
           alt="프로필 이미지"
         />
         <ProfileInfo>
