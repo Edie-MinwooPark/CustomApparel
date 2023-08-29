@@ -117,7 +117,7 @@ const Paymentdetail = () => {
       }
     },
     {
-      enabled: !!paymentdata, // Enable this query only if paymentdata is available
+      enabled: !!paymentdata,
     }
   );
 
